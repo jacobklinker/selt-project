@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Enterpriseape</title>
+  <title>Pick 'Em</title>
 
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
@@ -11,11 +12,13 @@
 <div class="container">
   <ul class="nav nav-tabs">
     <li><%= link_to "Home", root_path %></li>
-    <li><%= link_to "Login", root_path %></li>
+    <li><%= link_to "Login", users_sign_in_path %></li>
   </ul>
 
-  <p class="notice"><%= notice %></p>
-  <p class="alert"><%= alert %></p>
+  <% if !notice.nil? || !alert.nil? %>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+  <% end %>
   
   <%= yield %>
   
