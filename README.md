@@ -1,6 +1,6 @@
-# Rails Sport App
+# NCAA Football - Rails 
 
-### Info about hosting, workflow, and signin:
+### Hosting, workflow, and signin:
 I have deployed the production app to heroku here: https://glacial-reef-4224.herokuapp.com/
 
 Only I, Luke, will be able to deploy to that heroku instance... I think. I did find though, if you are on a branch and try to run 'git push heroku master', it doesn't actually push your current branch to heroku, it only pushes the master branch of our project.
