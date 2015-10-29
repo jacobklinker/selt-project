@@ -1,6 +1,6 @@
 require 'open-uri'
 
-class GamesSyncJob
+class GamesSync
   
   def perform
     doc = Nokogiri::HTML(open("http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=ncaa"))
