@@ -337,13 +337,13 @@ describe "game background sync" do
         @game = Game.new()
         @game.home_team = "Pittsburgh U"
         @game.away_team = "North Carolina"
-        @game.game_time = "2015-10-29 22:00"
         @game.home_odds = 4
         @game.away_odds = -4
       end
     
-      it "should update a single game when game already exists from this season" do
+      it "should update a single game when game already exists from this week and is not finished" do
         @game.is_finished = false
+        @game.game_time = "2015-10-29 22:00"
         
         expect(GamesSync).to receive(:get_xml).and_return(response_header + game_1 + response_footer)
         expect(Game).to receive(:find_by).and_return(@game)
@@ -357,8 +357,25 @@ describe "game background sync" do
         expect(@game.away_odds).to eq(-3)
       end
       
-      it "should add a new game when game is finished" do
+      it "should do nothing to a game when game is already in the db from this week and is finished" do
         @game.is_finished = true
+        @game.game_time = "2015-10-29 22:00"
+        
+        expect(GamesSync).to receive(:get_xml).and_return(response_header + game_1 + response_footer)
+        expect(Game).to receive(:find_by).and_return(@game)
+        
+        GamesSync.perform
+        
+        expect(@sync.new_games).to eq(0)
+        expect(@sync.updated_games).to eq(0)
+        expect(@game.game_time).to eq("2015-10-29 22:00")
+        expect(@game.home_odds).to eq(4)
+        expect(@game.away_odds).to eq(-4)
+      end
+      
+      it "should add a new game when game is finished and is more than a week ago" do
+        @game.is_finished = true
+        @game.game_time = "2014-10-29 22:00"
         
         expect(GamesSync).to receive(:get_xml).and_return(response_header + game_1 + response_footer)
         expect(Game).to receive(:find_by).and_return(@game)
@@ -367,7 +384,7 @@ describe "game background sync" do
         
         expect(@sync.new_games).to eq(1)
         expect(@sync.updated_games).to eq(0)
-        expect(@game.game_time).to eq("2015-10-29 22:00")
+        expect(@game.game_time).to eq("2014-10-29 22:00")
         expect(@game.home_odds).to eq(4)
         expect(@game.away_odds).to eq(-4)
       end

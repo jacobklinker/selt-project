@@ -37,7 +37,7 @@ class GamesSync
         # attempt to find any games currently between these two teams in the db
         game = Game.find_by(home_team: home, away_team: away)
         
-        if game == nil || game.is_finished
+        if game == nil || game.game_time.to_f < (Time.now.to_f - 60 * 60 * 24 * 7)
           # create a new game if none are found between these teams or it is an
           # older game (such as from last year)
           Game.create(:home_team => home, :away_team => away, :game_time => time, 
@@ -45,22 +45,24 @@ class GamesSync
                       
           sync.new_games = sync.new_games + 1
         else
-          # update the game with new odds if they have changed
-          if game.home_odds != home_spread
-            game.home_odds = home_spread
+          # update the game with new odds if they have changed and game is still active
+          if !game.is_finished
+            if game.home_odds != home_spread
+              game.home_odds = home_spread
+            end
+            
+            if game.away_odds != away_spread
+              game.away_odds = away_spread
+            end
+            
+            if game.game_time != time
+              game.game_time = time
+            end
+            
+            game.save
+            
+            sync.updated_games = sync.updated_games + 1
           end
-          
-          if game.away_odds != away_spread
-            game.away_odds = away_spread
-          end
-          
-          if game.game_time != time
-            game.game_time = time
-          end
-          
-          game.save
-          
-          sync.updated_games = sync.updated_games + 1
         end
 
         time = away = home = away_spread = home_spread = nil
