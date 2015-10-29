@@ -1,28 +1,18 @@
-== README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Deploying to local environment:
+1.) bundle install
+2.) rake db:create
+3.) rake db:migrate
+4.) rake db:seed 
+5.) rails server -p $PORT -b $IP
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+Creating a Heroku instance:
+1.) heroku create
+2.) git push heroku master
+3.) heroku run rake db:migrate
+4.) heroku run rake db:seed
+
+
+Deploying to Heroku:
+1.) commit any changes
+2.) git push heroku master
