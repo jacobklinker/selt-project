@@ -196,3 +196,16 @@ describe "time checking for updating games" do
   end
   
 end
+
+describe "getting xml from correct url" do
+  
+  it "should get xml results from pinnacle sports" do
+    expect(GamesSync).to receive(:open)
+      .with("http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=ncaa")
+      .and_return(nil)
+    xml = GamesSync.get_xml
+    
+    expect(xml).to eq(nil)
+  end
+  
+end
