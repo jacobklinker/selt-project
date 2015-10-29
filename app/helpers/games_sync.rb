@@ -47,12 +47,14 @@ class GamesSync
         else
           # update the game with new odds if they have changed and game is still active
           if !game.is_finished
-            if game.home_odds != home_spread
-              game.home_odds = home_spread
-            end
-            
-            if game.away_odds != away_spread
-              game.away_odds = away_spread
+            if is_valid_day_to_update_odds
+              if game.home_odds != home_spread
+                game.home_odds = home_spread
+              end
+              
+              if game.away_odds != away_spread
+                game.away_odds = away_spread
+              end
             end
             
             if game.game_time != time
@@ -90,6 +92,11 @@ class GamesSync
   # stubbed out for easier testing
   def self.get_xml
     open("http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=ncaa")
+  end
+  
+  def self.is_valid_day_to_update_odds
+    time = Time.now
+    return time.wday <= 2
   end
   
 end
