@@ -9,7 +9,7 @@ describe "scores background sync" do
         
         expect(ScoreSync).to receive(:new).and_return(@sync)
         expect(Twitter::REST::Client).to receive(:new).and_return(@client)
-        expect(@client).to receive(:user_timeline).with("ncaaupdates").and_return(@tweets)
+        expect(@client).to receive(:user_timeline).with("ncaaupdates", :count => 100).and_return(@tweets)
         expect(ScoresSync).to receive(:process_tweet).with("test tweet 1", @sync).twice
         expect(@sync).to receive(:save).once
         
@@ -31,6 +31,9 @@ describe "scores background sync" do
     describe "processing tweet" do
         
         before :each do 
+            @game = Game.new
+            allow(Game).to receive(:find_by).and_return(@game)
+            allow(@game).to receive(:save)
             @sync = ScoreSync.new
         end
         
@@ -52,8 +55,12 @@ describe "scores background sync" do
             
             it "should use a final score tweet" do
                 tweet = "Western Michigan 58 Eastern Michigan 28 (FINAL) http://goo.gl/fb/CsJq69 "
+                
                 ScoresSync.process_tweet tweet, @sync
                 expect(@sync.tweets_used).to eq(1)
+                expect(@game.home_score).to eq(28)
+                expect(@game.away_score).to eq(58)
+                expect(@game.is_finished).to be_truthy
             end
             
             it "should not use a tweet without a final score" do
@@ -75,11 +82,17 @@ describe "scores background sync" do
                 ScoresSync.process_tweet tweet, @sync
                 expect(@sync.tweets_used).to eq(1)
                 expect(@sync.tweets_found).to eq(1)
+                expect(@game.home_score).to eq(28)
+                expect(@game.away_score).to eq(58)
+                expect(@game.is_finished).to be_truthy
                 
                 tweet = "Texas State 13 Georgia Southern 37 (FINAL) http://goo.gl/fb/TD4Jkt "
                 ScoresSync.process_tweet tweet, @sync
                 expect(@sync.tweets_used).to eq(2)
                 expect(@sync.tweets_found).to eq(2)
+                expect(@game.home_score).to eq(37)
+                expect(@game.away_score).to eq(13)
+                expect(@game.is_finished).to be_truthy
             end
             
             it "should process 1 valid tweet and 1 invalid tweet" do
@@ -87,6 +100,9 @@ describe "scores background sync" do
                 ScoresSync.process_tweet tweet, @sync
                 expect(@sync.tweets_used).to eq(1)
                 expect(@sync.tweets_found).to eq(1)
+                expect(@game.home_score).to eq(28)
+                expect(@game.away_score).to eq(58)
+                expect(@game.is_finished).to be_truthy
                 
                 tweet = "Oregon 17 Arizona State 14 (12:28 IN 3RD) http://goo.gl/fb/ybrSr8 "
                 ScoresSync.process_tweet tweet, @sync

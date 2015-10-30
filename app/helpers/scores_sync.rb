@@ -22,7 +22,7 @@ class ScoresSync
         
         # find all tweets for the @ncaaupdates user since the last time we 
         # synced and process each of them.
-        @client.user_timeline("ncaaupdates").each do |tweet|
+        @client.user_timeline("ncaaupdates", :count => 100).each do |tweet|
            process_tweet tweet.text, sync
         end
         
@@ -37,7 +37,17 @@ class ScoresSync
             # remove the links and anything inside parenthesis
             if tweet.include?("FINAL")
                 game_tweet = GameTweet.create(tweet)
-                sync.tweets_used = sync.tweets_used + 1
+                
+                game = Game.find_by(home_team: game_tweet.home_team, away_team: game_tweet.away_team, is_finished: false)
+                
+                if game != nil
+                    game.home_score = game_tweet.home_score
+                    game.away_score = game_tweet.away_score
+                    game.is_finished = true
+                    game.save
+                    
+                    sync.tweets_used = sync.tweets_used + 1
+                end
             end
         end
         

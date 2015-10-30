@@ -130,4 +130,58 @@ describe GameTweet do
         
     end
     
+    describe "getting game from original tweet" do
+        
+        it "should work for WV vs TCU" do
+            text = "West Virginia 10   (3) TCU 40 (FINAL):  http://bit.ly/1MYh6DO "
+            game = GameTweet.create(text)
+            
+            expect(game.home_team).to eq("TCU")
+            expect(game.away_team).to eq("West Virginia")
+            expect(game.home_score).to eq(40)
+            expect(game.away_score).to eq(10)
+        end
+        
+        it "should work for buffalo vs miami ohio" do
+            text = "Buffalo 29 Miami (OH) 24 (FINAL) http://goo.gl/fb/PTlv92 "
+            game = GameTweet.create(text)
+            
+            expect(game.home_team).to eq("Miami")
+            expect(game.away_team).to eq("Buffalo")
+            expect(game.home_score).to eq(24)
+            expect(game.away_score).to eq(29)
+        end
+        
+        it "should work for western mi vs eastern mi" do
+            text = "Western Michigan 58 Eastern Michigan 28 (FINAL) http://goo.gl/fb/CsJq69 "
+            game = GameTweet.create(text)
+            
+            expect(game.home_team).to eq("Eastern Michigan")
+            expect(game.away_team).to eq("Western Michigan")
+            expect(game.home_score).to eq(28)
+            expect(game.away_score).to eq(58)
+        end
+        
+        it "should work for north carolin vs pitt" do
+            text = "(12) North Carolina 26 (24) Pittsburgh 19 (FINAL) http://goo.gl/fb/Z1y6pv "
+            game = GameTweet.create(text)
+            
+            expect(game.home_team).to eq("Pittsburgh")
+            expect(game.away_team).to eq("North Carolina")
+            expect(game.home_score).to eq(19)
+            expect(game.away_score).to eq(26)
+        end
+        
+        it "should work for texas state vs georgia southern" do
+            text = "Texas State 13 Georgia Southern 37 (FINAL) http://goo.gl/fb/TD4Jkt "
+            game = GameTweet.create(text)
+            
+            expect(game.home_team).to eq("Georgia Southern")
+            expect(game.away_team).to eq("Texas State")
+            expect(game.home_score).to eq(37)
+            expect(game.away_score).to eq(13)
+        end
+        
+    end
+    
 end
