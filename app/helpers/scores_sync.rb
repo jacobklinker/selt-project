@@ -39,7 +39,7 @@ class ScoresSync
             # remove the links and anything inside parenthesis
             if tweet.include?("FINAL")
                 game_tweet = GameTweet.create(tweet)
-                puts "#{game_tweet.home_team} vs #{game_tweet.away_team}"
+                # puts "#{game_tweet.home_team} vs #{game_tweet.away_team}"
                 
                 game = Game.where("home_team LIKE :home_team AND away_team LIKE :away_team AND is_finished = 'false'", 
                     home_team: "%#{game_tweet.home_team}%", away_team: "%#{game_tweet.away_team}%").last
