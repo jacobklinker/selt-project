@@ -1,8 +1,13 @@
 require 'open-uri'
 
+# This service is used to grab an XML file from Pinnacle Sports that contains
+# current week games and the betting odds for those games. This feed does not
+# contain scores for the teams once a game has begun or has finished
+# unfortunately, that information will need to come from somewhere else.
 class GamesSync
   
   def self.perform
+    # grab the document and save the feed time for the sync.
     doc = Nokogiri::XML(GamesSync.get_xml())
     feed_time = doc.xpath('/pinnacle_line_feed/PinnacleFeedTime')
     
@@ -105,6 +110,9 @@ class GamesSync
     open("http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=ncaa")
   end
   
+  # valid days for users to update odds are Sunday-Tuesday. After this period,
+  # users will be able to start choosing games and all of the odds need to be
+  # equal for all games and users.
   def self.is_valid_day_to_update_odds
     time = Time.now
     return time.wday <= 2

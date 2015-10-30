@@ -29,16 +29,19 @@ describe "scores background sync" do
     end
     
     describe "processing tweet" do
+        
+        before :each do 
+            @sync = ScoreSync.new
+            @tweet = Tweet.new
+        end
        
-       it "should increment the tweets_found in sync" do
-          sync = ScoreSync.new
-          tweet = Tweet.new
-          tweet.text = "test tweet"
-          
-          ScoresSync.process_tweet tweet, sync
-          
-          expect(sync.tweets_found).to eq(1)
-       end
+        it "should increment the tweets_found in sync" do
+            @tweet.text = "test tweet"
+            
+            ScoresSync.process_tweet @tweet, @sync
+            
+            expect(@sync.tweets_found).to eq(1)
+        end
         
     end
     

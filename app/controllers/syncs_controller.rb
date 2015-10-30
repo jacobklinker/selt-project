@@ -1,3 +1,7 @@
+# Used to simply display a list of all syncs in the database for administrator
+# purposes. This is not end user facing.
+#
+# It can also be used to manually force a new sync to occur.
 class SyncsController < ApplicationController
     
     def index
