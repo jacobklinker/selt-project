@@ -6,6 +6,7 @@ describe "game background sync" do
   describe "syncing with pinnacle sports api" do
     
     before :each do
+      allow(Time).to receive(:now).and_return(Time.new("2015-10-29 19:27:32 CST"))
       @sync = Sync.new
       expect(Sync).to receive(:new).and_return(@sync)
     end
@@ -13,6 +14,17 @@ describe "game background sync" do
     it "should handle a single game" do
       expect(GamesSync).to receive(:get_xml).and_return(XmlResponse.header + XmlResponse.game_1 + XmlResponse.footer)
       expect(Game).to receive(:create).once
+      
+      GamesSync.perform
+      
+      expect(@sync.new_games).to eq(1)
+      expect(@sync.updated_games).to eq(0)
+      expect(@sync.failed_games).to eq(0)
+      expect(@sync.is_successful).to eq(true)
+    end
+    
+    it "should not have the placeholder rule game at the end of the file" do
+      expect(GamesSync).to receive(:get_xml).and_return(XmlResponse.header + XmlResponse.game_1 + XmlResponse.game_5_bad_time + XmlResponse.footer)
       
       GamesSync.perform
       
@@ -150,62 +162,61 @@ describe "game background sync" do
     
   end
   
-end
-
-
-describe "time checking for updating games" do
+  describe "time checking for updating games" do
   
-  before :each do
-    @time = double(Time)
-    expect(Time).to receive(:now).and_return(@time)
-  end
-  
-  it "should allow updating on Sunday" do
-    expect(@time).to receive(:wday).and_return(0)
-    expect(GamesSync.is_valid_day_to_update_odds).to be_truthy
-  end
-  
-  it "should allow updating on Monday" do
-    expect(@time).to receive(:wday).and_return(1)
-    expect(GamesSync.is_valid_day_to_update_odds).to be_truthy
-  end
-  
-  it "should allow updating on Tuesday" do
-    expect(@time).to receive(:wday).and_return(2)
-    expect(GamesSync.is_valid_day_to_update_odds).to be_truthy
-  end
-  
-  it "should not allow updating on Wednesday" do
-    expect(@time).to receive(:wday).and_return(3)
-    expect(GamesSync.is_valid_day_to_update_odds).to be_falsy
-  end
-  
-  it "should not allow updating on Thursday" do
-    expect(@time).to receive(:wday).and_return(4)
-    expect(GamesSync.is_valid_day_to_update_odds).to be_falsy
-  end
-  
-  it "should not allow updating on Friday" do
-    expect(@time).to receive(:wday).and_return(5)
-    expect(GamesSync.is_valid_day_to_update_odds).to be_falsy
-  end
-  
-  it "should not allow updating on Saturday" do
-    expect(@time).to receive(:wday).and_return(6)
-    expect(GamesSync.is_valid_day_to_update_odds).to be_falsy
-  end
-  
-end
-
-describe "getting xml from correct url" do
-  
-  it "should get xml results from pinnacle sports" do
-    expect(GamesSync).to receive(:open)
-      .with("http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=ncaa")
-      .and_return(nil)
-    xml = GamesSync.get_xml
+    before :each do
+      @time = double(Time)
+      expect(Time).to receive(:now).and_return(@time)
+    end
     
-    expect(xml).to eq(nil)
+    it "should allow updating on Sunday" do
+      expect(@time).to receive(:wday).and_return(0)
+      expect(GamesSync.is_valid_day_to_update_odds).to be_truthy
+    end
+    
+    it "should allow updating on Monday" do
+      expect(@time).to receive(:wday).and_return(1)
+      expect(GamesSync.is_valid_day_to_update_odds).to be_truthy
+    end
+    
+    it "should allow updating on Tuesday" do
+      expect(@time).to receive(:wday).and_return(2)
+      expect(GamesSync.is_valid_day_to_update_odds).to be_truthy
+    end
+    
+    it "should not allow updating on Wednesday" do
+      expect(@time).to receive(:wday).and_return(3)
+      expect(GamesSync.is_valid_day_to_update_odds).to be_falsy
+    end
+    
+    it "should not allow updating on Thursday" do
+      expect(@time).to receive(:wday).and_return(4)
+      expect(GamesSync.is_valid_day_to_update_odds).to be_falsy
+    end
+    
+    it "should not allow updating on Friday" do
+      expect(@time).to receive(:wday).and_return(5)
+      expect(GamesSync.is_valid_day_to_update_odds).to be_falsy
+    end
+    
+    it "should not allow updating on Saturday" do
+      expect(@time).to receive(:wday).and_return(6)
+      expect(GamesSync.is_valid_day_to_update_odds).to be_falsy
+    end
+    
+  end
+  
+  describe "getting xml from correct url" do
+    
+    it "should get xml results from pinnacle sports" do
+      expect(GamesSync).to receive(:open)
+        .with("http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=ncaa")
+        .and_return(nil)
+      xml = GamesSync.get_xml
+      
+      expect(xml).to eq(nil)
+    end
+    
   end
   
 end

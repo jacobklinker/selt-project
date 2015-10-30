@@ -321,4 +321,48 @@ class XmlResponse
     """
   end
   
+  def self.game_5_bad_time
+    """
+    <event>
+      <event_datetimeGMT>2016-01-31 16:00</event_datetimeGMT>
+      <gamenumber>495534180</gamenumber>
+      <sporttype>Football</sporttype>
+      <league>NCAA</league>
+      <IsLive>No</IsLive>
+      <participants>
+        <participant>
+          <participant_name>All NCAA Games will have</participant_name>
+          <contestantnum>999</contestantnum>
+          <rotnum>999</rotnum>
+          <visiting_home_draw>Visiting</visiting_home_draw>
+        </participant>
+        <participant>
+          <participant_name>2nd Half Wagering</participant_name>
+          <contestantnum>1000</contestantnum>
+          <rotnum>1000</rotnum>
+          <visiting_home_draw>Home</visiting_home_draw>
+        </participant>
+      </participants>
+      <periods>
+        <period>
+          <period_number>2</period_number>
+          <period_description>2nd Half</period_description>
+          <periodcutoff_datetimeGMT>2016-01-31 16:00</periodcutoff_datetimeGMT>
+          <period_status>H</period_status>
+          <period_update>offline</period_update>
+          <spread_maximum>2000</spread_maximum>
+          <moneyline_maximum>1000</moneyline_maximum>
+          <total_maximum>1000</total_maximum>
+          <spread>
+            <spread_visiting>0</spread_visiting>
+            <spread_adjust_visiting>-106</spread_adjust_visiting>
+            <spread_home>0</spread_home>
+            <spread_adjust_home>-106</spread_adjust_home>
+          </spread>
+        </period>
+      </periods>
+    </event>
+    """
+  end
+  
 end

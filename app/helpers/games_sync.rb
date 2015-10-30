@@ -40,10 +40,13 @@ class GamesSync
         if game == nil || game.game_time.to_f < (Time.now.to_f - 60 * 60 * 24 * 7)
           # create a new game if none are found between these teams or it is an
           # older game (such as from last year)
-          Game.create(:home_team => home, :away_team => away, :game_time => time, 
-                      :home_odds => home_spread, :away_odds => away_spread)
-                      
-          sync.new_games = sync.new_games + 1
+          
+          if home != "2nd Half Wagering"
+            Game.create(:home_team => home, :away_team => away, :game_time => time, 
+                        :home_odds => home_spread, :away_odds => away_spread)
+                        
+            sync.new_games = sync.new_games + 1
+          end
         else
           # update the game with new odds if they have changed and game is still active
           if !game.is_finished
