@@ -1,0 +1,13 @@
+sync_1:
+    timestamp: 1
+    new_games: 48
+    updated_games: 0
+    failed_games: 0
+    is_successful: true
+    
+sync_2:
+    timestamp: 2
+    new_games: 0
+    updated_games: 0
+    failed_games: 0
+    is_successful: true
