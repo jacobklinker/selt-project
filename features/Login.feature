@@ -23,3 +23,4 @@ Scenario: Login to confirmed account
   
   When I login with "test@test.com" and password "password"
   Then I should see "Signed in successfully."
+  And I should not see "Login"
