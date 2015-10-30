@@ -32,7 +32,9 @@ describe "scores background sync" do
         
         before :each do 
             @game = Game.new
-            allow(Game).to receive(:find_by).and_return(@game)
+            where = double([])
+            allow(Game).to receive(:where).and_return(where)
+            allow(where).to receive(:last).and_return(@game)
             allow(@game).to receive(:save)
             @sync = ScoreSync.new
         end

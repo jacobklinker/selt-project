@@ -1,0 +1,20 @@
+%h1 All Score Syncs from Twitter
+
+%table.container#score_syncs
+  %thead
+    %tr
+      %th{:class => "col-3", :align => "center"} Sync Time
+      %th{:class => "col-3", :align => "center"} Tweets Found
+      %th{:class => "col-3", :align => "center"} Tweets Used
+      %th{:class => "col-3", :align => "center"} Successful?
+      
+  %tbody
+    - @syncs.each do |sync|
+      %tr
+        %td{:class => "col-2", :align => "center"}= sync.sync_start
+        %td{:class => "col-2", :align => "center"}= sync.tweets_found
+        %td{:class => "col-2", :align => "center"}= sync.tweets_used
+        %td{:class => "col-2", :align => "center"}= sync.is_successful
+
+%br
+= button_to 'Force New Score Sync', new_score_sync_path, :method => :get

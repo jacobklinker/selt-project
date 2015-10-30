@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   
   resources :games
   resources :syncs
+  resources :score_syncs
   
   devise_for :users
   

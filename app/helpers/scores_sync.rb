@@ -1,3 +1,5 @@
+require_relative '../../lib/models/tweet.rb'
+
 # We can use Pinnacle Sport's XML API for grabbing games from the week and odds
 # to go with those games, but there isn't a way to get score from this.
 #
@@ -37,8 +39,10 @@ class ScoresSync
             # remove the links and anything inside parenthesis
             if tweet.include?("FINAL")
                 game_tweet = GameTweet.create(tweet)
+                puts "#{game_tweet.home_team} vs #{game_tweet.away_team}"
                 
-                game = Game.find_by(home_team: game_tweet.home_team, away_team: game_tweet.away_team, is_finished: false)
+                game = Game.where("home_team LIKE :home_team AND away_team LIKE :away_team AND is_finished = 'false'", 
+                    home_team: "%#{game_tweet.home_team}%", away_team: "%#{game_tweet.away_team}%").last
                 
                 if game != nil
                     game.home_score = game_tweet.home_score
