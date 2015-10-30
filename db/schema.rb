@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030145159) do
+ActiveRecord::Schema.define(version: 20151030235122) do
 
   create_table "games", force: :cascade do |t|
     t.string   "home_team",                   null: false
@@ -33,11 +33,10 @@ ActiveRecord::Schema.define(version: 20151030145159) do
 
   create_table "syncs", force: :cascade do |t|
     t.datetime "timestamp"
-    t.integer  "new_games",          default: 0
-    t.integer  "updated_games",      default: 0
-    t.integer  "failed_games",       default: 0
-    t.boolean  "is_successful",      default: true
-    t.datetime "pinnacle_feed_time"
+    t.integer  "new_games",     default: 0
+    t.integer  "updated_games", default: 0
+    t.integer  "failed_games",  default: 0
+    t.boolean  "is_successful", default: true
   end
 
   create_table "users", force: :cascade do |t|

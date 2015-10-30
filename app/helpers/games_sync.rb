@@ -13,7 +13,6 @@ class GamesSync
     
     sync = Sync.new
     
-    sync.pinnacle_feed_time = feed_time.text
     sync.timestamp = Time.now
     
     time = nil
