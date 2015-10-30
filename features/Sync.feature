@@ -8,7 +8,7 @@ Feature: Administrators can view all syncs in the database
       | 2015-10-30 22:47:03 UTC | 1             | 1             | 1             | false         |
     
     Given I am on the syncs admin page
-    Then I can see a list of all of the twitter syncs that have been performed
+    Then I can see a list of all of the syncs that have been performed
     
   Scenario: I can force a new sync
     Given I am on the syncs admin page

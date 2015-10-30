@@ -9,3 +9,9 @@ Given(/^the following syncs have occured:$/) do |syncs|
             :is_successful => sync[:is_successful])
     end
 end
+
+Then(/^I can see a list of all of the syncs that have been performed$/) do
+    expect(page).to have_content("2015-10-30 20:47:03 UTC")
+    expect(page).to have_content("2015-10-30 21:47:03 UTC")
+    expect(page).to have_content("2015-10-30 22:47:03 UTC")
+end
