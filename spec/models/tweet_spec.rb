@@ -102,4 +102,32 @@ describe GameTweet do
         
     end
     
+    describe "split strings into words" do
+        
+        it "should work with single name teams" do
+            text = "Buffalo 29 Miami 24"
+            words = GameTweet.split_to_words text
+            expect(words).to eq(['Buffalo', '29', 'Miami', '24'])
+        end
+        
+        it "should work with multi-name teams" do
+            text = "Western Michigan 51 Eastern Michigan 21"
+            words = GameTweet.split_to_words text
+            expect(words).to eq(['Western', 'Michigan', '51', 'Eastern', 'Michigan', '21'])
+        end
+        
+        it "should work with split team names" do
+            text = "West Virginia 10 TCU 23"
+            words = GameTweet.split_to_words text
+            expect(words).to eq(['West', 'Virginia', '10', 'TCU', '23'])
+        end
+        
+        it "should work with random extra spaces" do
+            text = "foo    bar something        else"
+            words = GameTweet.split_to_words text
+            expect(words).to eq(['foo', 'bar', 'something', 'else'])
+        end
+        
+    end
+    
 end
