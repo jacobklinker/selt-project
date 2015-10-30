@@ -1,0 +1,21 @@
+%h1 All Games
+
+%table.container#games
+  %thead
+    %tr
+      %th{:class => "col-2", :align => "center"} Game Time
+      %th{:class => "col-2", :align => "center"} Home Team/Odds
+      %th{:class => "col-2", :align => "center"} Away Team/Odds
+      %th{:class => "col-2", :align => "center"} Home Team Score
+      %th{:class => "col-2", :align => "center"} Away Team Score
+      %th{:class => "col-2", :align => "center"} Finished?
+      
+  %tbody
+    - @games.each do |game|
+      %tr
+        %td{:class => "col-2", :align => "center"}= game.game_time
+        %td{:class => "col-2", :align => "center"} #{game.home_team} / #{game.home_odds}
+        %td{:class => "col-2", :align => "center"} #{game.away_team} / #{game.away_odds}
+        %td{:class => "col-2", :align => "center"}= game.home_score
+        %td{:class => "col-2", :align => "center"}= game.away_score
+        %td{:class => "col-2", :align => "center"}= game.is_finished
