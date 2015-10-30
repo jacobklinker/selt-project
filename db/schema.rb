@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151029180148) do
+ActiveRecord::Schema.define(version: 20151030145159) do
 
   create_table "games", force: :cascade do |t|
     t.string   "home_team",                   null: false
@@ -22,6 +22,13 @@ ActiveRecord::Schema.define(version: 20151029180148) do
     t.integer  "away_score"
     t.boolean  "is_finished", default: false
     t.datetime "game_time"
+  end
+
+  create_table "score_syncs", force: :cascade do |t|
+    t.datetime "sync_start"
+    t.integer  "tweets_found",  default: 0
+    t.integer  "tweets_used",   default: 0
+    t.boolean  "is_successful", default: true
   end
 
   create_table "syncs", force: :cascade do |t|

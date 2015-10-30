@@ -28,6 +28,8 @@ gem 'devise'
 gem 'bootstrap-sass', '~> 2.3.1.0'
 gem 'whenever'
 gem 'nokogiri'
+gem 'twitter'
+gem 'factory_girl'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
