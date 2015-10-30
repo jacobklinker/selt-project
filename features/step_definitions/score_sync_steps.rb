@@ -1,8 +1,8 @@
-Given /^I am on the score syncs admin page$/ do
+Given(/^I am on the score syncs admin page$/) do
     visit score_syncs_path
 end
 
-Given(/^the following syncs have occured:$/) do |syncs|
+Given(/^the following score syncs have occured:$/) do |syncs|
     syncs.hashes.each do |sync|
         ScoreSync.create(:sync_start => sync[:sync_start], 
             :tweets_found => sync[:tweets_found], :tweets_used => sync[:tweets_used],

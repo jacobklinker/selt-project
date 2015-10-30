@@ -1,7 +1,7 @@
 Feature: Administrators can view all score syncs in the database
   
   Scenario: I can see all score syncs listed on the index
-    Given the following syncs have occured:
+    Given the following score syncs have occured:
       | sync_start              | tweets_found  | tweets_used   | is_successful |
       | 2015-10-30 20:47:03 UTC | 100           | 0             | true          |
       | 2015-10-30 21:47:03 UTC | 100           | 5             | true          |
