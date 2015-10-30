@@ -1,0 +1,22 @@
+%h1 All Syncs
+
+%table.container#syncs
+  %thead
+    %tr
+      %th{:class => "col-2", :align => "center"} Sync Time
+      %th{:class => "col-2", :align => "center"} New Games
+      %th{:class => "col-2", :align => "center"} Updated Games
+      %th{:class => "col-2", :align => "center"} Failed Games
+      %th{:class => "col-2", :align => "center"} Successful?
+      
+  %tbody
+    - @syncs.each do |sync|
+      %tr
+        %td{:class => "col-2", :align => "center"}= sync.timestamp
+        %td{:class => "col-2", :align => "center"}= sync.new_games
+        %td{:class => "col-2", :align => "center"}= sync.updated_games
+        %td{:class => "col-2", :align => "center"}= sync.failed_games
+        %td{:class => "col-2", :align => "center"}= sync.is_successful
+
+%br
+= button_to 'Force New Sync', new_sync_path, :method => :get

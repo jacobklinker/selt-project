@@ -15,8 +15,11 @@
     <li><%= link_to "Login", users_sign_in_path %></li>
   </ul>
 
-  <% if !notice.nil? || !alert.nil? %>
+  <% if !notice.nil? %>
     <p class="notice"><%= notice %></p>
+  <% end %>
+  
+  <% if !alert.nil? %>
     <p class="alert"><%= alert %></p>
   <% end %>
   

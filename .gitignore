@@ -18,6 +18,7 @@
 /tmp
 /spring
 /coverage
+/open-uri*
 
 *.rbc
 capybara-*.html

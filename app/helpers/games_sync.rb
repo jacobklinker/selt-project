@@ -47,23 +47,31 @@ class GamesSync
         else
           # update the game with new odds if they have changed and game is still active
           if !game.is_finished
+            updated = false
+            
             if is_valid_day_to_update_odds
               if game.home_odds != home_spread
                 game.home_odds = home_spread
+                updated = true
               end
               
               if game.away_odds != away_spread
                 game.away_odds = away_spread
+                updated = true
               end
             end
             
             if game.game_time != time
               game.game_time = time
+              updated = true
             end
             
-            game.save
-            
-            sync.updated_games = sync.updated_games + 1
+            # Don't log that the game was updated if nothing actually
+            # changed on it! Makes the logging on the syncs controller clearer
+            if updated
+              game.save
+              sync.updated_games = sync.updated_games + 1
+            end
           end
         end
 
