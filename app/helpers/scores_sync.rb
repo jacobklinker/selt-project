@@ -32,8 +32,20 @@ class ScoresSync
     
     # Process the tweet and update the sync object.
     def self.process_tweet(tweet, sync)
-        sync.tweets_used = sync.tweets_used + 1
+        
+        if tweet != nil && tweet != ""
+            # remove the links and anything inside parenthesis
+            if tweet.include?("FINAL")
+                tweet = remove_unneeded_tweet_info(tweet)
+                sync.tweets_used = sync.tweets_used + 1
+            end
+        end
+        
         sync.tweets_found = sync.tweets_found + 1
+    end
+    
+    def self.remove_unneeded_tweet_info(tweet)
+        return tweet.gsub(/ *\(.*?\):?|http.*/, '').gsub(/ *?$/, '')
     end
     
     # set up our client with the correct consumer key and secret
