@@ -365,4 +365,31 @@ class XmlResponse
     """
   end
   
+  def self.game_6_no_period
+    """
+    <event>
+      <event_datetimeGMT>2015-10-29 22:00</event_datetimeGMT>
+      <gamenumber>513773103</gamenumber>
+      <sporttype>Football</sporttype>
+      <league>NCAA</league>
+      <IsLive>No</IsLive>
+      <participants>
+        <participant>
+          <participant_name>Maryland</participant_name>
+          <contestantnum>103</contestantnum>
+          <rotnum>103</rotnum>
+          <visiting_home_draw>Visiting</visiting_home_draw>
+        </participant>
+        <participant>
+          <participant_name>Hawkeyes</participant_name>
+          <contestantnum>104</contestantnum>
+          <rotnum>104</rotnum>
+          <visiting_home_draw>Home</visiting_home_draw>
+        </participant>
+      </participants>
+      <periods> </periods>
+    </event>
+    """
+  end
+  
 end

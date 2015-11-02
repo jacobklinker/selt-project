@@ -11,13 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151030235122) do
+ActiveRecord::Schema.define(version: 20151102191239) do
 
   create_table "games", force: :cascade do |t|
     t.string   "home_team",                   null: false
     t.string   "away_team",                   null: false
-    t.integer  "home_odds"
-    t.integer  "away_odds"
+    t.float    "home_odds"
+    t.float    "away_odds"
     t.integer  "home_score"
     t.integer  "away_score"
     t.boolean  "is_finished", default: false
