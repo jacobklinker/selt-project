@@ -115,8 +115,12 @@ class GamesSync
     
     # fail the sync when necessary
     if !sync.is_successful
-      # TODO send email or some other type of notification here to let us know
-      # that sync is borked
+      Mail.deliver do
+        to 'jklinker1@gmail.com'
+        from 'jklinker1@gmail.com'
+        subject 'Game Sync from Pinnacle Sports FAILED'
+        body 'Syncing has failed, please fix it.'
+      end
     end
     
     sync.save
