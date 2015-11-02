@@ -1,0 +1,23 @@
+allprojects {
+    repositories {
+        jcenter()
+        mavenCentral()
+        maven {
+            url 'https://oss.sonatype.org/content/repositories/snapshots/'
+        }
+    }
+}
+
+apply plugin: "groovy"
+apply plugin: "application"
+
+mainClassName = "edu.uiowa.selt.pickem.Client"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.3.10'
+    compile 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.1'
+}
