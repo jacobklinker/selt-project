@@ -1,0 +1,42 @@
+= stylesheet_link_tag 'application', 'media' => 'all', 'data-turbolinks-track' => true
+= javascript_include_tag 'application', 'data-turbolinks-track' => true
+= csrf_meta_tags
+
+%body
+  - if user_signed_in?
+    %div.jumbotron
+      %h1 Welcome to Pick 'Em, #{current_user.email}!
+  %div.row
+    %div.span4
+      %h3 Quick Hits
+      %button.btn.btn-default.btn-block Create League
+      %button.btn.btn-default.btn-block Something Else
+      %button.btn.btn-default.btn-block Something Else
+    %div.span8
+      %h3 My Leagues
+      %h6 Click on a league button to visit your page for that league.
+      %table.table
+        %thead
+          %tr
+            %th
+              %h6 League Name
+            %th
+              %h6 Commissioner
+            %th
+              %h6 See League
+        %tbody
+          %tr
+            %td League 1
+            %td #{current_user.email}
+            %td
+              %button.btn.btn-link Visit League
+          %tr
+            %td League 2
+            %td #{current_user.email}
+            %td
+              %button.btn.btn-link Visit League
+          %tr
+            %td Big Kaboomers
+            %td #{current_user.email}
+            %td
+              %button.btn.btn-link Visit League

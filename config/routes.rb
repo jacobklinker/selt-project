@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   get "users/sign_up"
   get "users/sign_in"
   
+  get "users/account_settings"
+  
 end
