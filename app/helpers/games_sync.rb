@@ -23,7 +23,6 @@ class GamesSync
     count = 1
     
     doc.xpath('//event_datetimeGMT | //participant_name | //periods/period[1]/spread/spread_visiting | //periods/period[1]/spread/spread_home').each do |node|
-     
       # Find what the next attribute is in the list and compare it to the node.
       # the count is also used to ensure we are getting all of the data per node
       # in the correct order
@@ -57,18 +56,18 @@ class GamesSync
             updated = false
             
             if is_valid_day_to_update_odds
-              if game.home_odds != home_spread
+              if game.home_odds != home_spread.to_f
                 game.home_odds = home_spread
                 updated = true
               end
               
-              if game.away_odds != away_spread
+              if game.away_odds != away_spread.to_f
                 game.away_odds = away_spread
                 updated = true
               end
             end
             
-            if game.game_time != time
+            if game.game_time != Time.new(time)
               game.game_time = time
               updated = true
             end
@@ -87,18 +86,41 @@ class GamesSync
       else
         # we are off, so fail the game
         sync.failed_games = sync.failed_games + 1
-        break
+        
+        if node.to_s.start_with?('<event_datetimeGMT>')
+          # reset the fields. This failed state will occur when
+          # there isn't an odds associated with a game, so it will
+          # skip the spread nodes and go back to the event time node.
+          # save that time and continue moving through as we would
+          # so that we stay on track.
+          away = home = away_spread = home_spread = nil
+          time = node.text
+          count = 1
+        else
+          # mark sync as completely broken!
+          sync.is_successful = false
+          break
+        end
       end 
       
       count = count + 1
     end
     
+    # everything should be reset after successful syncs. If it isn't then there
+    # is data left over from the last game that didn't get processesed and this
+    # should be marked as a failed game.
+    if (time != nil || away != nil || home != nil || away_spread != nil || home_spread != nil) && sync.failed_games == 0
+      sync.failed_games = sync.failed_games + 1
+    end
+    
     # fail the sync when necessary
-    if sync.failed_games > 0
-      sync.is_successful = false
-      
-      # TODO send email or some other type of notification here to let us know
-      # that sync is borked
+    if !sync.is_successful
+      Mail.deliver do
+        to 'jklinker1@gmail.com'
+        from 'jklinker1@gmail.com'
+        subject 'Game Sync from Pinnacle Sports FAILED'
+        body 'Syncing has failed, please fix it.'
+      end
     end
     
     sync.save

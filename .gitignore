@@ -55,3 +55,9 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+
+**/.DS_STORE
+
+# gradle stuff
+refresh_client/.gradle
+refresh_client/build

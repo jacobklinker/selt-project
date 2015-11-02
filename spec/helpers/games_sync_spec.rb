@@ -149,6 +149,28 @@ describe "game background sync" do
       expect(@sync.is_successful).to eq(false)
     end
     
+    it "should fail on a game with no period information" do
+      expect(GamesSync).to receive(:get_xml).and_return(XmlResponse.header + XmlResponse.game_6_no_period + XmlResponse.footer)
+      
+      GamesSync.perform
+      
+      expect(@sync.new_games).to eq(0)
+      expect(@sync.updated_games).to eq(0)
+      expect(@sync.failed_games).to eq(1)
+      expect(@sync.is_successful).to eq(true)
+    end
+    
+    it "should continue processing after a game with no period information" do
+      expect(GamesSync).to receive(:get_xml).and_return(XmlResponse.header + XmlResponse.game_1 + XmlResponse.game_6_no_period + XmlResponse.game_2 + XmlResponse.footer)
+      
+      GamesSync.perform
+      
+      expect(@sync.new_games).to eq(2)
+      expect(@sync.updated_games).to eq(0)
+      expect(@sync.failed_games).to eq(1)
+      expect(@sync.is_successful).to eq(true)
+    end
+    
     it "should do nothing on a blank response" do
       expect(GamesSync).to receive(:get_xml).and_return("")
       
