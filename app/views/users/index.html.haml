@@ -1,0 +1,58 @@
+%body
+  - if user_signed_in?
+    %div.jumbotron
+      %h1 Welcome to Pick 'Em, #{current_user.email}!
+    %div.row
+      %div.span12
+        %p.header Welcome to the Pick 'Em app.  From your home page, you can navigate to your active leagues, or create a new league of your own.  Enjoy, and best of luck with your picks!
+    %div.row
+      %div.span12
+        %h3 Announcements
+        %hr
+        %table
+          %tr
+            %td.icon 
+              = image_tag "announcement-icon.PNG"
+            %td This is an announcement!
+          %tr
+            %td.icon 
+              = image_tag "announcement-icon.PNG"
+            %td This is another announcement!  
+        %hr
+    %div.row
+      %div.span12
+        %h3 My Leagues
+        %table.table.table-striped
+          %thead
+            %tr
+              %th
+                %h6 League Name
+              %th
+                %h6 Commissioner
+              %th
+                %h6 Your Rank
+              %th
+                %h6 See League
+          %tbody
+            %tr
+              %td League 1
+              %td #{current_user.email}
+              %td 1/12
+              %td
+                %button.btn.btn-link Visit League
+            %tr
+              %td League 2
+              %td #{current_user.email}
+              %td 1/12
+              %td
+                %button.btn.btn-link Visit League
+            %tr
+              %td Big Kaboomers
+              %td #{current_user.email}
+              %td 1/12
+              %td
+                %button.btn.btn-link Visit League
+    %div.row
+      %div.span12
+        %h3 Quick Hits
+        %button.btn.btn-primary.btn-block Create League
