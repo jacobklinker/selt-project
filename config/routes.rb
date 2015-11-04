@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  resources :leagues
   resources :games
   resources :syncs
   resources :score_syncs

@@ -1,0 +1,77 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Leagues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>League name</th>
+      <th>Commissioner</th>
+      <th>Current leader</th>
+      <th>Conference settings</th>
+      <th>Number picks settings</th>
+      <th>Number members</th>
+      <th>User1</th>
+      <th>User2</th>
+      <th>User3</th>
+      <th>User4</th>
+      <th>User5</th>
+      <th>User6</th>
+      <th>User7</th>
+      <th>User8</th>
+      <th>User9</th>
+      <th>User10</th>
+      <th>User11</th>
+      <th>User12</th>
+      <th>User13</th>
+      <th>User14</th>
+      <th>User15</th>
+      <th>User16</th>
+      <th>User17</th>
+      <th>User18</th>
+      <th>User19</th>
+      <th>User20</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @leagues.each do |league| %>
+      <tr>
+        <td><%= league.league_name %></td>
+        <td><%= league.commissioner %></td>
+        <td><%= league.current_leader %></td>
+        <td><%= league.conference_settings %></td>
+        <td><%= league.number_picks_settings %></td>
+        <td><%= league.number_members %></td>
+        <td><%= league.user1 %></td>
+        <td><%= league.user2 %></td>
+        <td><%= league.user3 %></td>
+        <td><%= league.user4 %></td>
+        <td><%= league.user5 %></td>
+        <td><%= league.user6 %></td>
+        <td><%= league.user7 %></td>
+        <td><%= league.user8 %></td>
+        <td><%= league.user9 %></td>
+        <td><%= league.user10 %></td>
+        <td><%= league.user11 %></td>
+        <td><%= league.user12 %></td>
+        <td><%= league.user13 %></td>
+        <td><%= league.user14 %></td>
+        <td><%= league.user15 %></td>
+        <td><%= league.user16 %></td>
+        <td><%= league.user17 %></td>
+        <td><%= league.user18 %></td>
+        <td><%= league.user19 %></td>
+        <td><%= league.user20 %></td>
+        <td><%= link_to 'Show', league %></td>
+        <td><%= link_to 'Edit', edit_league_path(league) %></td>
+        <td><%= link_to 'Destroy', league, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New League', new_league_path %>
