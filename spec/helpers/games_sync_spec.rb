@@ -129,6 +129,7 @@ describe "game background sync" do
     it "should fail on a bad game with missing participant" do
       expect(GamesSync).to receive(:get_xml).and_return(XmlResponse.header + XmlResponse.game_1 + XmlResponse.game_2 + XmlResponse.game_3_bad + XmlResponse.footer)
       expect(Game).to receive(:create).twice
+      expect(GamesSync).to receive(:send_error_email).once
       
       GamesSync.perform
       
@@ -140,6 +141,7 @@ describe "game background sync" do
     
     it "should fail on a bad game with missing spread" do
       expect(GamesSync).to receive(:get_xml).and_return(XmlResponse.header + XmlResponse.game_4_bad + XmlResponse.footer)
+      expect(GamesSync).to receive(:send_error_email).once
       
       GamesSync.perform
       
@@ -237,6 +239,23 @@ describe "game background sync" do
       xml = GamesSync.get_xml
       
       expect(xml).to eq(nil)
+    end
+    
+  end
+  
+  describe "when the sync has failed" do
+    
+    it "should send an email letting jklinker1@gmail.com know what has happened" do
+      mail = double(mail)
+      expect(GamesSync).to receive(:create_error_email).and_return(mail)
+      expect(mail).to receive(:deliver!)
+      GamesSync.send_error_email
+    end
+    
+    it "should create a message to jklinker1@gmail.com" do
+      mail = GamesSync.create_error_email
+      expect(mail.to).to eq(['jklinker1@gmail.com'])
+      expect(mail.from).to eq(['jklinker1@gmail.com'])
     end
     
   end

@@ -115,12 +115,7 @@ class GamesSync
     
     # fail the sync when necessary
     if !sync.is_successful
-      Mail.deliver do
-        to 'jklinker1@gmail.com'
-        from 'jklinker1@gmail.com'
-        subject 'Game Sync from Pinnacle Sports FAILED'
-        body 'Syncing has failed, please fix it.'
-      end
+      send_error_email
     end
     
     sync.save
@@ -129,6 +124,19 @@ class GamesSync
   # stubbed out for easier testing
   def self.get_xml
     open("http://xml.pinnaclesports.com/pinnaclefeed.aspx?sporttype=Football&sportsubtype=ncaa")
+  end
+  
+  def self.send_error_email
+    create_error_email.deliver!
+  end
+  
+  def self.create_error_email
+    Mail.new do
+      to 'jklinker1@gmail.com'
+      from 'jklinker1@gmail.com'
+      subject 'Game Sync from Pinnacle Sports FAILED'
+      body 'Syncing has failed, please fix it.'
+    end
   end
   
   # valid days for users to update odds are Sunday-Tuesday. After this period,
