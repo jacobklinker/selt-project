@@ -12,23 +12,21 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :league_name %><br>
+    <%= f.label :league_name %>
     <%= f.text_field :league_name %>
   </div>
   <div class="field">
-    <%= f.label :conference_settings %><br>
-    <%= f.text_field :conference_settings %>
+   <br> <%= f.label :conference_settings %>
+    <%= f.select :conference_settings, 
+    options_for_select({ "FBS" => "FBS", "SEC" => "SEC","BIG 10" => "Big 10", "Big 12" => "Big 12","ACC" => "ACC", "American Athletic Conference" => "American Athletic Conference","Conference USA" => "Conference USA", "Mid-American Conference" => "Mid-American Conference", "Mountain West Conference" => "Mountain West Conference", "PAC 12" => "PAC 12", "Sun Belt" => "Sun Belt" },"FBS" => "FBS") %>
   </div>
   <div class="field">
-    <%= f.label :number_picks_settings %><br>
-    <%= f.number_field :number_picks_settings %>
+    <br><%= f.label :number_picks_settings %>
+    <%= f.select :number_picks_settings, 
+    options_for_select((1..20),1) %>
   </div>
   <div class="field">
-    <%= f.label :number_members %><br>
-    <%= f.number_field :number_members %>
-  </div>
-  <div class="field">
-    <%= label_tag "email_list"%>
+    <br><%= label_tag "email_list"%>
     <%= text_area_tag "email_list"%>
   </div>
   <div class="actions">
