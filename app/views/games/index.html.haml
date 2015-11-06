@@ -20,4 +20,4 @@
         %td{:class => "col-2", :align => "center"}= game.home_score
         %td{:class => "col-2", :align => "center"}= game.away_score
         %td{:class => "col-2", :align => "center"}= game.is_finished
-        %td{:class => "col-2", :align => "center"}= link_to "edit", edit_game_path(game)
+        %td{:class => "col-2", :align => "center", :id => "edit"}= link_to "edit", edit_game_path(game)
