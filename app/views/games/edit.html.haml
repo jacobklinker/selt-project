@@ -1,0 +1,17 @@
+%h1 Edit Existing Game Score
+
+= form_tag game_path(@game), :method => :put do
+
+  Teams: #{@game.home_team} vs #{@game.away_team}<br/><br/>
+
+  = label :game, :home_score, 'Home Score'
+  = text_field :game, 'home_score'
+  
+  = label :game, :away_score, 'Away Score'
+  = text_field :game, 'away_score'
+  
+  = label :game, :is_finished, 'Is Finished?'
+  = select :game, :is_finished, [true, false]
+  <br/><br/>
+  
+  = submit_tag 'Update Game Score'
