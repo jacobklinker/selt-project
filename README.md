@@ -17,7 +17,48 @@ Password: password
 
 These are just pre-verified users, so you can use them in the Cloud 9 test environment to login. Make sure you seed the database to get these users on the database.
 
+###How to use email
+I have added the email capability.  The following are instructions on how to use it.
 
+Go to 
+
+```
+app/mailers/user_mailer.rb
+```
+
+Here you will find calls for diffenet email calls.  Add a function definition for the email you want to send.  For example...
+
+```
+def league_invite(user)
+    @user=user
+    mail(to: @user, subject: "You're Invited!")
+end
+```
+You can pass in parameters as you like.  Once that is made, go to   
+
+```
+app/views/user_mailer
+```
+In this folder create a view file (ex. league_invite.html.erb).  This will hold the body of the email. The example I uploaded looks like this
+
+```
+Hello <%= @user %>, 
+
+You've been invited to join a league in Pick 'Em!
+```
+
+You can use variables from the user_mailer in the view like I've done above.
+
+Finally, to call the email simply type the following wherever you wish to send the email.
+
+```
+UserMailer.league_invite("tyler-parker@uiowa.edu").deliver_now
+```
+
+
+If you have any questions, let me know.
+
+TP
 
 ## Setup and Deployment
 

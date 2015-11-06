@@ -1,7 +1,7 @@
 Feature: Users can create an account and login
 
 Scenario: Reach the login page
-  When I am on the homepage
+  When I am on the unauthenticated homepage
   And I click the "login" link
   Then I should see "Email"
   And I should see "Password"
@@ -29,22 +29,3 @@ Scenario: Login to confirmed account
   And I should see "Create League"
   And I should see "Account Settings"
   And I should not see "Login"
-  
-Scenario: Go to account settings page
-  Given the following users have been added:
-  | email          | password |
-  | test@test.com  | password |
-  
-  When I login with "test@test.com" and password "password"
-  And I click the "Account Settings" link
-  Then I should see "Adjust your account settings here."
-  
-Scenario: Log out from authenticated account
-  Given the following users have been added:
-  | email          | password |
-  | test@test.com  | password |
-  
-  When I login with "test@test.com" and password "password"
-  And I click the "Logout" link
-  Then I should see "Signed out successfully"
-  And I should see "Login"
