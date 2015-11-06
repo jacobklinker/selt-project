@@ -8,12 +8,23 @@
 
   %body
     %div.container
-      %ul.nav.nav-tabs
-        %li
-          = link_to "Home", root_path, :id => 'home'
-        - if !user_signed_in?
-          %li
-            = link_to "Login", users_sign_in_path, :id => 'login'
+      %nav.nav.navbar.navbar-default{:role => "navigation"}
+        .container-fluid
+          %ul.nav.nav-tabs
+            %li
+              - if !user_signed_in?
+                = link_to "Home", authenticated_root_path, :id => 'home'
+              - else
+                = link_to "Home", unauthenticated_root_path, :id => 'home'
+              - if !user_signed_in?
+                %li
+                  = link_to "Login", users_sign_in_path, :id => 'login'
+              - else
+                %li
+                  = link_to "Account Settings", users_account_settings_path, :id => 'account_settings'
+          %ul.nav.nav-tabs.navbar-right  
+            %li
+              = link_to "Logout", destroy_user_session_path, :method => :delete, :id => 'logout'
         
       - if !notice.nil?
         %p.notice= notice

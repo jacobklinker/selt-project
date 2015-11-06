@@ -1,5 +1,9 @@
- Given /^I am on the homepage$/ do
-  visit root_path
+Given /^I am on the unauthenticated homepage$/ do
+  visit unauthenticated_root_path
+ end
+ 
+ Given /^I am on the authenticated homepage$/ do
+  visit authenticated_root_path
  end
  
  Given /the following users have been added:/ do |users_table|

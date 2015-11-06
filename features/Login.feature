@@ -1,7 +1,7 @@
 Feature: Users can create an account and login
 
 Scenario: Reach the login page
-  When I am on the homepage
+  When I am on the unauthenticated homepage
   And I click the "login" link
   Then I should see "Email"
   And I should see "Password"
@@ -23,4 +23,9 @@ Scenario: Login to confirmed account
   
   When I login with "test@test.com" and password "password"
   Then I should see "Signed in successfully."
+  And I should see "Logout"
+  And I should see "Announcements"
+  And I should see "My Leagues"
+  And I should see "Create League"
+  And I should see "Account Settings"
   And I should not see "Login"
