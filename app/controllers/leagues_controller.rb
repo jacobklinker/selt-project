@@ -25,14 +25,19 @@ class LeaguesController < ApplicationController
   # POST /leagues.json
   def create
     @league = League.new(league_params)
-    @league.commissioner_id=session.user.id
+    @league.commissioner_id=current_user.id
+    
+    puts current_user.id
+    puts current_user.id
+    puts current_user.id
+    
 
     respond_to do |format|
       if @league.save
         format.html { redirect_to @league, notice: 'League was successfully created.' }
         format.json { render :show, status: :created, location: @league }
         array_of_emails = params[:email_list].split
-        array_of_emails.each {|x| }  #SEND EMAIL HERE
+        array_of_emails.each {|x| UserMailer.league_invite(x).deliver_now}  #SEND EMAIL HERE
       else
         format.html { render :new }
         format.json { render json: @league.errors, status: :unprocessable_entity }

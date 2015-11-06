@@ -7,7 +7,7 @@
 
 <p>
   <strong>Commissioner:</strong>
-  <%= @league.commissioner %>
+  <%= User.find(@league.commissioner_id).email %>
 </p>
 
 <p>

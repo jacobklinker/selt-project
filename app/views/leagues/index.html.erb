@@ -39,7 +39,7 @@
     <% @leagues.each do |league| %>
       <tr>
         <td><%= league.league_name %></td>
-        <td><%= league.commissioner %></td>
+        <td><%= User.find(league.commissioner_id).email %></td>
         <td><%= league.current_leader %></td>
         <td><%= league.conference_settings %></td>
         <td><%= league.number_picks_settings %></td>
