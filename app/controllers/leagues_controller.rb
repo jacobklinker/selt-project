@@ -27,17 +27,12 @@ class LeaguesController < ApplicationController
     @league = League.new(league_params)
     @league.commissioner_id=current_user.id
     
-    puts current_user.id
-    puts current_user.id
-    puts current_user.id
-    
-
     respond_to do |format|
       if @league.save
         format.html { redirect_to @league, notice: 'League was successfully created.' }
         format.json { render :show, status: :created, location: @league }
         array_of_emails = params[:email_list].split
-        array_of_emails.each {|x| UserMailer.league_invite(x).deliver_now}  #SEND EMAIL HERE
+        array_of_emails.each {|x| UserMailer.league_invite(x,@league.id).deliver_now}  #SEND EMAIL HERE
       else
         format.html { render :new }
         format.json { render json: @league.errors, status: :unprocessable_entity }
@@ -67,6 +62,15 @@ class LeaguesController < ApplicationController
       format.html { redirect_to leagues_url, notice: 'League was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+  
+  def accept_invite
+    
+  end
+  
+  def add_user_to_league
+    
+    redirect_to authenticated_root_path
   end
 
   private
