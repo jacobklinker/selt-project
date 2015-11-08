@@ -7,6 +7,16 @@
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true %>
   </div>
+  
+  <div class="field">
+    <%= label :first_name %><br />
+    <%= text_field :first_name, autofocus: false %>
+  </div>
+  
+  <div class="field">
+    <%= label :last_name %><br />
+    <%= text_field :last_name, autofocus: false %>
+  </div>
 
   <div class="field">
     <%= f.label :password %>
