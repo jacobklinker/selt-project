@@ -25,20 +25,48 @@ class LeaguesController < ApplicationController
   # POST /leagues.json
   def create
     @league = League.new(league_params)
-    @user=User.find(current_user.id)
+    @this_user=User.find(current_user.id)
     @league.commissioner_id=current_user.id
     @league.user1_id=current_user.id
-    @user.league1_id = @league.id
     @league.number_members = 1
     
-    @user.save!()
+
+    
+    
     
     respond_to do |format|
       if @league.save
+        
+        
+        if @this_user.num_leagues==0
+          @this_user.league1_id = @league.id
+          @this_user.num_leagues=@this_user.num_leagues+1
+          puts "INNNSL:KDSKL:JDFHS:JKLDFH:"
+        elsif @this_user.num_leagues==1
+          @this_user.league2_id = @league.id
+          @this_user.num_leagues=@this_user.num_leagues+1
+        elsif @this_user.num_leagues==2
+          @this_user.league3_id = @league.id
+          @this_user.num_leagues=@this_user.num_leagues+1
+        elsif @this_user.num_leagues==3
+          @this_user.league4_id = @league.id
+          @this_user.num_leagues=@this_user.num_leagues+1
+        elsif @this_user.num_leagues==4
+          @this_user.league5_id = @league.id
+          @this_user.num_leagues=@this_user.num_leagues+1
+        else
+          flash[:notice]="Not added to this League. Max number of leagues reached"
+        end
+
+        @this_user.save!
+        
+        
+        
         format.html { redirect_to @league, notice: 'League was successfully created.' }
         format.json { render :show, status: :created, location: @league }
         array_of_emails = params[:email_list].split
         array_of_emails.each {|x| UserMailer.league_invite(x,@league.id).deliver_now}  #SEND EMAIL HERE
+        
       else
         format.html { render :new }
         format.json { render json: @league.errors, status: :unprocessable_entity }
