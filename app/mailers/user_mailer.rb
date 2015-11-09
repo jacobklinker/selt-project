@@ -9,5 +9,6 @@ class UserMailer < ApplicationMailer
         @user=user
         @league_id = league_id
         mail(to: @user, subject: "You're Invited!")
+        #
     end
 end
