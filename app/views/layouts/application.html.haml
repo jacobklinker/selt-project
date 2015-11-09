@@ -24,7 +24,8 @@
                   = link_to "Account Settings", users_account_settings_path, :id => 'account_settings'
           %ul.nav.nav-tabs.navbar-right  
             %li
-              = link_to "Logout", destroy_user_session_path, :method => :delete, :id => 'logout'
+              - if user_signed_in?
+                = link_to "Logout", destroy_user_session_path, :method => :delete, :id => 'logout'
         
       - if !notice.nil?
         %p.notice= notice

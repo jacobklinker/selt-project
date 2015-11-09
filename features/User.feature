@@ -2,8 +2,8 @@ Feature: Authenticated users can use the top navigation bar
   
 Scenario: Log out from authenticated account
   Given the following users have been added:
-  | email          | password |
-  | test@test.com  | password |
+  | email          | password | first_name | last_name |
+  | test@test.com  | password | test       | user      |
   
   When I login with "test@test.com" and password "password"
   And I click the "Logout" link
@@ -12,8 +12,8 @@ Scenario: Log out from authenticated account
   
 Scenario: Return to user homepage when authenticated
   Given the following users have been added:
-  | email          | password |
-  | test@test.com  | password |
+  | email          | password | first_name | last_name |
+  | test@test.com  | password | test       | user      |
 
   When I login with "test@test.com" and password "password"
   And I click the "Home" link
@@ -28,8 +28,8 @@ Scenario: Return to user homepage when authenticated
   
 Scenario: Go to account settings page
   Given the following users have been added:
-  | email          | password |
-  | test@test.com  | password |
+  | email          | password | first_name | last_name |
+  | test@test.com  | password | test       | user      |
   
   When I login with "test@test.com" and password "password"
   And I click the "Account Settings" link
