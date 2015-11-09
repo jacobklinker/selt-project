@@ -1,7 +1,7 @@
 class UserMailer < ApplicationMailer
     default from: "Pick_'Em@NOREPLY.com"
     
-    def test_email()
+    def test_email
         mail(to: "tyler-parker@uiowa.edu", subject: "Please work")
     end
     
@@ -9,6 +9,6 @@ class UserMailer < ApplicationMailer
         @user=user
         #@url=url
         @league_id = league_id
-        mail(to: @user, subject: "You're Invited!")
+        mail(to: @user.email, subject: "You're Invited!")
     end
 end

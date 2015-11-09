@@ -4,7 +4,7 @@ class CreateScoreSync < ActiveRecord::Migration
       t.datetime :sync_start
       t.integer  :tweets_found
       t.integer  :tweets_used
-      t.integer  :is_successful
+      t.boolean  :is_successful
     end
   end
 end
