@@ -8,6 +8,6 @@ class UserMailer < ApplicationMailer
     def league_invite(user,league_id)
         @user=user
         @league_id = league_id
-        mail(to: @user.email, subject: "You're Invited!")
+        mail(to: @user, subject: "You're Invited!")
     end
 end
