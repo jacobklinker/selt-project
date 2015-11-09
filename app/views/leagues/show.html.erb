@@ -31,104 +31,105 @@
 </p>
 
 <p>
+<% if false %>
   <strong>User1:</strong>
-  <%= @league.user1 %>
+  <%= User.find(@league.user1_id).email %>
 </p>
 
 <p>
   <strong>User2:</strong>
-  <%= @league.user2 %>
+  <%= User.find(@league.user2_id).email %>
 </p>
 
 <p>
   <strong>User3:</strong>
-  <%= @league.user3 %>
+  <%= User.find(@league.user3_id).email %>
 </p>
 
 <p>
   <strong>User4:</strong>
-  <%= @league.user4 %>
+  <%= User.find(@league.user4_id).email %>
 </p>
 
 <p>
   <strong>User5:</strong>
-  <%= @league.user5 %>
+  <%= User.find(@league.user5_id).email %>
 </p>
 
 <p>
   <strong>User6:</strong>
-  <%= @league.user6 %>
+  <%= User.find(@league.user6_id).email %>
 </p>
 
 <p>
   <strong>User7:</strong>
-  <%= @league.user7 %>
+  <%= User.find(@league.user7_id).email %>
 </p>
 
 <p>
   <strong>User8:</strong>
-  <%= @league.user8 %>
+  <%= User.find(@league.user8_id).email %>
 </p>
 
 <p>
   <strong>User9:</strong>
-  <%= @league.user9 %>
+  <%= User.find(@league.user9_id).email %>
 </p>
 
 <p>
   <strong>User10:</strong>
-  <%= @league.user10 %>
+  <%= User.find(@league.user10_id).email %>
 </p>
 
 <p>
   <strong>User11:</strong>
-  <%= @league.user11 %>
+  <%= User.find(@league.user11_id).email %>
 </p>
 
 <p>
   <strong>User12:</strong>
-  <%= @league.user12 %>
+  <%=User.find(@league.user12_id).email %>
 </p>
 
 <p>
   <strong>User13:</strong>
-  <%= @league.user13 %>
+  <%= User.find(@league.user13_id).email %>
 </p>
 
 <p>
   <strong>User14:</strong>
-  <%= @league.user14 %>
+  <%= User.find(@league.user14_id).email %>
 </p>
 
 <p>
   <strong>User15:</strong>
-  <%= @league.user15 %>
+  <%= User.find(@league.user15_id).email %>
 </p>
 
 <p>
   <strong>User16:</strong>
-  <%= @league.user16 %>
+  <%= User.find(@league.user16_id).email %>
 </p>
 
 <p>
   <strong>User17:</strong>
-  <%= @league.user17 %>
+  <%= User.find(@league.user17_id).email %>
 </p>
 
 <p>
   <strong>User18:</strong>
-  <%= @league.user18 %>
+  <%= User.find(@league.user18_id).email %>
 </p>
 
 <p>
   <strong>User19:</strong>
-  <%= @league.user19 %>
+  <%= User.find(@league.user19_id).email %>
 </p>
 
 <p>
   <strong>User20:</strong>
-  <%= @league.user20 %>
+  <%= User.find(@league.user20_id).email %>
 </p>
-
+<% end %>
 <%= link_to 'Edit', edit_league_path(@league) %> |
 <%= link_to 'Back', leagues_path %>

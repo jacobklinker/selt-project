@@ -26,6 +26,7 @@ class LeaguesController < ApplicationController
   def create
     @league = League.new(league_params)
     @league.commissioner_id=current_user.id
+    @league.number_members = 0
     
     respond_to do |format|
       if @league.save
@@ -65,11 +66,146 @@ class LeaguesController < ApplicationController
   end
   
   def accept_invite
-    
+    #@league = League.find(params[:param1])
   end
   
   def add_user_to_league
+    @league = League.find(params[:league_id])
+    num_members=@league.number_members
+
+    enter_user = true
     
+    if @league.user1_id == current_user.id
+      enter_user =false
+    elsif @league.user2_id == current_user.id
+      enter_user = false
+     elsif @league.user3_id == current_user.id
+      enter_user = false
+    elsif @league.user4_id == current_user.id
+      enter_user = false
+    elsif @league.user5_id == current_user.id
+      enter_user = false
+    elsif @league.user6_id == current_user.id
+      enter_user = false
+    elsif @league.user7_id == current_user.id
+      enter_user = false
+    elsif @league.user8_id == current_user.id
+      enter_user = false
+    elsif @league.user9_id == current_user.id
+      enter_user = false
+    elsif @league.user10_id == current_user.id
+      enter_user = false
+    elsif @league.user11_id == current_user.id
+      enter_user = false
+    elsif @league.user12_id == current_user.id
+      enter_user = false
+    elsif @league.user13_id == current_user.id
+      enter_user = false
+    elsif @league.user14_id == current_user.id
+      enter_user = false
+    elsif @league.user15_id == current_user.id
+      enter_user = false
+    elsif @league.user16_id == current_user.id
+      enter_user = false
+    elsif @league.user17_id == current_user.id
+      enter_user = false
+    elsif @league.user18_id == current_user.id
+      enter_user = false
+    elsif @league.user19_id == current_user.id
+      enter_user = false
+    elsif @league.user20_id == current_user.id
+      enter_user = false
+    end
+   
+    if enter_user ==true 
+      if num_members==0
+        @league.user1_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 1
+        @league.user2_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 2
+        @league.user3_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 3
+        @league.user4_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 4
+        @league.user5_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 5
+        @league.user6_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 6
+        @league.user7_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 7
+        @league.user8_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 8
+        @league.user9_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 9
+        @league.user10_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 10
+        @league.user11_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 11
+        @league.user12_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 12
+        @league.user13_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 13
+        @league.user14_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 14
+        @league.user15_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 15
+        @league.user16_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 16
+        @league.user17_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 17
+        @league.user18_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 18
+        @league.user19_id = current_user.id
+        @league.number_members= num_members+1
+      elsif num_members == 19
+        @league.user20_id = current_user.id
+        @league.number_members= num_members+1
+      end
+      flash[:notice]="Successfully added to the league"
+      
+      @this_user=User.find(current_user.id)
+      
+      if @this_user.num_leagues==0
+        @this_user.league1_id = @league.id
+        @this_user.num_leagues=@this_user.num_leagues+1
+      elsif @this_user.num_leagues==1
+        @this_user.league2_id = @league.id
+        @this_user.num_leagues=@this_user.num_leagues+1
+      elsif @this_user.num_leagues==2
+        @this_user.league3_id = @league.id
+        @this_user.num_leagues=@this_user.num_leagues+1
+      elsif @this_user.num_leagues==3
+        @this_user.league4_id = @league.id
+        @this_user.num_leagues=@this_user.num_leagues+1
+      elsif @this_user.num_leagues==4
+        @this_user.league5_id = @league.id
+        @this_user.num_leagues=@this_user.num_leagues+1
+      else
+        flash[:notice]="Not added to this League. Max number of leagues reached"
+      end
+      @this_user.save!()
+      @league.save!()
+    else
+      flash[:notice]="You are already a member of this league"
+    end
     redirect_to authenticated_root_path
   end
 

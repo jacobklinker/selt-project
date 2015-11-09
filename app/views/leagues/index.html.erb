@@ -44,26 +44,68 @@
         <td><%= league.conference_settings %></td>
         <td><%= league.number_picks_settings %></td>
         <td><%= league.number_members %></td>
-        <td><%= league.user1 %></td>
-        <td><%= league.user2 %></td>
-        <td><%= league.user3 %></td>
-        <td><%= league.user4 %></td>
-        <td><%= league.user5 %></td>
-        <td><%= league.user6 %></td>
-        <td><%= league.user7 %></td>
-        <td><%= league.user8 %></td>
-        <td><%= league.user9 %></td>
-        <td><%= league.user10 %></td>
-        <td><%= league.user11 %></td>
-        <td><%= league.user12 %></td>
-        <td><%= league.user13 %></td>
-        <td><%= league.user14 %></td>
-        <td><%= league.user15 %></td>
-        <td><%= league.user16 %></td>
-        <td><%= league.user17 %></td>
-        <td><%= league.user18 %></td>
-        <td><%= league.user19 %></td>
-        <td><%= league.user20 %></td>
+        <td><%= if league.user1_id != nil
+                  User.find(league.user1_id).email 
+                end
+                  %></td>
+        <td><%= if league.user2_id != nil 
+                  User.find(league.user2_id).email
+                end
+                  %></td>
+        <td><%= if league.user3_id != nil
+                  User.find(league.user3_id).email 
+                end %></td>
+        <td><%=if league.user4_id != nil
+                  User.find(league.user4_id).email 
+                end %></td>
+        <td><%= if league.user5_id != nil
+                  User.find(league.user5_id).email 
+                end %></td>
+        <td><%= if league.user6_id != nil
+                  User.find(league.user6_id).email 
+                end %></td>
+        <td><%= if league.user7_id != nil
+                  User.find(league.user7_id).email 
+                end %></td>
+        <td><%= if league.user8_id != nil
+                  User.find(league.user8_id).email 
+                end %></td>
+        <td><%= if league.user9_id != nil
+                  User.find(league.user9_id).email 
+                end %></td>
+        <td><%= if league.user10_id != nil
+                  User.find(league.user10_id).email 
+                end %></td>
+        <td><%= if league.user11_id != nil
+                  User.find(league.user11_id).email 
+                end %></td>
+        <td><%= if league.user12_id != nil
+                  User.find(league.user12_id).email 
+                end %></td>
+        <td><%= if league.user13_id != nil
+                  User.find(league.user13_id).email 
+                end %></td>
+        <td><%= if league.user14_id != nil
+                  User.find(league.user14_id).email 
+                end %></td>
+        <td><%= if league.user15_id != nil
+                  User.find(league.user15_id).email 
+                end %></td>
+        <td><%= if league.user16_id != nil
+                  User.find(league.user16_id).email 
+                end %></td>
+        <td><%= if league.user17_id != nil
+                  User.find(league.user17_id).email 
+                end %></td>
+        <td><%= if league.user18_id != nil
+                  User.find(league.user18_id).email 
+                end %></td>
+        <td><%= if league.user19_id != nil
+                  User.find(league.user19_id).email 
+                end %></td>
+        <td><%= if league.user20_id != nil
+                  User.find(league.user20_id).email 
+                end %></td>
         <td><%= link_to 'Show', league %></td>
         <td><%= link_to 'Edit', edit_league_path(league) %></td>
         <td><%= link_to 'Destroy', league, method: :delete, data: { confirm: 'Are you sure?' } %></td>
