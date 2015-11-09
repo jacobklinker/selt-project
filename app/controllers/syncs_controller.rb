@@ -4,6 +4,8 @@
 # It can also be used to manually force a new sync to occur.
 class SyncsController < ApplicationController
     
+    skip_before_filter :authenticate_user!, :only => [:new]
+    
     def index
         @syncs = Sync.all
     end
