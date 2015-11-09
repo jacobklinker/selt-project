@@ -1,7 +1,7 @@
 class UserMailer < ApplicationMailer
     default from: "Pick_'Em@NOREPLY.com"
     
-    def test_email()
+    def test_email
         mail(to: "tyler-parker@uiowa.edu", subject: "Please work")
     end
     

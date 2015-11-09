@@ -4,6 +4,8 @@
 # It can also be used to manually force a new score sync to occur.
 class ScoreSyncsController < ApplicationController
     
+    skip_before_filter :authenticate_user!, :only => [:new]
+    
     def index
         @syncs = ScoreSync.all
     end
