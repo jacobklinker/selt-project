@@ -26,7 +26,9 @@ class LeaguesController < ApplicationController
   def create
     @league = League.new(league_params)
     @league.commissioner_id=current_user.id
-    @league.number_members = 0
+    @league.user1_id=current_user.id
+    @league.number_members = 1
+    
     
     respond_to do |format|
       if @league.save
