@@ -2,7 +2,7 @@ class CreateLeagues < ActiveRecord::Migration
   def change
     create_table :leagues do |t|
       t.string :league_name
-      t.references :commissioner, index: true, foreign_key: true
+      t.references :commissioner, index: true
       t.references :current_leader, index: true, foreign_key: true
       t.string :conference_settings
       t.integer :number_picks_settings
@@ -27,7 +27,6 @@ class CreateLeagues < ActiveRecord::Migration
       t.references :user18, index: true, foreign_key: true
       t.references :user19, index: true, foreign_key: true
       t.references :user20, index: true, foreign_key: true
-
       t.timestamps null: false
     end
   end
