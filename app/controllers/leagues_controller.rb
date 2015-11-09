@@ -25,13 +25,13 @@ class LeaguesController < ApplicationController
   # POST /leagues.json
   def create
     @league = League.new(league_params)
-    @user = current_user
+    @user=User.find(current_user.id)
     @league.commissioner_id=current_user.id
     @league.user1_id=current_user.id
     @user.league1_id = @league.id
     @league.number_members = 1
     
-    @user.save!
+    @user.save!()
     
     respond_to do |format|
       if @league.save
