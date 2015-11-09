@@ -130,6 +130,7 @@
   <strong>User20:</strong>
   <%= User.find(@league.user20_id).email %>
 </p>
-<% end %>
+
 <%= link_to 'Edit', edit_league_path(@league) %> |
 <%= link_to 'Back', leagues_path %>
+<% end %>

@@ -32,16 +32,18 @@ class LeaguesController < ApplicationController
     
 
     
-    
+    if @this_user.num_leagues >= 5
+      flash[:notice]="League not created because you have reached max number of leagues!!"
+      redirect_to authenticated_root_path
+      return
+    end
     
     respond_to do |format|
       if @league.save
         
-        
         if @this_user.num_leagues==0
           @this_user.league1_id = @league.id
           @this_user.num_leagues=@this_user.num_leagues+1
-          puts "INNNSL:KDSKL:JDFHS:JKLDFH:"
         elsif @this_user.num_leagues==1
           @this_user.league2_id = @league.id
           @this_user.num_leagues=@this_user.num_leagues+1
@@ -61,12 +63,10 @@ class LeaguesController < ApplicationController
         @this_user.save!
         
         
-        
-        format.html { redirect_to @league, notice: 'League was successfully created.' }
+        format.html { redirect_to @league }
         format.json { render :show, status: :created, location: @league }
         array_of_emails = params[:email_list].split
         array_of_emails.each {|x| UserMailer.league_invite(x,@league.id).deliver_now}  #SEND EMAIL HERE
-        
       else
         format.html { render :new }
         format.json { render json: @league.errors, status: :unprocessable_entity }
