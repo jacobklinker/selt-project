@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151105214708) do
+ActiveRecord::Schema.define(version: 20151108035805) do
 
   create_table "games", force: :cascade do |t|
     t.string   "home_team",                   null: false
@@ -23,6 +23,60 @@ ActiveRecord::Schema.define(version: 20151105214708) do
     t.boolean  "is_finished", default: false
     t.datetime "game_time"
   end
+
+  create_table "leagues", force: :cascade do |t|
+    t.string   "league_name"
+    t.integer  "commissioner_id"
+    t.integer  "current_leader_id"
+    t.string   "conference_settings"
+    t.integer  "number_picks_settings"
+    t.integer  "number_members"
+    t.integer  "user1_id"
+    t.integer  "user2_id"
+    t.integer  "user3_id"
+    t.integer  "user4_id"
+    t.integer  "user5_id"
+    t.integer  "user6_id"
+    t.integer  "user7_id"
+    t.integer  "user8_id"
+    t.integer  "user9_id"
+    t.integer  "user10_id"
+    t.integer  "user11_id"
+    t.integer  "user12_id"
+    t.integer  "user13_id"
+    t.integer  "user14_id"
+    t.integer  "user15_id"
+    t.integer  "user16_id"
+    t.integer  "user17_id"
+    t.integer  "user18_id"
+    t.integer  "user19_id"
+    t.integer  "user20_id"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  add_index "leagues", ["commissioner_id"], name: "index_leagues_on_commissioner_id"
+  add_index "leagues", ["current_leader_id"], name: "index_leagues_on_current_leader_id"
+  add_index "leagues", ["user10_id"], name: "index_leagues_on_user10_id"
+  add_index "leagues", ["user11_id"], name: "index_leagues_on_user11_id"
+  add_index "leagues", ["user12_id"], name: "index_leagues_on_user12_id"
+  add_index "leagues", ["user13_id"], name: "index_leagues_on_user13_id"
+  add_index "leagues", ["user14_id"], name: "index_leagues_on_user14_id"
+  add_index "leagues", ["user15_id"], name: "index_leagues_on_user15_id"
+  add_index "leagues", ["user16_id"], name: "index_leagues_on_user16_id"
+  add_index "leagues", ["user17_id"], name: "index_leagues_on_user17_id"
+  add_index "leagues", ["user18_id"], name: "index_leagues_on_user18_id"
+  add_index "leagues", ["user19_id"], name: "index_leagues_on_user19_id"
+  add_index "leagues", ["user1_id"], name: "index_leagues_on_user1_id"
+  add_index "leagues", ["user20_id"], name: "index_leagues_on_user20_id"
+  add_index "leagues", ["user2_id"], name: "index_leagues_on_user2_id"
+  add_index "leagues", ["user3_id"], name: "index_leagues_on_user3_id"
+  add_index "leagues", ["user4_id"], name: "index_leagues_on_user4_id"
+  add_index "leagues", ["user5_id"], name: "index_leagues_on_user5_id"
+  add_index "leagues", ["user6_id"], name: "index_leagues_on_user6_id"
+  add_index "leagues", ["user7_id"], name: "index_leagues_on_user7_id"
+  add_index "leagues", ["user8_id"], name: "index_leagues_on_user8_id"
+  add_index "leagues", ["user9_id"], name: "index_leagues_on_user9_id"
 
   create_table "score_syncs", force: :cascade do |t|
     t.datetime "sync_start"
@@ -56,6 +110,8 @@ ActiveRecord::Schema.define(version: 20151105214708) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "first_name"
+    t.string   "last_name"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
