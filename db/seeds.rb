@@ -7,11 +7,11 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 users = [
-        {:email => 'luke@klinker.com', :password => 'password', :password_confirmation => 'password'},
-        {:email => 'jake@klinker.com', :password => 'password', :password_confirmation => 'password'},
-        {:email => 'tyson@massey.com', :password => 'password', :password_confirmation => 'password'},
-        {:email => 'rick@zamudio.com', :password => 'password', :password_confirmation => 'password'},
-        {:email => 'tyler@parker.com', :password => 'password', :password_confirmation => 'password'},
+        {:email => 'luke@klinker.com', :password => 'password', :password_confirmation => 'password',:first_name => "Luke",:last_name => "Klinker"},
+        {:email => 'jake@klinker.com', :password => 'password', :password_confirmation => 'password',:first_name => "Jake",:last_name => "Klinker"},
+        {:email => 'tyson@massey.com', :password => 'password', :password_confirmation => 'password',:first_name => "Tyson",:last_name => "Massey"},
+        {:email => 'rick@zamudio.com', :password => 'password', :password_confirmation => 'password',:first_name => "Richardo",:last_name => "Zamudio"},
+        {:email => 'tyler@parker.com', :password => 'password', :password_confirmation => 'password',:first_name => "T",:last_name => "P"},
   	 ]
 
 users.each do |user_params|
