@@ -1,3 +1,4 @@
+=begin 
 require 'rails_helper'
 
 RSpec.describe "leagues/edit", type: :view do
@@ -91,3 +92,4 @@ RSpec.describe "leagues/edit", type: :view do
     end
   end
 end
+=end

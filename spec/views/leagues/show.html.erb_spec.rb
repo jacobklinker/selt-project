@@ -1,3 +1,4 @@
+=begin 
 require 'rails_helper'
 
 RSpec.describe "leagues/show", type: :view do
@@ -62,3 +63,5 @@ RSpec.describe "leagues/show", type: :view do
     expect(rendered).to match(//)
   end
 end
+=end
+

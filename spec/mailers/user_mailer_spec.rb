@@ -10,8 +10,7 @@ RSpec.describe UserMailer, type: :mailer do
     
     it "should send an email to a user inviting them to a league" do
         user = double(User)
-        expect(user).to receive(:email).and_return("jklinker1@gmail.com")
-        email = UserMailer.league_invite(user)
+        email = UserMailer.league_invite("jklinker1@gmail.com",1)
         expect(email.to).to eq(['jklinker1@gmail.com'])
         expect(email.subject).to eq("You're Invited!")
     end

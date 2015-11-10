@@ -2,7 +2,7 @@ Given /^I am on the unauthenticated homepage$/ do
   visit unauthenticated_root_path
  end
  
- Given /^I am on the authenticated homepage$/ do
+ When /^I am on the authenticated homepage$/ do
   visit authenticated_root_path
  end
  
@@ -48,4 +48,3 @@ end
  Then /^I should not see "(.*?)"$/ do |text|
   expect(page).to have_no_content(text)
  end
-  

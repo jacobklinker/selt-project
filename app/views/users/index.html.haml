@@ -72,4 +72,4 @@
     %div.row
       %div.span12
         %h3 Quick Hits
-        =link_to "Create League",new_league_path, method: :get
+        =button_to 'Create League', {:controller => 'leagues', :action => 'new'}, {:id => 'create_league', :class => 'btn btn-primary btn-block', :method => 'get'}
