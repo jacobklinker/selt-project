@@ -61,12 +61,21 @@ h1.centered{
     margin-right: auto; 
 }
 
-input[type=checkbox]{
-    width:20px; 
-    height:20px;
-}
-
 .odds{
     font-size: 1.5em;
 }
 
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #E0FFFF;
+ }
+
+input[type="radio"].left {
+    height: 20px;
+    width: 20px;
+}
+
+input[type="radio"].right {
+    height: 20px;
+    width: 20px;
+}
