@@ -110,6 +110,12 @@ ActiveRecord::Schema.define(version: 20151108035805) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.integer  "league1_id"
+    t.integer  "league2_id"
+    t.integer  "league3_id"
+    t.integer  "league4_id"
+    t.integer  "league5_id"
+    t.integer  "num_leagues",            default: 0
     t.string   "first_name"
     t.string   "last_name"
   end

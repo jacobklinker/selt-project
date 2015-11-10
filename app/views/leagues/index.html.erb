@@ -1,0 +1,119 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Leagues</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>League name</th>
+      <th>Commissioner</th>
+      <th>Current leader</th>
+      <th>Conference settings</th>
+      <th>Number picks settings</th>
+      <th>Number members</th>
+      <th>User1</th>
+      <th>User2</th>
+      <th>User3</th>
+      <th>User4</th>
+      <th>User5</th>
+      <th>User6</th>
+      <th>User7</th>
+      <th>User8</th>
+      <th>User9</th>
+      <th>User10</th>
+      <th>User11</th>
+      <th>User12</th>
+      <th>User13</th>
+      <th>User14</th>
+      <th>User15</th>
+      <th>User16</th>
+      <th>User17</th>
+      <th>User18</th>
+      <th>User19</th>
+      <th>User20</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @leagues.each do |league| %>
+      <tr>
+        <td><%= league.league_name %></td>
+        <td><%= User.find(league.commissioner_id).email %></td>
+        <td><%= league.current_leader %></td>
+        <td><%= league.conference_settings %></td>
+        <td><%= league.number_picks_settings %></td>
+        <td><%= league.number_members %></td>
+        <td><%= if league.user1_id != nil
+                  User.find(league.user1_id).email 
+                end
+                  %></td>
+        <td><%= if league.user2_id != nil 
+                  User.find(league.user2_id).email
+                end
+                  %></td>
+        <td><%= if league.user3_id != nil
+                  User.find(league.user3_id).email 
+                end %></td>
+        <td><%=if league.user4_id != nil
+                  User.find(league.user4_id).email 
+                end %></td>
+        <td><%= if league.user5_id != nil
+                  User.find(league.user5_id).email 
+                end %></td>
+        <td><%= if league.user6_id != nil
+                  User.find(league.user6_id).email 
+                end %></td>
+        <td><%= if league.user7_id != nil
+                  User.find(league.user7_id).email 
+                end %></td>
+        <td><%= if league.user8_id != nil
+                  User.find(league.user8_id).email 
+                end %></td>
+        <td><%= if league.user9_id != nil
+                  User.find(league.user9_id).email 
+                end %></td>
+        <td><%= if league.user10_id != nil
+                  User.find(league.user10_id).email 
+                end %></td>
+        <td><%= if league.user11_id != nil
+                  User.find(league.user11_id).email 
+                end %></td>
+        <td><%= if league.user12_id != nil
+                  User.find(league.user12_id).email 
+                end %></td>
+        <td><%= if league.user13_id != nil
+                  User.find(league.user13_id).email 
+                end %></td>
+        <td><%= if league.user14_id != nil
+                  User.find(league.user14_id).email 
+                end %></td>
+        <td><%= if league.user15_id != nil
+                  User.find(league.user15_id).email 
+                end %></td>
+        <td><%= if league.user16_id != nil
+                  User.find(league.user16_id).email 
+                end %></td>
+        <td><%= if league.user17_id != nil
+                  User.find(league.user17_id).email 
+                end %></td>
+        <td><%= if league.user18_id != nil
+                  User.find(league.user18_id).email 
+                end %></td>
+        <td><%= if league.user19_id != nil
+                  User.find(league.user19_id).email 
+                end %></td>
+        <td><%= if league.user20_id != nil
+                  User.find(league.user20_id).email 
+                end %></td>
+        <td><%= link_to 'Show', league %></td>
+        <td><%= link_to 'Edit', edit_league_path(league) %></td>
+        <td><%= link_to 'Destroy', league, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New League', new_league_path %>
