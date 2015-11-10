@@ -15,3 +15,37 @@
 //= require bootstrap
 //= require turbolinks
 //= require_tree .
+
+function clearPick(game) {
+    var match = "game"+game
+    var buttons = document.getElementsByName(match);
+    
+    for(var i=0;i<buttons.length;i++)
+      buttons[i].checked = false;
+}
+
+function radioCount(){
+    var inputs = document.getElementsByTagName("*");
+    var radios = [];
+    var count = 0;
+    
+    for (var i = 0; i < inputs.length; ++i) {
+        if (inputs[i].type == 'radio') {
+            radios.push(inputs[i]);
+        }
+    }
+    
+    for(var i=0;i<radios.length;i++){
+        if(radios[i].checked){
+            count++;
+        }
+    }
+    
+    if(count == 10){
+        for(var i=0;i<radios.length;i++){
+            if(radios[i].checked == false){
+                radios[i].disabled = true;
+            }
+        }
+    }
+}
