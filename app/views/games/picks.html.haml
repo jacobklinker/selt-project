@@ -1,0 +1,26 @@
+%h1.centered Your Picks
+
+%table.table-striped.container#games
+  %thead
+    %tr
+      %th{:class => "col-2", :align => "center"}
+      %th{:class => "col-2", :align => "center"} Home Team
+      %th{:class => "col-2", :align => "center"}
+      %th{:class => "col-2", :align => "center"} Away Team
+      %th{:class => "col-2", :align => "center"}
+      
+  %tbody
+    - @games.each do |game|
+      %tr.spaced
+        %td{:class => "col-2", :align => "center"}
+          = check_box_tag "game#{game.id}[#{game.home_team}]"
+        %td{:class => "col-2", :align => "center"} 
+          %h3 #{game.home_team}
+          %div.odds #{game.home_odds}
+        %td{:class => "col-2", :align => "center"} VS.
+        %td{:class => "col-2", :align => "center"} 
+          %h3 #{game.away_team} 
+          %div.odds #{game.away_odds}
+        %td{:class => "col-2", :align => "center"}
+          = check_box_tag "game#{game.id}[#{game.away_team}]"
+        

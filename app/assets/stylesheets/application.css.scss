@@ -50,3 +50,23 @@ button{
     margin-right: auto; 
 }
 
+tr.spaced > td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+h1.centered{
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+input[type=checkbox]{
+    width:20px; 
+    height:20px;
+}
+
+.odds{
+    font-size: 1.5em;
+}
+

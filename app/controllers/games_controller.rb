@@ -21,4 +21,12 @@ class GamesController < ApplicationController
         redirect_to games_path
     end
     
+    def picks
+        @games = Game.all
+    end
+    
+    def show
+        @games = Game.all
+        render "games/picks"
+    end
 end
