@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108035805) do
+ActiveRecord::Schema.define(version: 20151108212320) do
 
   create_table "games", force: :cascade do |t|
     t.string   "home_team",                   null: false
@@ -110,14 +110,14 @@ ActiveRecord::Schema.define(version: 20151108035805) do
     t.string   "unconfirmed_email"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
+    t.string   "first_name"
+    t.string   "last_name"
     t.integer  "league1_id"
     t.integer  "league2_id"
     t.integer  "league3_id"
     t.integer  "league4_id"
     t.integer  "league5_id"
     t.integer  "num_leagues",            default: 0
-    t.string   "first_name"
-    t.string   "last_name"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true

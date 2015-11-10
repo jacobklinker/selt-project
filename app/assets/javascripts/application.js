@@ -17,11 +17,13 @@
 //= require_tree .
 
 function clearPick(game) {
-    var match = "game"+game
+    var match = "picks[game"+game+"]"
     var buttons = document.getElementsByName(match);
     
     for(var i=0;i<buttons.length;i++)
       buttons[i].checked = false;
+      
+    radioCount();
 }
 
 function radioCount(){
@@ -45,6 +47,13 @@ function radioCount(){
         for(var i=0;i<radios.length;i++){
             if(radios[i].checked == false){
                 radios[i].disabled = true;
+            }
+        }
+    }
+    else{
+        for(var i=0;i<radios.length;i++){
+            if(radios[i].checked == false){
+                radios[i].disabled = false;
             }
         }
     }
