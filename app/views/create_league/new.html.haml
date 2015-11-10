@@ -1,0 +1,20 @@
+%body
+  - if user_signed_in?
+    %div.jumbotron
+      %h1 League Settings
+    %div.row
+      %div.span12
+        %p.header Please fill in the information to create your new Pick'Em League
+
+      %div.span12
+        = form_tag root_path do 
+            = label :league_name 'League Name'
+            = text_field :leagues, 'league_name'
+            
+            = label :email 'Emails of Members to Invite (separated by comma)'
+            = text_field :leagues, '
+            
+
+
+    %div.row
+      %div.span12

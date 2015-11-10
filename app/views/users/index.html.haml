@@ -35,24 +35,41 @@
                 %h6 See League
           %tbody
             %tr
-              %td League 1
-              %td #{current_user.email}
-              %td 1/12
-              %td
-                %button.btn.btn-link Visit League
+              -if current_user.league1_id != nil
+                %td #{League.find(current_user.league1_id).league_name}
+                %td #{User.find(League.find(current_user.league1_id).commissioner_id).email}
+                %td 1/12
+                %td
+                  %button.btn.btn-link Visit League
             %tr
-              %td League 2
-              %td #{current_user.email}
-              %td 1/12
-              %td
-                %button.btn.btn-link Visit League
+              -if current_user.league2_id != nil
+                %td #{League.find(current_user.league2_id).league_name}
+                %td #{User.find(League.find(current_user.league2_id).commissioner_id).email}
+                %td 1/12
+                %td
+                  %button.btn.btn-link Visit League
             %tr
-              %td Big Kaboomers
-              %td #{current_user.email}
-              %td 1/12
-              %td
-                %button.btn.btn-link Visit League
+              -if current_user.league3_id != nil
+                %td #{League.find(current_user.league3_id).league_name}
+                %td #{User.find(League.find(current_user.league3_id).commissioner_id).email}
+                %td 1/12
+                %td
+                  %button.btn.btn-link Visit League
+            %tr
+              -if current_user.league4_id != nil
+                %td #{League.find(current_user.league4_id).league_name}
+                %td #{User.find(League.find(current_user.league4_id).commissioner_id).email}
+                %td 1/12
+                %td
+                  %button.btn.btn-link Visit League
+            %tr
+              -if current_user.league5_id != nil
+                %td #{League.find(current_user.league5_id).league_name}
+                %td #{User.find(League.find(current_user.league5_id).commissioner_id).email}
+                %td 1/12
+                %td
+                  %button.btn.btn-link Visit League
     %div.row
       %div.span12
         %h3 Quick Hits
-        %button.btn.btn-primary.btn-block Create League
+        =button_to 'Create League', {:controller => 'leagues', :action => 'new'}, {:id => 'create_league', :class => 'btn btn-primary btn-block', :method => 'get'}

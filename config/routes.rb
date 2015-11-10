@@ -11,7 +11,9 @@ Rails.application.routes.draw do
       root 'devise/sessions#new', as: :unauthenticated_root
     end
   end
-  
+  get "leagues/accept_invite"
+  post "leagues/add_user_to_league"
+  resources :leagues
   resources :games
   resources :syncs
   resources :score_syncs
@@ -20,5 +22,6 @@ Rails.application.routes.draw do
   get "users/sign_in"
   
   get "users/account_settings"
+  
   
 end

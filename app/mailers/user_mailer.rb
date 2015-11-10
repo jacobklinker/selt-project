@@ -5,8 +5,10 @@ class UserMailer < ApplicationMailer
         mail(to: "tyler-parker@uiowa.edu", subject: "Please work")
     end
     
-    def league_invite(user)
+    def league_invite(user,league_id)
         @user=user
-        mail(to: @user.email, subject: "You're Invited!")
+        @league_id = league_id
+        mail(to: @user, subject: "You're Invited!")
+        #
     end
 end
