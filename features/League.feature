@@ -12,4 +12,5 @@ Feature: Authenticated users can view detailed information on the leagues they a
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
+    Then I should see "Test League"
     And I should see "Commissioner: test@test.com"
