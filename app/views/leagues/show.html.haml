@@ -1,26 +1,66 @@
-%h1= "League: " + @league.league_name
+%body
+  %div.jumbotron
+    %h2= @league.league_name
+  
+  %br
+  =button_to 'Make picks for this week', authenticated_root_path, :class => 'btn btn-primary btn-block', :method => :get
 
-%br
-%p 
-  %strong Commissioner:
-  = @commissioner.first_name + " " + @commissioner.last_name
-
-%p 
-  %strong Current leader:
-  = @current_leader
-
-%p
-  %strong Conference:
-  = @league.conference_settings
-
-%p
-  %strong Number of picks:
-  = @league.number_picks_settings
-
-%p
-  %strong Number of members:
-  = @league.number_members
-
-= link_to 'Edit', edit_league_path(@league)
-|
-= link_to 'Back', leagues_path
+  %div.row
+    %div.span12
+      %hr
+      %h3 League Information
+      %table
+      - @infos.each do |info|
+        %tr
+          %td
+            %strong= info[:title] + ": "
+            = info[:data]
+            %br
+      %hr
+      
+  %div.row
+    %div.span12
+      %h3 League Standings
+      %table.table.table-striped
+        %thead
+          %tr
+            %th
+              %h6 Rank
+            %th
+              %h6 Name
+            %th
+              %h6 Overall Points
+            %th
+              %h6 This weeks picks
+        %tbody
+          - @players.each do |player|
+            %tr
+              %td= player[:rank]
+              %td= player[:name]
+              %td= player[:points]
+              %td= link_to "View", authenticated_root_path 
+      %hr
+  
+  %div.row
+    %div.span12
+      %h3 Weekly Winners
+      %table.table.table-striped
+        %thead
+          %tr
+            %th
+              %h6 Week Number
+            %th
+              %h6 Name
+            %th
+              %h6 Points
+        %tbody
+          - @weekly_winners.each do |winner|
+            %tr
+              %td= winner[:week_number]
+              %td= winner[:name]
+              %td= winner[:points]
+      %hr
+      
+  = link_to 'Edit', edit_league_path(@league)
+  |
+  = link_to 'Back', leagues_path

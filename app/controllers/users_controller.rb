@@ -15,14 +15,13 @@ class UsersController < ApplicationController
         
         @leagues = [];
         ids.each do |league_id|
-            l = League.find(league_id);
-            u = User.find(l.commissioner_id);
-            league = {
-                :league => l,
-                :commissioner => u.first_name + " " + u.last_name,
+            league = League.find(league_id);
+            user = User.find(league.commissioner_id);
+            @leagues << {
+                :league => league,
+                :commissioner => user.first_name + " " + user.last_name,
                 :position => "1/12"
             };
-            @leagues << league;
         end
     end
     
