@@ -22,7 +22,12 @@ class GamesController < ApplicationController
     end
     
     def picks
-        @games = Game.all
+        @games = {}
+        Game.each do |game|
+            if game.is_finished
+                @games << game
+            end
+        end
     end
     
     def show
