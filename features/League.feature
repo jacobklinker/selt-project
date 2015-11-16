@@ -63,6 +63,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When I click the "Make picks for this week" button
-    
+    Then I should see "test's Picks"
     
   Scenario: I can view a user's picks for the week
+    Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+
+    Given the following leagues have been added:
+    | name          | user1 |
+    | Test League   | 1     |
+
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    When I click the "View" link
+    Then I should see "test's Picks"

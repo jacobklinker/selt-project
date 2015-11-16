@@ -3,14 +3,10 @@ Given /the following leagues have been added:/ do |leagues_table|
    league = League.new
    league.commissioner_id = l[:user1]
    league.user1_id = l[:user1]
-   league.user2_id = l[:user2]
    league.league_name = l[:name]
-<<<<<<< HEAD
    league.conference_settings = "FBS"
    league.number_picks_settings = 5
-=======
->>>>>>> origin/master
-   
+
    league.save!
    
    u = User.find(1)
