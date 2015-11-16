@@ -65,7 +65,7 @@ class LeaguesController < ApplicationController
         
         format.html { redirect_to @league }
         format.json { render :show, status: :created, location: @league }
-        array_of_emails = params[:email_list].split
+        array_of_emails = params[:email_list].split(',')
         array_of_emails.each {|x| UserMailer.league_invite(x,@league.id).deliver_now}  #SEND EMAIL HERE
       else
         format.html { render :new }
