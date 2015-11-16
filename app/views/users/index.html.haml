@@ -1,7 +1,7 @@
 %body
   - if user_signed_in?
     %div.jumbotron
-      %h1 Welcome to Pick 'Em, #{current_user.first_name}!
+      %h1 Welcome to Pick 'Em, #{@user.first_name}!
     %div.row
       %div.span12
         %p.header Welcome to the Pick 'Em app.  From your home page, you can navigate to your active leagues, or create a new league of your own.  Enjoy, and best of luck with your picks!
