@@ -1,0 +1,45 @@
+!!!
+%html
+  %head
+    = javascript_include_tag "application.js"
+  %body
+    %h1{:align => "center"} #{current_user.first_name}'s Picks
+    %br
+    = form_tag authenticated_root_path, :method => :put do
+      %table.table-striped.container#games
+        %thead
+          %tr
+            %th{:class => "col-2 left", :align => "center"} Pick 'Em
+            %th{:class => "col-2", :align => "center"} Away
+            %th{:class => "col-2", :align => "center"}
+            %th{:class => "col-2", :align => "center"} Home
+            %th{:class => "col-2 right", :align => "center"} Pick 'Em
+            
+        %tbody
+          - @games.each do |game|
+            %tr.spaced
+              %td{:class => "col-2", :align => "center"}
+                = radio_button_tag "picks[game#{game.id}]", "#{game.away_team}", false, class: "left", :onclick => "radioCount()"
+              %td{:class => "col-2", :align => "center"} 
+                %h3 #{game.away_team}
+                - if game.away_odds > 0
+                  %div.odds +#{game.away_odds}
+                - else
+                  %div.odds #{game.away_odds}
+              %td{:class => "col-2", :align => "center"}
+                %h6 #{game.game_time.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %l:%M%p")} (ET)
+                %h4 VS.<br /><br />
+                %button.btn{:type => "button", :onclick => "clearPick(#{game.id})"} Clear Pick 
+              %td{:class => "col-2", :align => "center"} 
+                %h3 #{game.home_team} 
+                - if game.home_odds > 0
+                  %div.odds +#{game.home_odds}
+                - else
+                  %div.odds #{game.home_odds}
+              %td{:class => "col-2", :align => "center"}
+                = radio_button_tag "picks[game#{game.id}]", "#{game.home_team}", false, class: "right", :onclick => "radioCount()"
+      %br
+      %div.row
+        %div.span12
+          = submit_tag 'Submit Picks', class: "btn btn-block", :disabled => true
+          

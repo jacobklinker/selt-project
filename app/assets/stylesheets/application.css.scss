@@ -50,3 +50,32 @@ button{
     margin-right: auto; 
 }
 
+tr.spaced > td{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+h1.centered{
+    display: block;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.odds{
+    font-size: 1.5em;
+}
+
+.table-striped>tbody>tr:nth-child(odd)>td, 
+.table-striped>tbody>tr:nth-child(odd)>th {
+   background-color: #E0FFFF;
+ }
+
+input[type="radio"].left {
+    height: 20px;
+    width: 20px;
+}
+
+input[type="radio"].right {
+    height: 20px;
+    width: 20px;
+}
