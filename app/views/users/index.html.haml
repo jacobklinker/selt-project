@@ -34,41 +34,14 @@
               %th
                 %h6 See League
           %tbody
-            %tr
-              -if current_user.league1_id != nil
-                %td #{League.find(current_user.league1_id).league_name}
-                %td #{User.find(League.find(current_user.league1_id).commissioner_id).first_name} #{User.find(League.find(current_user.league1_id).commissioner_id).last_name}
-                %td 1/12
+            - @leagues.each do |league|
+              %tr
+                %td= league[:league].league_name
+                %td= league[:commissioner]
+                %td= league[:position]
                 %td
-                  %button.btn.btn-link= link_to "Visit League", league_path(League.find(current_user.league1_id))
-            %tr
-              -if current_user.league2_id != nil
-                %td #{League.find(current_user.league2_id).league_name}
-                %td #{User.find(League.find(current_user.league2_id).commissioner_id).first_name} #{User.find(League.find(current_user.league1_id).commissioner_id).last_name}
-                %td 1/12
-                %td
-                  %button.btn.btn-link= link_to "Visit League", league_path(League.find(current_user.league2_id))
-            %tr
-              -if current_user.league3_id != nil
-                %td #{League.find(current_user.league3_id).league_name}
-                %td #{User.find(League.find(current_user.league3_id).commissioner_id).first_name} #{User.find(League.find(current_user.league1_id).commissioner_id).last_name}
-                %td 1/12
-                %td
-                  %button.btn.btn-link= link_to "Visit League", league_path(League.find(current_user.league3_id))
-            %tr
-              -if current_user.league4_id != nil
-                %td #{League.find(current_user.league4_id).league_name}
-                %td #{User.find(League.find(current_user.league4_id).commissioner_id).first_name} #{User.find(League.find(current_user.league1_id).commissioner_id).last_name}
-                %td 1/12
-                %td
-                  %button.btn.btn-link= link_to "Visit League", league_path(League.find(current_user.league3_id))
-            %tr
-              -if current_user.league5_id != nil
-                %td #{League.find(current_user.league5_id).league_name}
-                %td #{User.find(League.find(current_user.league5_id).commissioner_id).first_name} #{User.find(League.find(current_user.league1_id).commissioner_id).last_name}
-                %td 1/12
-                %td
-                  %button.btn.btn-link= link_to "Visit League", league_path(League.find(current_user.league4_id))
+                  %button.btn.btn-link= link_to "Visit League", league_path(league[:league])
+            
     %div.row
       %div.span12
         %h3 Quick Hits
