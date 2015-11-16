@@ -23,46 +23,39 @@ function clearPick(game) {
     for(var i=0;i<buttons.length;i++)
       buttons[i].checked = false;
       
-    radioCount(game);
+    radioCount();
 }
 
-function radioCount(game){
-    var inputs = document.getElementsByTagName("*");
-    var radios = [];
-    var count = 0;
-    
-    for (var i = 0; i < inputs.length; ++i) {
-        if (inputs[i].type == 'radio') {
-            radios.push(inputs[i]);
-        }
-    }
-    
-    for(i=0;i<radios.length;i++){
-        if(radios[i].checked){
-            count++;
-        }
-    }
-    
-    if(count == 5){
-        for(i=0;i<radios.length;i++){
-            if(radios[i].checked == false){
-                radios[i].disabled = true;
+
+function radioCount(){
+    if($(":radio:checked").size()==5){
+        $(":radio").each(function() {
+            
+            var $this = $(this);
+            
+            if(!$this.is(":checked")){
+                $this.attr('disabled', true);
             }
-        }
+        })
+        
+        $(":radio").each(function() {
+            var $this = $(this);
+            if($(this).is(":checked")){
+                $(":radio").each(function() {
+                    if($(this).attr('name') == $this.attr('name')){
+                        $(this).attr('disabled', false);
+                    }
+                })
+            }
+        })
+        
+        $('input[type="submit"]').prop('disabled', false);
     }
     else{
-        for(i=0;i<radios.length;i++){
-            if(radios[i].checked == false){
-                radios[i].disabled = false;
-            }
-        }
-    }
-    
-    for(i=0;i<radios.length;i++){
-        if(radios[i].checked){
-            var same = document.getElementsByName(radios[i].name);
-            for(var j=0;j<same.length;j++)
-                same[j].disabled = false;
-        }
+        $(":radio").each(function() {
+            $(this).attr('disabled', false);
+        })
+        
+        $('input[type="submit"]').prop('disabled', true);
     }
 }
