@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-    default from: "Pick_'Em@NOREPLY.com"
+    default from: "hey@pickem.com"
     
     def test_email
         mail(to: "tyler-parker@uiowa.edu", subject: "Please work")

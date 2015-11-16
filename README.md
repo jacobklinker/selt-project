@@ -80,3 +80,19 @@ TP
 #### Deploying to Heroku:
 1. commit any changes
 2. git push heroku master
+
+
+## Useful Hints/Commands
+1. You can still use rails console to view the Heroku Postgres database.
+
+```
+heroku run rails console
+heroku run rails console --sandbox
+```
+
+2. Resetting the database is different on heroku.
+
+```
+heroku pg:reset DATABASE
+heroku run rake db:migrate db:seed
+```
