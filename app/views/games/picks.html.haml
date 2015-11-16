@@ -27,7 +27,8 @@
                 - else
                   %div.odds #{game.home_odds}
               %td{:class => "col-2", :align => "center"}
-                VS.<br /><br />
+                %h6 #{game.game_time}
+                <strong>VS.</strong><br /><br />
                 %button.btn{:type => "button", :onclick => "clearPick(#{game.id})"} Clear Pick 
               %td{:class => "col-2", :align => "center"} 
                 %h3 #{game.away_team} 
