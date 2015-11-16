@@ -1,36 +1,83 @@
 class LeaguesController < ApplicationController
   before_action :set_league, only: [:show, :edit, :update, :destroy]
 
-  # GET /leagues
-  # GET /leagues.json
   def index
     @leagues = League.all
   end
 
-  # GET /leagues/1
-  # GET /leagues/1.json
   def show
+    @infos = [];
+    @infos << { :title => "Commissioner", :data => User.find(@league.commissioner_id).email };
+    @infos << { :title => "Conference", :data => @league.conference_settings };
+    @infos << { :title => "Picks Per Week", :data => @league.number_picks_settings };
+    
+    # list of members
+    memberIds = [];
+    memberIds << @league.user1_id unless @league.user1_id == nil
+    memberIds << @league.user2_id unless @league.user2_id == nil
+    memberIds << @league.user3_id unless @league.user3_id == nil
+    memberIds << @league.user4_id unless @league.user4_id == nil
+    memberIds << @league.user5_id unless @league.user5_id == nil
+    memberIds << @league.user6_id unless @league.user6_id == nil
+    memberIds << @league.user7_id unless @league.user7_id == nil
+    memberIds << @league.user8_id unless @league.user8_id == nil
+    memberIds << @league.user9_id unless @league.user9_id == nil
+    memberIds << @league.user10_id unless @league.user10_id == nil
+    memberIds << @league.user11_id unless @league.user11_id == nil
+    memberIds << @league.user12_id unless @league.user12_id == nil
+    memberIds << @league.user13_id unless @league.user13_id == nil
+    memberIds << @league.user14_id unless @league.user14_id == nil
+    memberIds << @league.user15_id unless @league.user15_id == nil
+    memberIds << @league.user16_id unless @league.user16_id == nil
+    memberIds << @league.user17_id unless @league.user17_id == nil
+    memberIds << @league.user18_id unless @league.user18_id == nil
+    memberIds << @league.user19_id unless @league.user19_id == nil
+    memberIds << @league.user20_id unless @league.user20_id == nil
+        
+    @players = [];
+    i = 1;
+    memberIds.each do |user_id|
+      user = User.find(user_id);
+      @players << {
+        :rank => i,
+        :name => user.first_name + " " + user.last_name,
+        :points => "NA"
+      }
+      i = i + 1;
+    end
+    
+    winnersIds = [];
+    winnersIds << 1;
+    winnersIds << 2;
+    winnersIds << 1;
+    
+    @weekly_winners = []
+    i = 1;
+    winnersIds.each do |user_id|
+      user = User.find(user_id);
+      @weekly_winners << {
+        :week_number => i,
+        :name => user.first_name + " " + user.last_name,
+        :points => "6"
+      }
+      i = i + 1;
+    end
+    
   end
 
-  # GET /leagues/new
   def new
     @league = League.new
   end
 
-  # GET /leagues/1/edit
   def edit
   end
 
-  # POST /leagues
-  # POST /leagues.json
   def create
     @league = League.new(league_params)
     @this_user=User.find(current_user.id)
     @league.commissioner_id=current_user.id
     @league.user1_id=current_user.id
     @league.number_members = 1
-    
-
     
     if @this_user.num_leagues >= 5
       flash[:notice]="League not created because you have reached max number of leagues!!"
@@ -74,8 +121,6 @@ class LeaguesController < ApplicationController
     end
   end
 
-  # PATCH/PUT /leagues/1
-  # PATCH/PUT /leagues/1.json
   def update
     respond_to do |format|
       if @league.update(league_params)
@@ -88,8 +133,6 @@ class LeaguesController < ApplicationController
     end
   end
 
-  # DELETE /leagues/1
-  # DELETE /leagues/1.json
   def destroy
     @league.destroy
     respond_to do |format|

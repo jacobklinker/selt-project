@@ -27,6 +27,5 @@ Scenario: Login to confirmed account
   And I should see "Logout"
   And I should see "Announcements"
   And I should see "My Leagues"
-  #And I should see "Create League"
   And I should see "Account Settings"
   And I should not see "Login"
