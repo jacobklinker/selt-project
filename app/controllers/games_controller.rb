@@ -7,7 +7,7 @@ class GamesController < ApplicationController
     end
     
     def index
-        @games = Game.all
+        #@games = Game.all
     end
     
     def edit
@@ -22,13 +22,16 @@ class GamesController < ApplicationController
     end
     
     def picks
-        @games = Game.all
+        @games= Game.all
     end
     
     def show
-        @games = Game.all
-        @games.each do |game|
-            game.game_time = game.game_time.localtime
+        allGames = Game.all
+        @games = []
+        allGames.each do |game|
+            if Time.now.utc < game.game_time.utc
+                @games.push(game)
+            end
         end
         render "games/picks"
     end
