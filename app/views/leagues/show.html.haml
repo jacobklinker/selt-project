@@ -3,7 +3,7 @@
     %h2= @league.league_name
   
   %br
-  =button_to 'Make picks for this week', authenticated_root_path, :class => 'btn btn-primary btn-block', :method => :get
+  =button_to 'Make picks for this week', games_picks_path, :class => 'btn btn-primary btn-block', :method => :get
 
   %div.row
     %div.span12
@@ -38,7 +38,7 @@
               %td= player[:rank]
               %td= player[:name]
               %td= player[:points]
-              %td= link_to "View", authenticated_root_path 
+              %td= link_to "View", games_picks_path
       %hr
   
   %div.row
