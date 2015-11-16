@@ -10,6 +10,14 @@ class LeaguesController < ApplicationController
   # GET /leagues/1
   # GET /leagues/1.json
   def show
+    @commissioner = User.find(@league.commissioner_id);
+    
+    if @league.current_leader_id != nil then
+      leader = User.find(@league.current_leader_id);
+      @current_leader = leader.first_name + " " + leader.last_name
+    else 
+      @current_leader = "None";
+    end
   end
 
   # GET /leagues/new

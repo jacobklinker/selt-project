@@ -1,0 +1,26 @@
+%h1= "League: " + @league.league_name
+
+%br
+%p 
+  %strong Commissioner:
+  = @commissioner.first_name + " " + @commissioner.last_name
+
+%p 
+  %strong Current leader:
+  = @current_leader
+
+%p
+  %strong Conference:
+  = @league.conference_settings
+
+%p
+  %strong Number of picks:
+  = @league.number_picks_settings
+
+%p
+  %strong Number of members:
+  = @league.number_members
+
+= link_to 'Edit', edit_league_path(@league)
+|
+= link_to 'Back', leagues_path
