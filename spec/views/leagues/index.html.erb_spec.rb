@@ -1,7 +1,6 @@
-=begin 
 require 'rails_helper'
 
-RSpec.describe "leagues/index", type: :view do
+describe "leagues/index", type: :view do
   before(:each) do
     assign(:leagues, [
       League.create!(
@@ -93,4 +92,3 @@ RSpec.describe "leagues/index", type: :view do
     assert_select "tr>td", :text => nil.to_s, :count => 2
   end
 end
-=end

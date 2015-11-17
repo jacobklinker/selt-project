@@ -1,4 +1,3 @@
-=begin
 require 'rails_helper'
 
 RSpec.describe "Leagues", type: :request do
@@ -9,4 +8,3 @@ RSpec.describe "Leagues", type: :request do
     end
   end
 end
-=end

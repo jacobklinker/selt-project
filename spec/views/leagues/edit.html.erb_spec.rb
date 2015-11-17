@@ -1,7 +1,6 @@
-=begin 
 require 'rails_helper'
 
-RSpec.describe "leagues/edit", type: :view do
+describe "leagues/edit", type: :view do
   before(:each) do
     @league = assign(:league, League.create!(
       :league_name => "MyString",
@@ -92,4 +91,3 @@ RSpec.describe "leagues/edit", type: :view do
     end
   end
 end
-=end
