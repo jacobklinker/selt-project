@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151108212320) do
+ActiveRecord::Schema.define(version: 20151117024618) do
 
   create_table "games", force: :cascade do |t|
     t.string   "home_team",                   null: false
@@ -22,6 +22,12 @@ ActiveRecord::Schema.define(version: 20151108212320) do
     t.integer  "away_score"
     t.boolean  "is_finished", default: false
     t.datetime "game_time"
+  end
+
+  create_table "league_picks", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "league_id"
+    t.integer "week"
   end
 
   create_table "leagues", force: :cascade do |t|
@@ -77,6 +83,12 @@ ActiveRecord::Schema.define(version: 20151108212320) do
   add_index "leagues", ["user7_id"], name: "index_leagues_on_user7_id"
   add_index "leagues", ["user8_id"], name: "index_leagues_on_user8_id"
   add_index "leagues", ["user9_id"], name: "index_leagues_on_user9_id"
+
+  create_table "picks", force: :cascade do |t|
+    t.integer "game_id"
+    t.boolean "home_wins"
+    t.integer "league_pick_id"
+  end
 
   create_table "score_syncs", force: :cascade do |t|
     t.datetime "sync_start"
