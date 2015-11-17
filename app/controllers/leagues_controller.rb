@@ -6,6 +6,12 @@ class LeaguesController < ApplicationController
   end
 
   def show
+    if @league == nil then
+      flash[:notice] = "Oops, that league doesn't exist!"
+      redirect_to leagues_path
+      return
+    end
+    
     @infos = [];
     @infos << { :title => "Commissioner", :data => User.find(@league.commissioner_id).email };
     @infos << { :title => "Conference", :data => @league.conference_settings };
@@ -47,9 +53,7 @@ class LeaguesController < ApplicationController
     end
     
     winnersIds = [];
-    winnersIds << 1;
     winnersIds << 2;
-    winnersIds << 1;
     
     @weekly_winners = []
     i = 1;
