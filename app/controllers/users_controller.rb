@@ -6,6 +6,11 @@ class UsersController < ApplicationController
     end
     
     def index
+        if @user == nil then 
+            redirect_to unauthenticated_root_path
+            return
+        end
+        
         ids = [];
         ids << @user.league1_id unless @user.league1_id == nil
         ids << @user.league2_id unless @user.league2_id == nil
