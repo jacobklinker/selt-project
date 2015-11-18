@@ -45,6 +45,7 @@ class LeaguesController < ApplicationController
     memberIds.each do |user_id|
       user = User.find(user_id);
       @players << {
+        :id => user.id,
         :rank => i,
         :name => user.first_name + " " + user.last_name,
         :points => "NA"
