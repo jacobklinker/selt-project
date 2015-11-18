@@ -49,7 +49,27 @@ class GamesController < ApplicationController
     end
     
     def show_picks
+        league = League.find(params[:league_id])
+        user = User.find(params[:user_id])
+        week = Time.now.strftime('%U')
         
+        @league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week).take
+        
+        if @league_pick == nil 
+            render "games/no_picks"
+            return
+        end
+        
+        @picks = Pick.where(league_pick_id: @league_pick.id).find_each
+        @games = []
+        
+        @picks.each do |pick|
+            game = Game.find(pick.game_id)
+            @games << {
+                :game => game, 
+                :home_winner => pick.home_wins
+            }
+        end
     end
     
 end

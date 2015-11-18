@@ -36,3 +36,23 @@ end
 Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
   field_labeled(field).value.should =~ /#{value}/
 end
+
+Given(/^the following league picks have been added:$/) do |table|
+    table.hashes.each do |league_pick|
+        LeaguePick.create(:league_id => league_pick[:league_id], 
+            :user_id => league_pick[:user_id], :week => Time.now.strftime('%U'))
+    end
+end
+
+Given(/^the following picks have been added:$/) do |table|
+    table.hashes.each do |pick|
+        Pick.create(:league_pick_id => pick[:league_pick_id], 
+            :game_id => pick[:game_id], :home_wins => pick[:home_wins])
+    end
+end
+
+Then(/^I should see the picks listed on screen$/) do
+    expect(page).to have_content("Iowa")
+    expect(page).to have_content("Iowa State")
+    expect(page).to have_content("test's Picks")
+end

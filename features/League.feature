@@ -92,7 +92,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     When I click the "Make picks for this week" button
     Then I should see "test's Picks"
     
-  Scenario: I can view a user's picks for the week
+  Scenario: I can be notified when another user hasn't made their picks yet for the week
     Given the following users have been added:
     | email          | password | first_name | last_name |
     | test@test.com  | password | test       | user      |
@@ -105,7 +105,36 @@ Feature: Authenticated users can view detailed information on the leagues they a
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When I click the "View" link
-    Then I should see "test's Picks"
+    Then I should see "This user hasn't made any picks yet!"
+    
+  Scenario: I can see another user's picks for the week
+    Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+
+    Given the following leagues have been added:
+    | name          | user1 |
+    | Test League   | 1     |
+    
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds |
+    | Iowa        | Maryland  | 10        | -10       |
+    | Iowa State  | Texas     | -8        | 8         |
+    
+    Given the following league picks have been added:
+    | league_id     | user_id |
+    | 1             | 1       |
+    
+    Given the following picks have been added:
+    | game_id   | league_pick_id  | home_wins   |
+    | 1         | 1               | true        |
+    | 2         | 1               | false       |
+
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    When I click the "View" link
+    Then I should see the picks listed on screen
     
   Scenario: I can clear a previously made pick
     Given the following users have been added:
