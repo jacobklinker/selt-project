@@ -79,3 +79,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     And I am on the league page
     When I click the "View" link
     Then I should see "test's Picks"
+    
+  Scenario: I can clear a previously made pick
+    Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+
+    Given the following leagues have been added:
+    | name          | user1 | user2 |
+    | Test League   | 1     | 2     |
+
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    When I click the "Make picks for this week" button
+    And I choose the first away team
+    Then I should see "test's Picks"
