@@ -21,7 +21,8 @@ Rails.application.routes.draw do
   get "users/sign_up"
   get "users/sign_in"
   
-  get "games/picks/:league_id", to: 'games#picks'
+  get "games/picks/:league_id", to: 'games#picks', as: 'games_picks'
+  post "games/submit_picks/:league_id", to: "games#submit_picks", as: "games_submit_picks"
   
   get "users/account_settings"
   
