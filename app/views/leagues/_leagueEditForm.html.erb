@@ -25,7 +25,7 @@
       <div class="field">
         <br><%= f.label :number_picks_settings %>
         <%= f.select :number_picks_settings, 
-        options_for_select((1..20),1) %>
+        options_for_select((1..20),@league.number_picks_settings) %>
       </div>
       <div class="field">
         <br><%= label_tag "Invite More Friends"%>
