@@ -29,7 +29,7 @@
               %td{:class => "col-2", :align => "center"}
                 %h6 #{game.game_time.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %l:%M%p")} (ET)
                 %h4 VS.<br /><br />
-                %button.btn{:type => "button", :onclick => "clearPick(#{game.id})"} Clear Pick 
+                %button.btn{:type => "button", :onclick => "clearPick(#{game.id})", :id => "clearpick[#{game.id}]"} Clear Pick 
               %td{:class => "col-2", :align => "center"} 
                 %h3 #{game.home_team} 
                 - if game.home_odds > 0

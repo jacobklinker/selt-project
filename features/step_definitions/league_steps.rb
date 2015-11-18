@@ -19,6 +19,20 @@ And /I am on the league page/ do
   visit league_path(League.first())
 end
 
+And /I choose the first away team/ do
+    find('.left', 'picks[game1]').choose()
+end
+
+And /I clear my pick/ do
+    
+end
+
+Then /I should have one pick/ do
+end
+
+Then /I should have zero picks/ do
+end
+
 Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
   field_labeled(field).value.should =~ /#{value}/
 end

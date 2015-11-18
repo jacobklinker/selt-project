@@ -8,9 +8,9 @@
 
   %body
     %div.container
-      %nav.nav.navbar.navbar-default{:role => "navigation"}
+      %nav.nav.navbar.nav-tabs.navbar-default{:role => "navigation"}
         .container-fluid
-          %ul.nav.nav-tabs
+          %ul.nav
             %li
               - if !user_signed_in?
                 = link_to "Home", authenticated_root_path, :id => 'home'
@@ -22,7 +22,7 @@
               - else
                 %li
                   = link_to "Account Settings", users_account_settings_path, :id => 'account_settings'
-          %ul.nav.nav-tabs.navbar-right  
+          %ul.nav.pull-right
             %li
               - if user_signed_in?
                 = link_to "Logout", destroy_user_session_path, :method => :delete, :id => 'logout'

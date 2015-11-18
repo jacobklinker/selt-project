@@ -31,25 +31,52 @@ Feature: Authenticated users can view detailed information on the leagues they a
     And I should see "test user"
     And I should see "test2 user2"
     
-  Scenario: I can edit a league
+    Scenario: Go to edit League page
+      Given the following users have been added:
+          | email          | password | first_name | last_name |
+          | test@test.com  | password | test       | user      |
+          | test2@test.com | password | test2      | user2     |
+      
+      Given the following leagues have been added:
+          | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
+          | Test League   | 1     | 2     | 1               | FBS                 | 5                     |       
+            
+      When I login with "test@test.com" and password "password"
+      And I am on the league page
+      And I click the "Edit League Settings" link
+      Then I should see "Editing League"
+    
+  Scenario: I can edit a league as a commissioner 
     Given the following users have been added:
     | email          | password | first_name | last_name |
     | test@test.com  | password | test       | user      |
     | test2@test.com | password | test2      | user2     |
 
     Given the following leagues have been added:
-    | name          | user1 | user2 |
-    | Test League   | 1     | 2     |
+    | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
+    | Test League   | 1     | 2     | 1               | FBS                 | 5                     |       
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
     And I click the "Edit" link
     Then the "League name" field should contain "Test League"
-    And the "Commissioner" field should contain "1"
     And the "Conference settings" field should contain "FBS"
     And the "Number picks settings" field should contain "5"
-    And the "User1" field should contain "1"
     
+  Scenario: I have the option to edit league settings as commissioner
+    Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+
+    Given the following leagues have been added:
+    | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
+    | Test League   | 1     | 2     | 1               | FBS                 | 5                     |       
+
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    And I should see "Edit League Settings"
+  
   Scenario: I can make picks for the current week
     Given the following users have been added:
     | email          | password | first_name | last_name |
@@ -78,4 +105,20 @@ Feature: Authenticated users can view detailed information on the leagues they a
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When I click the "View" link
+    Then I should see "test's Picks"
+    
+  Scenario: I can clear a previously made pick
+    Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+
+    Given the following leagues have been added:
+    | name          | user1 | user2 |
+    | Test League   | 1     | 2     |
+
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    When I click the "Make picks for this week" button
+    And I choose the first away team
     Then I should see "test's Picks"
