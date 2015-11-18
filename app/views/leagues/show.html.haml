@@ -3,7 +3,10 @@
     %h2= @league.league_name
   
   %br
-  =button_to 'Make picks for this week', games_picks_path(@league), :class => 'btn btn-primary btn-block', :method => :get
+  - if @league_pick == nil || @league_pick.size() == 0
+    =button_to 'Make picks for this week', games_picks_path(@league), :class => 'btn btn-primary btn-block', :method => :get
+  - else
+    =button_to 'View your picks for this week', show_picks_path(@league, @current_user), :class => 'btn btn-primary btn-block', :method => :get
 
   %div.row
     %div.span12

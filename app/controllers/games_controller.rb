@@ -48,4 +48,8 @@ class GamesController < ApplicationController
         redirect_to league_path(league)
     end
     
+    def show_picks
+        
+    end
+    
 end
