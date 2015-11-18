@@ -16,6 +16,9 @@
             %strong= info[:title] + ": "
             = info[:data]
             %br
+      %br
+      - if current_user.id==@league.commissioner_id
+        %td= link_to "Edit League Settings", edit_league_path
       %hr
       
   %div.row
