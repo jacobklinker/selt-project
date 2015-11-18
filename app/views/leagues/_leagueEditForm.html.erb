@@ -1,0 +1,44 @@
+<%= form_for(@league) do |f| %>
+  <% if @league.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@league.errors.count, "error") %> prohibited this league from being saved:</h2>
+
+      <ul>
+      <% @league.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="span4">
+        <div class="field">
+        <%= f.label :league_name %>
+        <%= f.text_field :league_name %>
+      </div>
+      <div class="field">
+       <br> <%= f.label :conference_settings %>
+        <%= f.select :conference_settings, 
+        options_for_select({ "FBS" => "FBS", "SEC" => "SEC","BIG 10" => "Big 10", "Big 12" => "Big 12","ACC" => "ACC", "American Athletic Conference" => "American Athletic Conference","Conference USA" => "Conference USA", "Mid-American Conference" => "Mid-American Conference", "Mountain West Conference" => "Mountain West Conference", "PAC 12" => "PAC 12", "Sun Belt" => "Sun Belt" },"FBS" => "FBS") %>
+      </div>
+      <div class="field">
+        <br><%= f.label :number_picks_settings %>
+        <%= f.select :number_picks_settings, 
+        options_for_select((1..20),1) %>
+      </div>
+      <div class="field">
+        <br><%= label_tag "Invite More Friends"%>
+        <%= text_area_tag "email_list"%>
+      </div>
+      <div class="actions">
+        <%= f.submit %>
+      </div>
+    </div>
+    <div class="span8">
+      <%= image_tag "Drawing.png", :alt => "Logo", :class => "login_page_logo" %>
+    </div>
+    
+  </div>
+  
+<% end %>
