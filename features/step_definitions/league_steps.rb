@@ -20,7 +20,7 @@ And /I am on the league page/ do
 end
 
 And /I choose the first away team/ do
-    find('.left', 'picks[game1]').choose()
+    find('.left', 'picks[1]').click()
 end
 
 And /I clear my pick/ do
