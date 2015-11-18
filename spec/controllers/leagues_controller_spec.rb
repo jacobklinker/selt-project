@@ -9,6 +9,8 @@ describe LeaguesController do
   
   describe "viewing a valid league" do 
     before :each do 
+      @user = double(User)
+      controller.current_user = @user
       @league = League.new
       @league.commissioner_id = 1
       
@@ -23,6 +25,7 @@ describe LeaguesController do
         expect(League).to receive(:find).with("1").and_return(@league)
         expect(User).to receive(:find).with(1).and_return(@commissioner)
         expect(User).to receive(:find).with(2).and_return(@commissioner)
+        expect(@user).to receive(:id).and_return(0)
         
         get :show, {:id => 1}
       end
@@ -38,6 +41,7 @@ describe LeaguesController do
     
     describe "with participants" do
        before :each do
+        expect(@user).to receive(:id).and_return(0)
         @league.user1_id = 1
         
         expect(League).to receive(:find).with("1").and_return(@league)
