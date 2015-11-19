@@ -19,7 +19,7 @@
           - @games.each do |game|
             %tr.spaced
               %td{:class => "col-2", :align => "center"}
-                = radio_button_tag "picks[#{game.id}]", "#{game.away_team}", false, class: "left", :onclick => "radioCount()"
+                = radio_button_tag "picks[#{game.id}]", "#{game.away_team}", false, class: "left", :onclick => "radioCount(#{@num_picks})"
               %td{:class => "col-2", :align => "center"} 
                 %h3 #{game.away_team}
                 - if game.away_odds > 0
@@ -37,7 +37,7 @@
                 - else
                   %div.odds #{game.home_odds}
               %td{:class => "col-2", :align => "center"}
-                = radio_button_tag "picks[#{game.id}]", "#{game.home_team}", false, class: "right", :onclick => "radioCount()"
+                = radio_button_tag "picks[#{game.id}]", "#{game.home_team}", false, class: "right", :onclick => "radioCount(#{@num_picks})"
       %br
       %div.row
         %div.span12

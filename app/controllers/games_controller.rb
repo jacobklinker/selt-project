@@ -22,6 +22,7 @@ class GamesController < ApplicationController
     end
     
     def picks
+        league = League.find(params[:league_id])
         allGames = Game.all
         @games = []
         allGames.each do |game|
@@ -30,6 +31,9 @@ class GamesController < ApplicationController
             end
         end
         @league_id = params[:league_id]
+        
+        @num_picks = league.number_picks_settings;
+        
     end
     
     def submit_picks
