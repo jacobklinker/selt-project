@@ -23,17 +23,136 @@ class GamesController < ApplicationController
     
     def picks
         league = League.find(params[:league_id])
+        @num_picks = league.number_picks_settings;
         allGames = Game.all
-        @games = []
+        futureGames = []
         allGames.each do |game|
             if Time.now.utc < game.game_time.utc
-                @games.push(game)
+                futureGames.push(game)
             end
         end
         @league_id = params[:league_id]
         
-        @num_picks = league.number_picks_settings;
+        conference = league.conference_settings;
         
+        #FBS: ALL
+        #SEC: Alabama, Arkansas, Auburn, Florida, Georgia, Kentucky, LSU, Mississippi St, Missouri, Mississippi, South Carolina, Tennessee U, Texas A&M, Vanderbilt
+        #BIG Ten: Ohio State, Michigan State, Michigan, Penn State, Rutgers, Indiana, Maryland, Iowa, Wisconsin, Northwestern, Nebraska, Illinois, 	Minnesota U, Purdue
+        #Big 12: Oklahoma State, Oklahoma, TCU, Baylor, Texas, Texas Tech, West Virginia, Iowa State, Kansas State, Kansas
+        #ACC: Clemson, Florida State, Louisville, NC State, Syracuse, Wake Forest, Boston College, North Carolina, Pittsburgh U, Miami Florida, Duke, Virginia Tech, Virginia, Georgia Tech
+        #American Athletic Conference: Temple, South Florida, Cincinnati U, Connecticut, East Carolina, UCF, Houston, Navy, Memphis, Tulsa, Tulane, SMU
+        #Conference USA: Western Kentucky, Marshall, Middle Tennessee St, Old Dominion, Florida Intl, Florida Atlantic, Charlotte, Louisiana Tech, Southern Mississippi, UTEP, Rice, Texas San Antonio, North Texas
+        #Mid-American Conference: Bowling Green, Bowling Green, Buffalo U, Akron, Kent State, Massachusetts, Miami Ohio, Toledo, Northern Illinois, Western Michigan, Central Michigan, Ball State, Eastern Michigan
+        #Mountain West Conference: Air Force, Boise State, New Mexico, Utah State, Colorado State, Wyoming, San Diego State, Nevada, San José State, UNLV, Fresno State, Hawaii
+        #PAC 12: Stanford, Oregon, Washington State, California, Washington U, Oregon State, Utah, USC, UCLA, Arizona State, Arizona, Colorado
+        #Sun Belt: Arkansas State, Appalachian State, Georgia Southern, South Alabama, UL Lafayette, Georgia State, New Mexico State, Troy, Idaho, Texas State, UL Monroe
+        
+        games = []
+        @games = []
+        case conference
+            when "FBS"
+                @games = futureGames;
+            when "SEC"
+                teams = ["Alabama", "Arkansas", "Auburn", "Florida", "Georgia", "Kentucky", "LSU", "Mississippi St", "Missouri", "Mississippi", "South Carolina", "Tennessee U", "Texas A&M", "Vanderbilt"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+            when "Big 10"
+                teams = ["Ohio State", "Michigan State", "Michigan", "Penn State", "Rutgers", "Indiana", "Maryland", "Iowa", "Wisconsin", "Northwestern", "Nebraska", "Illinois", "Minnesota U", "Purdue"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+            when "Big 12"
+                teams = ["Oklahoma State", "Oklahoma", "TCU", "Baylor", "Texas", "Texas Tech", "West Virginia", "Iowa State", "Kansas State", "Kansas"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+            when "ACC"
+                teams = ["Clemson", "Florida State", "Louisville", "NC State", "Syracuse", "Wake Forest", "Boston College", "North Carolina", "Pittsburgh U", "Miami Florida", "Duke", "Virginia Tech", "Virginia", "Georgia Tech"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+            when "American Athletic Conference"
+                teams = ["Temple", "South Florida", "Cincinnati U", "Connecticut", "East Carolina", "UCF", "Houston", "Navy", "Memphis", "Tulsa", "Tulane", "SMU"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+            when "Conference USA"
+                teams = ["Western Kentucky", "Marshall", "Middle Tennessee St", "Old Dominion", "Florida Intl", "Florida Atlantic", "Charlotte", "Louisiana Tech", "Southern Mississippi", "UTEP", "Rice", "Texas San Antonio", "North Texas"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+            when "Mid-American Conference"
+                teams = ["Bowling Green", "Bowling Green", "Buffalo U", "Akron", "Kent State", "Massachusetts", "Miami Ohio", "Toledo", "Northern Illinois", "Western Michigan", "Central Michigan", "Ball State", "Eastern Michigan"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+            when "Mountain West Conference"
+                teams = ["Air Force", "Boise State", "New Mexico", "Utah State", "Colorado State", "Wyoming", "San Diego State", "Nevada", "San Jose State", "UNLV", "Fresno State", "Hawaii"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+            when "PAC 12"
+                teams = ["Stanford", "Oregon", "Washington State", "California", "Washington U", "Oregon State", "Utah", "USC", "UCLA", "Arizona State", "Arizona", "Colorado"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+            when "Sun Belt"
+                teams = ["Arkansas State", "Appalachian State", "Georgia Southern", "South Alabama", "UL Lafayette", "Georgia State", "New Mexico State", "Troy", "Idaho", "Texas State", "UL Monroe"]
+                futureGames.each do |game|
+                    teams.each do |team|
+                        if game.home_team == team or game.away_team == team
+                            games.push(game)
+                        end
+                    end
+                end
+                @games = games.uniq{|game| game.id}
+        end
     end
     
     def submit_picks
@@ -75,5 +194,4 @@ class GamesController < ApplicationController
             }
         end
     end
-    
 end
