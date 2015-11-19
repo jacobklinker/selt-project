@@ -34,19 +34,6 @@ class GamesController < ApplicationController
         @league_id = params[:league_id]
         
         conference = league.conference_settings;
-        
-        #FBS: ALL
-        #SEC: Alabama, Arkansas, Auburn, Florida, Georgia, Kentucky, LSU, Mississippi St, Missouri, Mississippi, South Carolina, Tennessee U, Texas A&M, Vanderbilt
-        #BIG Ten: Ohio State, Michigan State, Michigan, Penn State, Rutgers, Indiana, Maryland, Iowa, Wisconsin, Northwestern, Nebraska, Illinois, 	Minnesota U, Purdue
-        #Big 12: Oklahoma State, Oklahoma, TCU, Baylor, Texas, Texas Tech, West Virginia, Iowa State, Kansas State, Kansas
-        #ACC: Clemson, Florida State, Louisville, NC State, Syracuse, Wake Forest, Boston College, North Carolina, Pittsburgh U, Miami Florida, Duke, Virginia Tech, Virginia, Georgia Tech
-        #American Athletic Conference: Temple, South Florida, Cincinnati U, Connecticut, East Carolina, UCF, Houston, Navy, Memphis, Tulsa, Tulane, SMU
-        #Conference USA: Western Kentucky, Marshall, Middle Tennessee St, Old Dominion, Florida Intl, Florida Atlantic, Charlotte, Louisiana Tech, Southern Mississippi, UTEP, Rice, Texas San Antonio, North Texas
-        #Mid-American Conference: Bowling Green, Bowling Green, Buffalo U, Akron, Kent State, Massachusetts, Miami Ohio, Toledo, Northern Illinois, Western Michigan, Central Michigan, Ball State, Eastern Michigan
-        #Mountain West Conference: Air Force, Boise State, New Mexico, Utah State, Colorado State, Wyoming, San Diego State, Nevada, San José State, UNLV, Fresno State, Hawaii
-        #PAC 12: Stanford, Oregon, Washington State, California, Washington U, Oregon State, Utah, USC, UCLA, Arizona State, Arizona, Colorado
-        #Sun Belt: Arkansas State, Appalachian State, Georgia Southern, South Alabama, UL Lafayette, Georgia State, New Mexico State, Troy, Idaho, Texas State, UL Monroe
-        
         games = []
         @games = []
         case conference
@@ -152,6 +139,10 @@ class GamesController < ApplicationController
                     end
                 end
                 @games = games.uniq{|game| game.id}
+        end
+        
+        if @games.length < @num_picks
+            @num_picks = @games.length
         end
     end
     
