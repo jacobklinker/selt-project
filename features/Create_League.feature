@@ -8,7 +8,7 @@ Feature: Authenticated users can create up to 5 leagues with up to 20 users in e
     When I login with "test@test.com" and password "password"
     When I am on the authenticated homepage
     When I click the "Create League" button
-    Then I should see "New League"
+    Then I should see "Create League"
     And I should see "League name"
     And I should see "Conference settings"
     And I should see "Number picks settings"
