@@ -81,15 +81,16 @@ describe LeaguesController do
       
       expect(assigns(:league)).to eq(league)
     end
-    describe "with a user who currently has 5 leagues" do
-      it "should notify that league was not created" do
-        league = double(League)
-        expect(League).to receive(:new).and_return(league)
-        
-        get :new
-        
+    
+    describe "POST #create" do
+      it "should redirect to index with a notice on successful save" do
+        allow(User).to receive(:find).and_return(1);
+        allow(controller.current_user).to receive(:id).and_return(1);
+        League.any_instance.stub(:valid?).and_return(true)
+        post :create, :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}
+        expect(assigns(:league)).to eq(be_new_record)
+        expect(response).to redirect_to(leagues_path)
       end
     end
   end
-  
 end
