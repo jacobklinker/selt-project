@@ -81,6 +81,15 @@ describe LeaguesController do
       
       expect(assigns(:league)).to eq(league)
     end
+    describe "with a user who currently has 5 leagues" do
+      it "should notify that league was not created" do
+        league = double(League)
+        expect(League).to receive(:new).and_return(league)
+        
+        get :new
+        
+      end
+    end
   end
   
 end
