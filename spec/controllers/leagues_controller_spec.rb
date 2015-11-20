@@ -1621,6 +1621,6 @@ end
       expect(assigns(:league)).to eq(league)
     end
   end
-  
-end
+
+
 
