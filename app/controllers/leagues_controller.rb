@@ -163,6 +163,7 @@ class LeaguesController < ApplicationController
 
     enter_user = true
     
+    
     if @league.user1_id == current_user.id
       enter_user =false
     elsif @league.user2_id == current_user.id
