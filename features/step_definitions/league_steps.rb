@@ -31,7 +31,6 @@ And /I make (\d+) picks/ do |n|
     i = 0
     while i < num_picks
         id = radios[i+1][:id]
-        print id
         choose(id)
         i+=1
     end
