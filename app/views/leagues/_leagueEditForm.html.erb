@@ -17,11 +17,16 @@
         <%= f.label :league_name %>
         <%= f.text_field :league_name %>
       </div>
-      <div class="field">
-       <br> <%= f.label :conference_settings %>
-        <%= f.select :conference_settings, 
-        options_for_select({ "FBS" => "FBS", "SEC" => "SEC","BIG 10" => "Big 10", "Big 12" => "Big 12","ACC" => "ACC", "American Athletic Conference" => "American Athletic Conference","Conference USA" => "Conference USA", "Mid-American Conference" => "Mid-American Conference", "Mountain West Conference" => "Mountain West Conference", "PAC 12" => "PAC 12", "Sun Belt" => "Sun Belt" }, @league.conference_settings) %>
-      </div>
+      
+      <% if @league.memberHasPicked %>
+        <div class="field">
+         <br> <%= f.label :conference_settings %>
+          <%= f.select :conference_settings, 
+          options_for_select({ "FBS" => "FBS", "SEC" => "SEC","BIG 10" => "Big 10", "Big 12" => "Big 12","ACC" => "ACC", "American Athletic Conference" => "American Athletic Conference","Conference USA" => "Conference USA", "Mid-American Conference" => "Mid-American Conference", "Mountain West Conference" => "Mountain West Conference", "PAC 12" => "PAC 12", "Sun Belt" => "Sun Belt" }, @league.conference_settings) %>
+        </div>
+      <% end %>
+      
+      
       <div class="field">
         <br><%= f.label :number_picks_settings %>
         <%= f.select :number_picks_settings, 
