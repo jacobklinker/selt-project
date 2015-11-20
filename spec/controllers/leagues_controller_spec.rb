@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe LeaguesController do
+  
+  before :each do
+    allow_message_expectations_on_nil
+    allow(controller.current_user).to receive(:id).and_return(1)
+  end
 
   it "index should load all the leagues" do
       expect(League).to receive(:all)
