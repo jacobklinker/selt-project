@@ -60,7 +60,6 @@ Feature: Authenticated users can view detailed information on the leagues they a
     And I am on the league page
     And I click the "Edit" link
     Then the "League name" field should contain "Test League"
-    And the "Conference settings" field should contain "FBS"
     And the "Number picks settings" field should contain "5"
     
   Scenario: I have the option to edit league settings as commissioner
