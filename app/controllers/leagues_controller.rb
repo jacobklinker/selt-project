@@ -68,10 +68,8 @@ class LeaguesController < ApplicationController
       i = i + 1;
     end
     
-    if current_user != nil
-      week = Time.now.strftime('%U')
-      @league_pick = LeaguePick.where(user_id: current_user.id, league_id: @league.id, week: week).find_each
-    end
+    week = Time.now.strftime('%U')
+    @league_pick = LeaguePick.where(user_id: current_user.id, league_id: @league.id, week: week).find_each
     
   end
 
@@ -162,6 +160,7 @@ class LeaguesController < ApplicationController
     num_members=@league.number_members
 
     enter_user = true
+    
     
     if @league.user1_id == current_user.id
       enter_user =false
