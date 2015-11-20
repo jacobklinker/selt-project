@@ -2,8 +2,8 @@ Feature: Authenticated users can create up to 5 leagues with up to 20 users in e
   
   Scenario: I click the create league button
     Given the following users have been added:
-    | email          | password |
-    | test@test.com  | password |
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | name1      | name2     |
   
     When I login with "test@test.com" and password "password"
     When I am on the authenticated homepage
@@ -16,8 +16,8 @@ Feature: Authenticated users can create up to 5 leagues with up to 20 users in e
     
   Scenario: I click the create league button
     Given the following users have been added:
-    | email          | password |
-    | test@test.com  | password |
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | name1      | name2     |
   
     When I login with "test@test.com" and password "password"
     When I am on the create new league page
