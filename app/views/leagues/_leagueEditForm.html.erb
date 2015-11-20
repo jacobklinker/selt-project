@@ -18,7 +18,7 @@
         <%= f.text_field :league_name %>
       </div>
       
-      <% if !@league.member_has_picked(@league) %>
+      <% if !LeaguePick.member_has_picked(@league) %>
         <div class="field">
          <br> <%= f.label :conference_settings %>
           <%= f.select :conference_settings, 

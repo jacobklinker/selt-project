@@ -10,5 +10,4 @@ describe League do
             expect(League.where(league_name: "League1", commissioner_id: 1, conference_settings: "FBS", number_picks_settings: 5 )).not_to exist
         end
     end
-    
 end
