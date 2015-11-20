@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 describe LeaguesController do
+  
+  before :each do
+    allow_message_expectations_on_nil
+    allow(controller.current_user).to receive(:id).and_return(1)
+  end
 
   it "index should load all the leagues" do
       expect(League).to receive(:all)
@@ -66,6 +71,7 @@ describe LeaguesController do
       expect(response).to redirect_to(leagues_path)
     end
   end
+
   describe "adding a user to the league" do
     it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -1601,5 +1607,20 @@ describe LeaguesController do
      League.update
    end
  end
+end
+
+
+  
+  describe "creating a new league" do
+    it "should return a new league object" do
+      league = double(League)
+      expect(League).to receive(:new).and_return(league)
+      
+      get :new
+      
+      expect(assigns(:league)).to eq(league)
+    end
+  end
+  
 end
 
