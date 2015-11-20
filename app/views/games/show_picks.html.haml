@@ -3,10 +3,10 @@
 %table.container#games
   %thead
     %tr
-      %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Home Odds
-      %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Home Team
-      %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Away Team
       %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Away Odds
+      %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Away Team
+      %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Home Team
+      %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Home Odds
      
   %tbody
     %tr
@@ -24,12 +24,12 @@
     - @games.each do |game|
       %tr
         - if game[:home_winner]
-          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].home_odds
-          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].home_team
-          %td{:class => "col-2", :align => "center"}= game[:game].away_team
           %td{:class => "col-2", :align => "center"}= game[:game].away_odds
+          %td{:class => "col-2", :align => "center"}= game[:game].away_team
+          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].home_team
+          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].home_odds
         - else
-          %td{:class => "col-2", :align => "center"}= game[:game].home_odds
-          %td{:class => "col-2", :align => "center"}= game[:game].home_team
-          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].away_team
           %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].away_odds
+          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].away_team
+          %td{:class => "col-2", :align => "center"}= game[:game].home_team
+          %td{:class => "col-2", :align => "center"}= game[:game].home_odds
