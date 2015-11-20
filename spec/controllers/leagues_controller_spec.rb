@@ -190,6 +190,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Not added to this League. Max number of leagues reached")
    end
    it "move to the 2nd if statement of adding league" do 
       allow_message_expectations_on_nil()
@@ -216,6 +217,8 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
+      
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -236,6 +239,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -256,6 +260,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -276,6 +281,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -296,6 +302,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -316,6 +323,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -336,6 +344,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -356,6 +365,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -376,6 +386,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -396,6 +407,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -436,6 +448,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -456,6 +469,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -476,6 +490,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "should receive the league id to add the user to" do 
       allow_message_expectations_on_nil()
@@ -496,6 +511,7 @@ describe LeaguesController do
       #league.user1_id=1
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
    it "move to the 1st if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
