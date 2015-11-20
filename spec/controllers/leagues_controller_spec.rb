@@ -76,6 +76,9 @@ describe LeaguesController do
     it "should return a new league object" do
       league = double(League)
       expect(League).to receive(:new).and_return(league)
+      
+      get :new
+      
       expect(assigns(:league)).to eq(league)
     end
   end
