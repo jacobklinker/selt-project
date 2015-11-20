@@ -114,4 +114,36 @@ describe GamesController do
         
     end
     
+    describe "display games you can pick" do
+        
+        it "should display games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000)
+            game2 = Game.new(:game_time => Time.now + 2000)
+            games << game1
+            games << game2
+            
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq games
+        end
+        
+        it "should not display games in the past" do
+            games = []
+            game1 = Game.new(:game_time => Time.now - 1000)
+            game2 = Game.new(:game_time => Time.now + 2000)
+            games << game1
+            games << game2
+            
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game2]
+        end
+        
+    end
+    
 end
