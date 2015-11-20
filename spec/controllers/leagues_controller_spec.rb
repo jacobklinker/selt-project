@@ -87,7 +87,7 @@ describe LeaguesController do
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
    end
-    it "move to the second if statement" do 
+    it "move to the 5th if statement of adding league" do 
       allow_message_expectations_on_nil()
             
       user = double(User.new(:num_leagues => 0))
@@ -113,7 +113,7 @@ describe LeaguesController do
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
    end
-    it "move to the second if statement" do 
+    it "move to the 4th if statement of adding league" do 
       allow_message_expectations_on_nil()
             
       user = double(User.new(:num_leagues => 0))
@@ -139,7 +139,7 @@ describe LeaguesController do
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
    end
-   it "move to the second if statement" do 
+   it "" do 
       allow_message_expectations_on_nil()
             
       user = double(User.new(:num_leagues => 0))
@@ -165,7 +165,7 @@ describe LeaguesController do
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
    end
-   it "move to the second if statement" do 
+   it "move to the 1st if statement of adding league" do 
       allow_message_expectations_on_nil()
             
       user = double(User.new(:num_leagues => 0))
@@ -191,7 +191,7 @@ describe LeaguesController do
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
    end
-   it "move to the second if statement" do 
+   it "move to the 2nd if statement of adding league" do 
       allow_message_expectations_on_nil()
             
       user = double(User.new(:num_leagues => 0))
@@ -497,7 +497,7 @@ describe LeaguesController do
       #current_user.id=10
       post :add_user_to_league, {:league_id => 1}
    end
-   it "move to the second if statement" do 
+   it "move to the 1st if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -551,7 +551,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 2nd if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -605,7 +605,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 3rd if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -659,7 +659,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 4th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -713,7 +713,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 5th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -767,7 +767,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 6th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -821,7 +821,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 7th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -875,7 +875,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 8th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -929,7 +929,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 9th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -983,7 +983,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 10th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1037,7 +1037,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 11th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1091,7 +1091,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 12th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1145,7 +1145,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 13th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1199,7 +1199,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 14th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1253,7 +1253,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 15th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1307,7 +1307,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 16th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1361,7 +1361,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 17th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1415,7 +1415,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 18th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1469,7 +1469,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 19th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
@@ -1523,7 +1523,7 @@ describe LeaguesController do
       post :add_user_to_league, {:league_id => 1}
       expect(flash[:notice]).to eq("You are already a member of this league")
    end
-    it "move to the second if statement" do 
+    it "move to the 20th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
          
       user = double(User.new(:id =>4, :num_leagues => 0))
