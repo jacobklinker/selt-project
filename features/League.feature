@@ -118,9 +118,9 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
     
     Given the following games have synced:
-    | home_team   | away_team | home_odds | away_odds |
-    | Iowa        | Maryland  | 10        | -10       |
-    | Iowa State  | Texas     | -8        | 8         |
+    | home_team   | away_team | home_odds | away_odds | game_time           |
+    | Iowa        | Maryland  | 10        | -10       | 2015-11-14T16:05:00 |
+    | Iowa State  | Texas     | -8        | 8         | 2015-11-14T16:05:00 |
     
     Given the following league picks have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
@@ -146,6 +146,9 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Big 10                 | 5                     |
     
+    Given I am on the syncs admin page
+    When I press the force sync button
+
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When I click the "Make picks for this week" button
@@ -160,6 +163,9 @@ Feature: Authenticated users can view detailed information on the leagues they a
     Given the following leagues have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | SEC                    | 5                     |
+    
+    Given I am on the syncs admin page
+    When I press the force sync button
     
     When I login with "test@test.com" and password "password"
     And I am on the league page
@@ -176,6 +182,9 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | ACC                    | 5                     |
     
+    Given I am on the syncs admin page
+    When I press the force sync button
+    
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When I click the "Make picks for this week" button
@@ -190,6 +199,9 @@ Feature: Authenticated users can view detailed information on the leagues they a
     Given the following leagues have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | PAC 12                 | 5                     |
+    
+    Given I am on the syncs admin page
+    When I press the force sync button
     
     When I login with "test@test.com" and password "password"
     And I am on the league page
@@ -206,6 +218,9 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings     | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Mid-American Conference | 5                     |
     
+    Given I am on the syncs admin page
+    When I press the force sync button
+    
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When I click the "Make picks for this week" button
@@ -220,6 +235,9 @@ Feature: Authenticated users can view detailed information on the leagues they a
     Given the following leagues have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings      | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Mountain West Conference | 5                     |
+    
+    Given I am on the syncs admin page
+    When I press the force sync button
     
     When I login with "test@test.com" and password "password"
     And I am on the league page
@@ -236,6 +254,9 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Sun Belt            | 5                     |
     
+    Given I am on the syncs admin page
+    When I press the force sync button
+    
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When I click the "Make picks for this week" button
@@ -250,6 +271,9 @@ Feature: Authenticated users can view detailed information on the leagues they a
     Given the following leagues have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Big 12              | 5                     |
+    
+    Given I am on the syncs admin page
+    When I press the force sync button
     
     When I login with "test@test.com" and password "password"
     And I am on the league page
@@ -266,7 +290,48 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings         | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Conference USA              | 5                     |
     
+    Given I am on the syncs admin page
+    When I press the force sync button
+    
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When I click the "Make picks for this week" button
     Then I should see only "Conference USA" games
+    
+  Scenario: I cannot submit picks before I pick the required number of games:
+     Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+    
+    Given the following leagues have been added:
+    | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
+    | Test League   | 1     | 2     | 1               | FBS                    | 2                     |
+
+    Given I am on the syncs admin page
+    When I press the force sync button
+    
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    When I click the "Make picks for this week" button
+    And I make 1 picks
+    Then the "Submit Picks" button should be disabled
+    
+  Scenario: I can submit picks once I pick the required number of games:
+     Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+    
+    Given the following leagues have been added:
+    | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
+    | Test League   | 1     | 2     | 1               | FBS                    | 2                     |
+
+    Given I am on the syncs admin page
+    When I press the force sync button
+    
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    When I click the "Make picks for this week" button
+    And I make 11 picks
+    Then the "Submit Picks" button should be enabled

@@ -5,7 +5,7 @@ end
 Given(/^the following games have synced:$/) do |games|
     games.hashes.each do |game|
         Game.create(:home_team => game[:home_team], :away_team => game[:away_team],
-            :home_odds => game[:home_odds], :away_odds => game[:away_odds])
+            :home_odds => game[:home_odds], :away_odds => game[:away_odds], :game_time => game[:game_time])
     end
 end
 

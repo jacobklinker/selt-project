@@ -22,16 +22,6 @@ Given /^I am on the unauthenticated homepage$/ do
   click_button id
  end
  
- #When /^I signed up a user with email "(.*?)" and password "(.*?)"$/ do |email, password|
- # visit users_sign_up_path
- # 
- # fill_in "user_email", :with => email
- # fill_in "user_password", :with => password
- # fill_in "user_password_confirmation", :with => password
- # 
- # click_button 'create'
- #end
- 
  When /^I signed up a user with email "(.*?)" and password "(.*?)" and first name "(.*?)" and last name "(.*?)"$/ do |email, password, first_name, last_name|
   visit users_sign_up_path
   

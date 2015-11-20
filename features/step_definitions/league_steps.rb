@@ -23,7 +23,19 @@ And /I choose the first away team/ do
     find('.left', 'picks[1]').click()
 end
 
+And /I make (\d+) picks/ do |n|
 
+    num_picks = n.to_i
+    
+    radios = page.all(:xpath, "//input[@class='left']")
+    i = 0
+    while i < num_picks
+        id = radios[i+1][:id]
+        print id
+        choose(id)
+        i+=1
+    end
+end
 
 Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
   field_labeled(field).value.should =~ /#{value}/
@@ -72,8 +84,15 @@ Then (/I should see only "([^\"]*)" games/) do |conference|
         when "Sun Belt"
             max_games = 11
     end
-    
     rows = page.all("table#games tr").count - 1
     
     expect(rows).to be <= max_games  
+end
+
+Then /the "([^\"]*)" button should be disabled/ do |button_name|
+    expect(page).to have_selector("input[type=submit][value='Submit Picks'][disabled='disabled']")
+end
+
+Then /the "([^\"]*)" button should be enabled/ do |button_name|
+    expect(page).to have_selector("input[type=submit][value='Submit Picks']")
 end
