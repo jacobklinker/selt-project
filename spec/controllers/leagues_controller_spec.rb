@@ -71,4 +71,13 @@ describe LeaguesController do
       expect(response).to redirect_to(leagues_path)
     end
   end
+  
+  describe "creating a new league" do
+    it "should return a new league object" do
+      league = double(League)
+      expect(League).to receive(:new).and_return(league)
+      expect(assigns(:league)).to eq(league)
+    end
+  end
+  
 end
