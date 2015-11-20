@@ -499,10 +499,10 @@ describe LeaguesController do
    end
    it "move to the second if statement" do 
       allow_message_expectations_on_nil()
-      allow(controller.current_user).to receive(:id).and_return(1)     
-      user = double(User.new(:id =>1, :num_leagues => 0))
+      allow(controller.current_user).to receive(:id).and_return(4)     
+      user = double(User.new(:id =>4, :num_leagues => 0))
       league = double(league)
-      @current_user=user
+
       allow(League).to receive(:find).and_return(league)
       allow(league).to receive(:number_members).and_return(0)
       allow(league).to receive(:user1_id).and_return(2)
