@@ -21,4 +21,12 @@ class League < ActiveRecord::Base
   belongs_to :user18
   belongs_to :user19
   belongs_to :user20
+  
+  def member_has_picked(league)
+    
+    @league=league
+    pickMade=LeaguePick.where(:league_id => @league.id, :week => Time.now.strftime('%U'))
+    
+    pickMade.exists?
+  end
 end

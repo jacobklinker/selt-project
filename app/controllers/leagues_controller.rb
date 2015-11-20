@@ -296,13 +296,6 @@ class LeaguesController < ApplicationController
     end
     redirect_to authenticated_root_path
   end
-  
-  def member_has_picked
-    @league=League.find(params[:id])
-    pickMade=LeaguePick.where(:league_id => @league.id, :week => Time.now.strftime('%U'))
-    
-    pickMade.exists?
-  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
