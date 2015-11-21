@@ -1631,6 +1631,7 @@ describe LeaguesController do
         end
       end
       describe "when user is allowed to make a new league" do
+        #These test are temporarily failing due sending email line of create (EXPECTED TO FAIL)
         it "will make the new league and store as 1st league" do
           @user=double(User)
           allow(User).to receive(:find).and_return(@user)
