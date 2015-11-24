@@ -1694,8 +1694,3 @@ describe LeaguesController do
   end
 
 
-
-      
-    
-  end
-end
