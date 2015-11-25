@@ -43,7 +43,7 @@ class LeaguesController < ApplicationController
     @players = [];
     i = 1;
     memberIds.each do |user_id|
-      user = User.find(user_id);
+      user = User.find(user_id)
       @players << {
         :id => user.id,
         :rank => i,

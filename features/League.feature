@@ -92,7 +92,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     When I click the "Make picks for this week" button
     Then I should see "test's Picks"
     
-  Scenario: I can be notified when another user hasn't made their picks yet for the week
+  Scenario: I am redirected to make my picks when I try and view them
     Given the following users have been added:
     | email          | password | first_name | last_name |
     | test@test.com  | password | test       | user      |
@@ -104,7 +104,45 @@ Feature: Authenticated users can view detailed information on the leagues they a
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
-    When I click the "View" link
+    When I click the first user
+    Then I should see my picks listed on the screen
+    
+  Scenario: I can be notified I need to make my picks before viewing other's picks
+    Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+
+    Given the following leagues have been added:
+    | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
+    | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
+    
+    Given the following league picks have been added:
+    | league_id     | user_id |
+    | 1             | 2       |
+
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    When I click the second user
+    Then I should see "You need to make your picks before you can view other's!"
+    
+  Scenario: I can be notified when another user hasn't made their picks yet for the week
+    Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+
+    Given the following leagues have been added:
+    | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
+    | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
+    
+    Given the following league picks have been added:
+    | league_id     | user_id |
+    | 1             | 1       |
+
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    When I click the second user
     Then I should see "This user hasn't made any picks yet!"
     
   Scenario: I can see another user's picks for the week
@@ -123,18 +161,54 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | Iowa State  | Texas     | -8        | 8         | 2015-11-14T16:05:00 |
     
     Given the following league picks have been added:
-    | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
-    | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
+    | league_id     | user_id |
+    | 1             | 1       |
+    | 1             | 2       |
     
     Given the following picks have been added:
     | game_id   | league_pick_id  | home_wins   |
     | 1         | 1               | true        |
     | 2         | 1               | false       |
+    | 1         | 2               | true        |
+    | 2         | 2               | true        |
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
-    When I click the "View" link
-    Then I should see the picks listed on screen
+    # TODO fixme, should be second user not first user
+    When I click the second user
+    Then I should see the picks for the second user listed on screen
+    
+  Scenario: I can see my picks for the week
+    Given the following users have been added:
+    | email          | password | first_name | last_name |
+    | test@test.com  | password | test       | user      |
+    | test2@test.com | password | test2      | user2     |
+
+    Given the following leagues have been added:
+    | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
+    | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
+    
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time           |
+    | Iowa        | Maryland  | 10        | -10       | 2015-11-14T16:05:00 |
+    | Iowa State  | Texas     | -8        | 8         | 2015-11-14T16:05:00 |
+    
+    Given the following league picks have been added:
+    | league_id     | user_id |
+    | 1             | 1       |
+    | 1             | 2       |
+    
+    Given the following picks have been added:
+    | game_id   | league_pick_id  | home_wins   |
+    | 1         | 1               | true        |
+    | 2         | 1               | false       |
+    | 1         | 2               | true        |
+    | 2         | 2               | true        |
+
+    When I login with "test@test.com" and password "password"
+    And I am on the league page
+    When I click the first user
+    Then I should see the picks for the first user listed on screen
     
   Scenario: I can pick only Big 10 games:
      Given the following users have been added:

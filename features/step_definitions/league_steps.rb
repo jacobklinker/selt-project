@@ -3,6 +3,7 @@ Given /the following leagues have been added:/ do |leagues_table|
    league = League.new
    league.commissioner_id = l[:user1]
    league.user1_id = l[:user1]
+   league.user2_id = l[:user2]
    league.league_name = l[:name]
    league.conference_settings = l[:conference_settings]
    league.number_picks_settings = l[:number_picks_settings]
@@ -54,10 +55,28 @@ Given(/^the following picks have been added:$/) do |table|
     end
 end
 
-Then(/^I should see the picks listed on screen$/) do
+When(/^I click the first user$/) do
+    find(:xpath, "//a[@href='/games/show_picks/1/1']").click
+end
+
+When(/^I click the second user$/) do
+    find(:xpath, "//a[@href='/games/show_picks/1/2']").click
+end
+
+Then(/^I should see the picks for the first user listed on screen$/) do
     expect(page).to have_content("Iowa")
     expect(page).to have_content("Iowa State")
     expect(page).to have_content("test's Picks")
+end
+
+Then(/^I should see my picks listed on the screen$/) do
+    expect(page).to have_content("test's Picks")
+end
+
+Then(/^I should see the picks for the second user listed on screen$/) do
+    expect(page).to have_content("Iowa")
+    expect(page).to have_content("Iowa State")
+    expect(page).to have_content("test2's Picks")
 end
 
 Then (/I should see only "([^\"]*)" games/) do |conference|
