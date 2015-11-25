@@ -9,8 +9,8 @@ function clearPick(game) {
 }
 
 
-function radioCount(){
-    if($(":radio:checked").size()==5){
+function radioCount(num_picks){
+    if($(":radio:checked").size()==num_picks){
         $(":radio").each(function() {
             
             var $this = $(this);

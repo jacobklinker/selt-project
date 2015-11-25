@@ -111,8 +111,6 @@ class LeaguesController < ApplicationController
         elsif @this_user.num_leagues==4
           @this_user.league5_id = @league.id
           @this_user.num_leagues=@this_user.num_leagues+1
-        else
-          flash[:notice]="Not added to this League. Max number of leagues reached"
         end
 
         @this_user.save!
@@ -160,6 +158,7 @@ class LeaguesController < ApplicationController
     num_members=@league.number_members
 
     enter_user = true
+    
     
     if @league.user1_id == current_user.id
       enter_user =false
