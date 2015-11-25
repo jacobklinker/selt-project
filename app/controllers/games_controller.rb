@@ -52,6 +52,16 @@ class GamesController < ApplicationController
         @user = User.find(params[:user_id])
         week = Time.now.strftime('%U')
         
+        my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week).take
+        
+        if my_picks == nil && @user.id == current_user.id
+            redirect_to games_picks_path(league)
+            return
+        elsif my_picks == nil
+            render "games/make_my_picks_first"
+            return
+        end
+        
         @league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week).take
         
         if @league_pick == nil 
