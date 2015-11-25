@@ -107,7 +107,7 @@ class GamesController < ApplicationController
             return
         end
         
-        @league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week).take
+        @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week).take
         
         if @league_pick == nil 
             render "games/no_picks"
