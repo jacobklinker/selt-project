@@ -49,7 +49,7 @@ class GamesController < ApplicationController
     
     def show_picks
         league = League.find(params[:league_id])
-        user = User.find(params[:user_id])
+        @user = User.find(params[:user_id])
         week = Time.now.strftime('%U')
         
         @league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week).take
