@@ -78,6 +78,51 @@ class LeaguesController < ApplicationController
   end
 
   def edit
+    if @league == nil then
+      flash[:notice] = "Oops, that league doesn't exist!"
+      redirect_to leagues_path
+      return
+    end
+    @infos = [];
+    @infos << { :title => "Commissioner", :data => User.find(@league.commissioner_id).email };
+    @infos << { :title => "Conference", :data => @league.conference_settings };
+    @infos << { :title => "Picks Per Week", :data => @league.number_picks_settings };
+    
+    # list of members
+    memberIds = [];
+    memberIds << @league.user1_id unless @league.user1_id == nil
+    memberIds << @league.user2_id unless @league.user2_id == nil
+    memberIds << @league.user3_id unless @league.user3_id == nil
+    memberIds << @league.user4_id unless @league.user4_id == nil
+    memberIds << @league.user5_id unless @league.user5_id == nil
+    memberIds << @league.user6_id unless @league.user6_id == nil
+    memberIds << @league.user7_id unless @league.user7_id == nil
+    memberIds << @league.user8_id unless @league.user8_id == nil
+    memberIds << @league.user9_id unless @league.user9_id == nil
+    memberIds << @league.user10_id unless @league.user10_id == nil
+    memberIds << @league.user11_id unless @league.user11_id == nil
+    memberIds << @league.user12_id unless @league.user12_id == nil
+    memberIds << @league.user13_id unless @league.user13_id == nil
+    memberIds << @league.user14_id unless @league.user14_id == nil
+    memberIds << @league.user15_id unless @league.user15_id == nil
+    memberIds << @league.user16_id unless @league.user16_id == nil
+    memberIds << @league.user17_id unless @league.user17_id == nil
+    memberIds << @league.user18_id unless @league.user18_id == nil
+    memberIds << @league.user19_id unless @league.user19_id == nil
+    memberIds << @league.user20_id unless @league.user20_id == nil
+        
+    @players = [];
+    i = 1;
+    memberIds.each do |user_id|
+      user = User.find(user_id);
+      @players << {
+        :id => user.id,
+        :rank => i,
+        :name => user.first_name + " " + user.last_name,
+        :points => "NA"
+      }
+      i = i + 1;
+    end
   end
 
   def create
@@ -96,19 +141,19 @@ class LeaguesController < ApplicationController
     respond_to do |format|
       if @league.save
         
-        if @this_user.num_leagues==0
+        if @this_user.league1_id == nil
           @this_user.league1_id = @league.id
           @this_user.num_leagues=@this_user.num_leagues+1
-        elsif @this_user.num_leagues==1
+        elsif @this_user.league2_id == nil
           @this_user.league2_id = @league.id
           @this_user.num_leagues=@this_user.num_leagues+1
-        elsif @this_user.num_leagues==2
+        elsif @this_user.league3_id == nil
           @this_user.league3_id = @league.id
           @this_user.num_leagues=@this_user.num_leagues+1
-        elsif @this_user.num_leagues==3
+        elsif @this_user.league4_id == nil
           @this_user.league4_id = @league.id
           @this_user.num_leagues=@this_user.num_leagues+1
-        elsif @this_user.num_leagues==4
+        elsif @this_user.league5_id == nil
           @this_user.league5_id = @league.id
           @this_user.num_leagues=@this_user.num_leagues+1
         end
@@ -128,10 +173,192 @@ class LeaguesController < ApplicationController
   end
 
   def update
+    @infos = [];
+    @infos << { :title => "Commissioner", :data => User.find(@league.commissioner_id).email };
+    @infos << { :title => "Conference", :data => @league.conference_settings };
+    @infos << { :title => "Picks Per Week", :data => @league.number_picks_settings };
+    
+    # list of members
+    memberIds = [];
+    memberIds << @league.user1_id unless @league.user1_id == nil
+    memberIds << @league.user2_id unless @league.user2_id == nil
+    memberIds << @league.user3_id unless @league.user3_id == nil
+    memberIds << @league.user4_id unless @league.user4_id == nil
+    memberIds << @league.user5_id unless @league.user5_id == nil
+    memberIds << @league.user6_id unless @league.user6_id == nil
+    memberIds << @league.user7_id unless @league.user7_id == nil
+    memberIds << @league.user8_id unless @league.user8_id == nil
+    memberIds << @league.user9_id unless @league.user9_id == nil
+    memberIds << @league.user10_id unless @league.user10_id == nil
+    memberIds << @league.user11_id unless @league.user11_id == nil
+    memberIds << @league.user12_id unless @league.user12_id == nil
+    memberIds << @league.user13_id unless @league.user13_id == nil
+    memberIds << @league.user14_id unless @league.user14_id == nil
+    memberIds << @league.user15_id unless @league.user15_id == nil
+    memberIds << @league.user16_id unless @league.user16_id == nil
+    memberIds << @league.user17_id unless @league.user17_id == nil
+    memberIds << @league.user18_id unless @league.user18_id == nil
+    memberIds << @league.user19_id unless @league.user19_id == nil
+    memberIds << @league.user20_id unless @league.user20_id == nil
+        
+    @players = [];
+    i = 1;
+    memberIds.each do |user_id|
+      user = User.find(user_id);
+      @players << {
+        :id => user.id,
+        :rank => i,
+        :name => user.first_name + " " + user.last_name,
+        :points => "NA"
+      }
+      i = i + 1;
+    end
     respond_to do |format|
       if @league.update(league_params)
         array_of_emails = params[:email_list].split(',')
         array_of_emails.each {|x| UserMailer.league_invite(x,@league.id).deliver_now}  #SEND EMAIL HERE
+        params[:player_to_delete_ids].each do |player|
+          puts "player = " + player
+          puts "league user = "+ @league.user2_id.to_s
+          user=User.find(player)
+          if @league.commissioner_id.to_s != player.to_s
+            user = User.find(player)
+            if @league.user1_id.to_s == player.to_s
+              @league.user1_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+              
+            elsif @league.user2_id.to_s == player.to_s
+              @league.user2_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+
+            elsif @league.user3_id.to_s == player.to_s
+              @league.user3_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+             user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user4_id.to_s == player.to_s
+              @league.user4_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user5_id.to_s == player.to_s
+              @league.user5_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user6_id.to_s == player.to_s
+              @league.user6_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user7_id.to_s == player.to_s
+              @league.user7_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user8_id.to_s == player.to_s
+              @league.user8_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user9_id.to_s == player.to_s
+              @league.user9_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user10_id.to_s == player.to_s
+              @league.user10_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user11_id.to_s == player.to_s
+              @league.user11_id = nil
+              @league.number_members = (@league.number_members-1)
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user12_id.to_s == player.to_s
+              @league.user12_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user13_id.to_s == player.to_s
+              @league.user13_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user14_id.to_s == player.to_s
+              @league.user14_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user15_id.to_s == player.to_s
+              @league.user15_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user16_id.to_s == player.to_s
+              @league.user16_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user17_id.to_s == player.to_s
+              @league.user17_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user18_id.to_s == player.to_s
+              @league.user18_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user19_id.to_s == player.to_s
+              @league.user19_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              #user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            elsif @league.user20_id.to_s == player.to_s
+              @league.user20_id = nil
+              @league.number_members = (@league.number_members-1)
+              @league.save!
+              ##user = User.find(player)
+              user.num_leagues = ((user.num_leagues) -1)
+            end
+            if user.league1_id.to_s == @league.id.to_s
+              user.league1_id=nil
+            elsif user.league2_id.to_s == @league.id.to_s
+              user.league2_id=nil
+            elsif user.league3_id.to_s == @league.id.to_s
+              user.league3_id=nil
+            elsif user.league4_id.to_s == @league.id.to_s
+              user.league4_id=nil
+            elsif user.league5_id.to_s == @league.id.to_s
+              user.league5_id=nil
+            end
+          end
+          user.save!
+        end
         format.html { redirect_to @league, notice: 'League was successfully updated.' }
         format.json { render :show, status: :ok, location: @league }
       else
@@ -139,6 +366,7 @@ class LeaguesController < ApplicationController
         format.json { render json: @league.errors, status: :unprocessable_entity }
       end
     end
+    @league.save! 
   end
 
   def destroy
@@ -203,64 +431,64 @@ class LeaguesController < ApplicationController
     end
    
     if enter_user ==true 
-      if num_members==0
+      if @league.user1_id==nil
         @league.user1_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 1
+      elsif @league.user2_id==nil
         @league.user2_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 2
+      elsif @league.user3_id==nil
         @league.user3_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 3
+      elsif @league.user4_id==nil
         @league.user4_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 4
+      elsif @league.user5_id==nil
         @league.user5_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 5
+      elsif @league.user6_id==nil
         @league.user6_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 6
+      elsif @league.user7_id==nil
         @league.user7_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 7
+      elsif @league.user8_id==nil
         @league.user8_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 8
+      elsif @league.user9_id==nil
         @league.user9_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 9
+      elsif @league.user10_id==nil
         @league.user10_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 10
+      elsif @league.user11_id==nil
         @league.user11_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 11
+      elsif @league.user12_id==nil
         @league.user12_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 12
+      elsif @league.user13_id==nil
         @league.user13_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 13
+      elsif @league.user14_id==nil
         @league.user14_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 14
+      elsif @league.user15_id==nil
         @league.user15_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 15
+      elsif @league.user16_id==nil
         @league.user16_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 16
+      elsif @league.user17_id==nil
         @league.user17_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 17
+      elsif @league.user18_id==nil
         @league.user18_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 18
+      elsif n@league.user19_id==nil
         @league.user19_id = current_user.id
         @league.number_members= num_members+1
-      elsif num_members == 19
+      elsif @league.user20_id==nil
         @league.user20_id = current_user.id
         @league.number_members= num_members+1
       end

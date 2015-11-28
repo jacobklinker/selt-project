@@ -31,6 +31,17 @@
         <br><%= label_tag "Invite More Friends"%>
         <%= text_area_tag "email_list"%>
       </div>
+      <div class="field">
+        <br><%= label_tag "Delete Current Members"%>
+        <% @players.each do |player| %>
+          <%=check_box_tag 'player_to_delete_ids[]', player[:id] -%>
+          <%=player[:name] -%>
+          <br>
+        <% end %>
+      </div>
+      <br>
+      <br>
+      <br>
       <div class="actions">
         <%= f.submit %>
       </div>

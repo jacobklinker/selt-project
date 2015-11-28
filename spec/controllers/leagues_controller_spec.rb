@@ -1697,5 +1697,5 @@ describe LeaguesController do
 
       
     
-  end
+  
 end
