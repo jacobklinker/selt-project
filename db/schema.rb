@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151117024618) do
+ActiveRecord::Schema.define(version: 20151128183654) do
 
   create_table "games", force: :cascade do |t|
     t.string   "home_team",                   null: false
@@ -95,6 +95,12 @@ ActiveRecord::Schema.define(version: 20151117024618) do
     t.integer  "tweets_found",  default: 0
     t.integer  "tweets_used",   default: 0
     t.boolean  "is_successful", default: true
+  end
+
+  create_table "standings", force: :cascade do |t|
+    t.integer  "weeklyScore"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   create_table "syncs", force: :cascade do |t|
