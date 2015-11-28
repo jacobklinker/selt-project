@@ -34,12 +34,22 @@
       <div class="field">
         <br><%= label_tag "Delete Current Members"%>
         <% @players.each do |player| %>
-          <%=check_box_tag 'player_to_delete_ids[]', player[:id] -%>
-          <%=player[:name] -%>
-          <br>
+            <%=check_box_tag 'player_to_delete_ids[]', player[:id] -%>
+            <%=player[:name] -%>
+            <br>
         <% end %>
       </div>
       <br>
+      <div class="field">
+        <br><%= label_tag "Reassign the Commissioner"%>
+        <% @players.each do |player| %>
+          <% if player[:id] != @league.commissioner_id %>
+            <%=check_box_tag 'new_commissioner', player[:id] -%>
+            <%=player[:name] -%>
+            <br>
+          <% end %>
+        <% end %>
+      </div>
       <br>
       <br>
       <div class="actions">
