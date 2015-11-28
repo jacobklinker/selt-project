@@ -166,6 +166,176 @@ describe GamesController do
             expect(assigns(:games)).to eq games
         end
         
+        it "should display SEC games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Wisconsin")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Illinois")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "SEC")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game2]
+        end
+        
+        it "should display ACC games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Clemson", :away_team => "Wisconsin")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Illinois")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "ACC")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game1]
+        end
+        
+        it "should display Big 10 games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Clemson", :away_team => "Wisconsin")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Duke")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "Big 10")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game1]
+        end
+        
+        it "should display Big 12 games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Kansas", :away_team => "Wisconsin")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Illinois")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "Big 12")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game1]
+        end
+        
+        it "should display Mid-American Conference games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Clemson", :away_team => "Wisconsin")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Kent State", :away_team => "Illinois")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "Mid-American Conference")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game2]
+        end
+        
+        it "should display Mountain West Conference games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Clemson", :away_team => "Wisconsin")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Wyoming", :away_team => "Illinois")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "Mountain West Conference")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game2]
+        end
+        
+        it "should display Conference USA games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Marshall", :away_team => "Wisconsin")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Illinois")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "Conference USA")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game1]
+        end
+        
+        it "should display Sun Belt games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Troy", :away_team => "Wisconsin")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Illinois")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "Sun Belt")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game1]
+        end
+        
+        it "should display PAC 12 games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Clemson", :away_team => "Oregon")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Illinois")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "PAC 12")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game1]
+        end
+        
+        it "should display American Athletic Conference games in the future" do
+            games = []
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Clemson", :away_team => "Wisconsin")
+            game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Temple")
+            games << game1
+            games << game2
+            
+            league = League.new(:number_picks_settings => 5, :conference_settings => "American Athletic Conference")
+            
+            expect(League).to receive(:find).with("1").and_return(league)
+            expect(Game).to receive(:all).and_return(games)
+            
+            post :picks, {:league_id => 1}
+            
+            expect(assigns(:games)).to eq [game2]
+        end
+        
         it "should not display games in the past" do
             games = []
             game1 = Game.new(:game_time => Time.now - 1000)
