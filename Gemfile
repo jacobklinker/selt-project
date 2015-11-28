@@ -32,6 +32,8 @@ group :development, :test do
   gem 'launchy'
   gem 'rspec-rails'
   gem 'autotest'
+  gem 'jasmine'
+  gem 'jasmine-jquery-rails'
 end
 
 group :production do

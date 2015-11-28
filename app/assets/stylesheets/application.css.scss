@@ -12,6 +12,11 @@ table{
     width: 100%;
 }
 
+.section_header{
+    font-family: "Impact", Charcoal, sans-serif;
+    font-weight: bold;
+}
+
 hr{
     border: 0;
     height: 1px;
@@ -44,6 +49,11 @@ button{
     padding-left: 50px;
 }
 
+.navbar_logo{
+    height: 50px;
+    width: 60px;
+}
+
 .center_logo{
     display: block;
     margin-left: auto;
@@ -61,13 +71,14 @@ h1.centered{
     margin-right: auto; 
 }
 
+
 .odds{
     font-size: 1.5em;
 }
 
 .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
-   background-color: #E0FFFF;
+   background-color: #DCDCDC;
  }
 
 input[type="radio"].left {

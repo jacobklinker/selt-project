@@ -7,7 +7,7 @@
         %p.header Welcome to the Pick 'Em app.  From your home page, you can navigate to your active leagues, or create a new league of your own.  Enjoy, and best of luck with your picks!
     %div.row
       %div.span12
-        %h3 Announcements
+        %h3.section_header Announcements
         %hr
         %table
           %tr
@@ -21,18 +21,18 @@
         %hr
     %div.row
       %div.span12
-        %h3 My Leagues
+        %h3.section_header My Leagues
         %table.table.table-striped
           %thead
             %tr
               %th
-                %h6 League Name
+                %h5 League Name
               %th
-                %h6 Commissioner
+                %h5 Commissioner
               %th
-                %h6 Your Rank
+                %h5 Your Rank
               %th
-                %h6 See League
+                %h5 See League
           %tbody
             - @leagues.each do |league|
               %tr
@@ -44,5 +44,5 @@
             
     %div.row
       %div.span12
-        %h3 Quick Hits
-        =button_to 'Create League', {:controller => 'leagues', :action => 'new'}, {:id => 'create_league', :class => 'btn btn-primary btn-block', :method => 'get'}
+        %hr
+        =button_to 'CREATE LEAGUE', {:controller => 'leagues', :action => 'new'}, {:id => 'create_league', :class => 'btn btn-default btn-block', :method => 'get', :style => 'font-weight:bold'}
