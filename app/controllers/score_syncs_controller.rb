@@ -13,6 +13,7 @@ class ScoreSyncsController < ApplicationController
     def new
         ScoresSync.perform
         flash[:notice] = "Finished new score sync from Twitter."
+        Game.home_team_cover
         redirect_to action: "index"
     end
     

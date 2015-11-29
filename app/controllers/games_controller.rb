@@ -115,4 +115,10 @@ class GamesController < ApplicationController
             }
         end
     end
+    
+    def home_team_cover
+        Game.all.each do |game|
+            puts game
+        end
+    end
 end
