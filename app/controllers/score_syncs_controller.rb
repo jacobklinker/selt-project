@@ -8,12 +8,15 @@ class ScoreSyncsController < ApplicationController
     
     def index
         @syncs = ScoreSync.all
+        Game.home_team_cover
+        puts "Ready to calculate"
+        LeaguePick.calculateScores
     end
     
     def new
         ScoresSync.perform
         flash[:notice] = "Finished new score sync from Twitter."
-        Game.home_team_cover
+        #Where this will go-- Game.home_team_cover
         redirect_to action: "index"
     end
     

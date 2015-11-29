@@ -10,8 +10,12 @@ class Game < ActiveRecord::Base
                 else
                     game.homeTeamCover=false
                 end
-            puts game.home_team
-            puts game.homeTeamCover
+           #puts game.home_team
+            #puts game.homeTeamCover
+            #puts game.id
+            #pick=Pick.find(100)
+            #puts pick.game_id
+            #puts pick.home_wins
             end
         end
     end
