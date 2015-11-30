@@ -11,7 +11,7 @@
       = form_tag create_announcement_path(@league.id) do 
         %br 
         %br
-        = text_field :text, 'announcement', class: "large_text_entry"
+        = text_field :text, 'announcement', class: "large_text_entry", :id => 'announcement'
         %br
         %br
-        = submit_tag 'Create Announcement', class: "btn"
+        = submit_tag 'Create Announcement', class: "btn", :id => 'create'
