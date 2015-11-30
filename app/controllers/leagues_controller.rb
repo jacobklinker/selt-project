@@ -295,7 +295,21 @@ class LeaguesController < ApplicationController
   end
   
   def add_announcement
+    # use find by id instead of find since that will return nil if the record doesn't exist.
+    # find just throws an exception.
     
+    @league = League.find_by_id(params[:league_id])
+    
+    if @league == nil then
+      flash[:notice] = "Oops, that league doesn't exist!"
+      redirect_to authenticated_root_path
+      return
+    end
+  end
+  
+  def create_announcement
+    flash[:notice] = params[:text][:announcement]
+    redirect_to authenticated_root_path
   end
 
   private
