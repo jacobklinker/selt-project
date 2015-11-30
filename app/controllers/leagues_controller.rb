@@ -293,6 +293,10 @@ class LeaguesController < ApplicationController
     end
     redirect_to authenticated_root_path
   end
+  
+  def add_announcement
+    
+  end
 
   private
     # Use callbacks to share common setup or constraints between actions.
