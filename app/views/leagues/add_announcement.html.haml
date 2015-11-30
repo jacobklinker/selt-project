@@ -8,7 +8,14 @@
                 maxDate: "+6M",
                 dateFormat: "yy-mm-dd"
             });
+            
+          $("#end_time").datepicker({
+                minDate: "+0D", 
+                maxDate: "+6M",
+                dateFormat: "yy-mm-dd"
+            });
         });
+        
     %div.jumbotron
       %h2 Add Announcement to
       %h2= @league.league_name
@@ -23,6 +30,10 @@
           %br
           = text_field :text, 'announcement', class: "large_text_entry", :id => 'announcement'
           %br
+          = label :start_time, 'Start Date'
           = text_field :text, 'start_time', class: "jquery-ui-date", :id => 'start_time'
+          %br
+          = label :end_time, 'End Date'
+          = text_field :text, 'end_time', class: "jquery-ui-date", :id => 'end_time'
           %br
           = submit_tag 'Create Announcement', class: "btn", :id => 'create'

@@ -311,6 +311,8 @@ class LeaguesController < ApplicationController
     announcement = Announcement.new
     announcement.league_id = params[:league_id]
     announcement.announcement = params[:text][:announcement]
+    announcement.start_date = params[:text][:start_time]
+    announcement.end_date = params[:text][:end_time]
     
     announcement.save
     
