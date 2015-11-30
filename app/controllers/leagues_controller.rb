@@ -308,7 +308,13 @@ class LeaguesController < ApplicationController
   end
   
   def create_announcement
-    flash[:notice] = params[:text][:announcement]
+    announcement = Announcement.new
+    announcement.league_id = params[:league_id]
+    announcement.announcement = params[:text][:announcement]
+    
+    announcement.save
+    
+    flash[:notice] = "Added an announcement to your league!"
     redirect_to authenticated_root_path
   end
 
