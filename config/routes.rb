@@ -27,5 +27,5 @@ Rails.application.routes.draw do
   
   get "users/account_settings"
   
-  
+  post 'leagues/add_announcement/:league_id', to: 'leagues#add_announcement', as: 'leagues_add_announcements'
 end
