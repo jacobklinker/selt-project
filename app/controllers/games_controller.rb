@@ -100,6 +100,7 @@ class GamesController < ApplicationController
         my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week).take
         
         if my_picks == nil && @user.id == current_user.id
+            flash[:notice] = "You need to make your picks for this week first!"
             redirect_to games_picks_path(league)
             return
         elsif my_picks == nil

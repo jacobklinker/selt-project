@@ -90,6 +90,7 @@ describe GamesController do
                     expect(LeaguePick).to receive(:where).with(league_id: 1, user_id: 1, week: 1).and_return(@where_my_picks)
                     allow(controller.current_user).to receive(:id).and_return(1)
                     post :show_picks, {:league_id => 1, :user_id => 1}
+                    expect(flash[:notice]).to eq("You need to make your picks for this week first!")
                     expect(response).to redirect_to(games_picks_path(@league))
                 end
                 
