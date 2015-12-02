@@ -49,3 +49,5 @@
               %div #{game[:game].home_odds}
             - else
               %div +#{game[:game].home_odds}
+              
+%p TIEBREAKER: #{@tiebreaker_game.home_team} vs. #{@tiebreaker_game.away_team}, Predicted Points: #{@tiebreaker_pick.points_estimate}

@@ -24,6 +24,7 @@ class GamesController < ApplicationController
     def picks
         league = League.find(params[:league_id])
         @num_picks = league.number_picks_settings;
+        week = Time.now.strftime('%U')
         allGames = Game.all
         futureGames = []
         allGames.each do |game|
@@ -32,6 +33,9 @@ class GamesController < ApplicationController
             end
         end
         @league_id = params[:league_id]
+        
+        tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
+        @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
         
         conference = league.conference_settings;
         games = []
@@ -80,6 +84,7 @@ class GamesController < ApplicationController
     def submit_picks
         league = League.find(params[:league_id])
         picks = params[:picks]
+        tiebreaker = params[:tiebreaker]
         week = Time.now.strftime('%U')
         
         league_pick = LeaguePick.create(:league_id => league.id, :user_id => current_user.id, :week => week)
@@ -88,6 +93,8 @@ class GamesController < ApplicationController
             Pick.create(:game_id => game.id, :league_pick_id => league_pick.id, :home_wins => game.home_team == team_name)
         end
         
+        TiebreakerPick.create(:league_id => league.id, :user_id => current_user.id, :week => week, :points_estimate => tiebreaker)
+        
         flash[:notice] = "Picks saved successfully!"
         redirect_to league_path(league)
     end
@@ -95,12 +102,15 @@ class GamesController < ApplicationController
     def show_picks
         league = League.find(params[:league_id])
         @user = User.find(params[:user_id])
-        week = adjust_week_for_viewing_picks(Time.now.strftime('%U'))
+        week = Time.now.strftime('%U')
         
         my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week).take
+        tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
+        
+        @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
+        @tiebreaker_pick = TiebreakerPick.where(league_id: league.id, user_id: current_user.id, week: week).take
         
         if my_picks == nil && @user.id == current_user.id
-            flash[:notice] = "You need to make your picks for this week first!"
             redirect_to games_picks_path(league)
             return
         elsif my_picks == nil
@@ -125,18 +135,5 @@ class GamesController < ApplicationController
                 :home_winner => pick.home_wins
             }
         end
-    end
-    
-    # adjust the current week. If it is sunday - tuesday, this should move back
-    # to the previous week so week can display those old picks. If it is
-    # wednesday - saturday, you should be able to make your picks or view them
-    # for the current week.
-    def adjust_week_for_viewing_picks(week)
-        time = Time.now
-        if (time.wday <= 2)
-            week = week.to_i - 1
-        end
-        
-        return week
     end
 end
