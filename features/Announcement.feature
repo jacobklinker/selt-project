@@ -39,3 +39,32 @@ Scenario: Add announcement to an existing league
   And I type "Test Announcement" into the "announcement" box
   And I click the "create" button
   Then I should see "Added an announcement to your league!"
+  
+Scenario: Commissioners for a league can see a button to add announcement when viewing a league
+  Given the following users have been added:
+  | email          | password | first_name | last_name |
+  | test@test.com  | password | test       | user      |
+  | test2@test.com | password | test       | user 2    |
+  
+  Given the following leagues have been added:
+  | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
+  | Test League   | 1     | 2     | 1               | FBS                    | 2                     |
+  
+  When I login with "test@test.com" and password "password"    
+  And I am on the league page
+  Then I should see "As an admin, you can create announcements that your leagues' other players can view"
+
+  
+Scenario: Normal users on a league cannot see the announcements button.
+  Given the following users have been added:
+  | email          | password | first_name | last_name |
+  | test@test.com  | password | test       | user      |
+  | test2@test.com | password | test       | user 2    |
+  
+  Given the following leagues have been added:
+  | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
+  | Test League   | 1     | 2     | 1               | FBS                    | 2                     |
+  
+  When I login with "test2@test.com" and password "password"
+  And I am on the league page
+  Then I should not see "As an admin, you can create announcements that your leagues' other players can view"

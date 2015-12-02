@@ -8,6 +8,11 @@
   - else
     =button_to 'View your picks for this week', show_picks_path(@league.id, @current_user.id), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
 
+  %br
+    - if (@show_announcements)
+      %p As an admin, you can create announcements that your leagues' other players can view: 
+      =button_to 'Create Announcement', leagues_add_announcements_path(@league), :class => 'btn btn-default', :method => :get
+    
   %div.row
     %div.span12
       %hr
