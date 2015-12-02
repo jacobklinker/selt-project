@@ -66,7 +66,11 @@
               %td= winner[:name]
               %td= winner[:points]
       %hr
-      
+  adkfja
+  = (LeaguePick.find(4)).wins
+  = (LeaguePick.find(4)).losses
+  = (LeaguePick.find(4)).pushes    
+  
   = link_to 'Edit', edit_league_path(@league)
   |
   = link_to 'Back', leagues_path

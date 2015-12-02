@@ -4,11 +4,13 @@ class Game < ActiveRecord::Base
     
     def self.home_team_cover
         Game.all.each do |game|
-            if ((game.home_team=="Iowa" || game.away_team=="Iowa") && game.home_score != nil)
-                if((game.home_score+game.home_odds)>game.away_score)
-                    game.homeTeamCover=true
+            if (game.home_score != nil)
+                if((game.home_score+game.home_odds)==game.away_score)
+                    game.homeTeamCover=1
+                elsif ((game.home_score+game.home_odds)>game.away_score)
+                    game.homeTeamCover=2
                 else
-                    game.homeTeamCover=false
+                    game.homeTeamCover=0
                 end
            #puts game.home_team
             #puts game.homeTeamCover
@@ -17,6 +19,7 @@ class Game < ActiveRecord::Base
             #puts pick.game_id
             #puts pick.home_wins
             end
+            game.save!
         end
     end
 end
