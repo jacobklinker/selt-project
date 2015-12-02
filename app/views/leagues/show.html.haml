@@ -3,14 +3,17 @@
     %h2= @league.league_name
   
   %br
-  - if (@league_pick == nil || @league_pick.size() == 0) && (Time.now.in_time_zone("Central Time (US & Canada)").wday < 6 && Time.now.in_time_zone("Central Time (US & Canada)").wday >1)
+  - if @tiebreaker == nil
+    =button_to 'Make picks for this week', games_picks_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold', :disabled => 'true'
+  - elsif (@league_pick == nil || @league_pick.size() == 0) && (Time.now.in_time_zone("Central Time (US & Canada)").wday < 6 && Time.now.in_time_zone("Central Time (US & Canada)").wday >1)
     =button_to 'Make picks for this week', games_picks_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
   - else
     =button_to 'View your picks for this week', show_picks_path(@league.id, @current_user.id), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
-  - if current_user.id==@league.commissioner_id
-    =button_to 'Set tiebreaker for this week', leagues_set_tiebreaker_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
     
-  %p TIEBREAKER: #{@tiebreaker_game.away_team} vs. #{@tiebreaker_game.home_team}
+    =button_to 'View everyone\'s picks for this week', show_all_picks_path(@league.id), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
+  
+  - if current_user.id==@league.commissioner_id && @tiebreaker == nil
+    =button_to 'Set tiebreaker for this week', leagues_set_tiebreaker_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
 
   %div.row
     %div.span12
@@ -41,7 +44,7 @@
             %th
               %h5 Overall Points
             %th
-              %h5 This weeks picks
+              %h5 This Week's Picks
         %tbody
           - @players.each do |player|
             %tr

@@ -14,9 +14,9 @@ class LeaguesController < ApplicationController
     
     week = Time.now.strftime('%U')
         
-    tiebreaker = Tiebreaker.where(league_id: @league.id,  week: week).take
+    @tiebreaker = Tiebreaker.where(league_id: @league.id,  week: week).take
     
-    @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
+    #@tiebreaker_game = Game.where(id: tiebreaker.game_id).take
     
     @infos = [];
     @infos << { :title => "Commissioner", :data => User.find(@league.commissioner_id).email };

@@ -53,7 +53,7 @@
             %td{:class => "span4", :align => "center"} 
               %h3 #{@tiebreaker_game.away_team}
               - if @tiebreaker_game.away_odds > 0
-                %div.odds +#{game.away_odds}
+                %div.odds +#{@tiebreaker_game.away_odds}
               - else
                 %div.odds #{@tiebreaker_game.away_odds}
             %td{:class => "span2", :align => "center"}
