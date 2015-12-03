@@ -58,17 +58,19 @@
             %th
               %h6 Name
             %th
-              %h6 Points
+              %h6 Wins
+            %th
+              %h6 Losses
+            %th
+              %h6 Pushes
         %tbody
-          - @weekly_winners.each do |winner|
+          - @season_weekly_winners.each do |winner|
             %tr
               %td= winner[:week_number]
               %td= winner[:name]
-              %td= winner[:points]
-            %tr
-              %td= WeeklyWinner.find(1).week
-              %td= User.find((WeeklyWinner.find(1)).winners[0]).first_name + User.find(WeeklyWinner.find(1).winners[0]).last_name
-              %td= (LeaguePick.where(user_id: User.find(WeeklyWinner.find(1).winners[0]), week: 48))[0].weeklyTotal       
+              %td= winner[:wins]
+              %td= winner[:losses]
+              %td= winner[:pushes]
       %hr
   
   = link_to 'Edit', edit_league_path(@league)
