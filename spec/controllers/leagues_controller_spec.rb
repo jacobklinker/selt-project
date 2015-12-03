@@ -6,6 +6,20 @@ describe LeaguesController do
     allow_message_expectations_on_nil
     allow(controller.current_user).to receive(:id).and_return(1)
   end
+  
+  it "should show the add announcement page for a valid league" do
+      expect(League).to receive(:find_by_id).with("1").and_return(League.new)
+      get :add_announcement, {:league_id => 1}
+  end
+  
+  it "should redirect to the home page for an invalid league" do 
+      expect(League).to receive(:find_by_id).with("1").and_return(nil)
+
+      get :add_announcement, {:league_id => 1}
+      
+      expect(flash[:notice]).to eq("Oops, that league doesn't exist!")
+      expect(response).to redirect_to(authenticated_root_path)
+  end
 
   it "index should load all the leagues" do
       expect(League).to receive(:all)
@@ -1694,4 +1708,6 @@ describe LeaguesController do
       end
     end
   end
+  
+  
 end
