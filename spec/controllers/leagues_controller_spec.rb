@@ -1695,7 +1695,4 @@ describe LeaguesController do
 
 
 
-      
-    
-  
-end
+
