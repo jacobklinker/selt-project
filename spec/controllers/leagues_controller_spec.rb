@@ -20,6 +20,40 @@ describe LeaguesController do
       expect(flash[:notice]).to eq("Oops, that league doesn't exist!")
       expect(response).to redirect_to(authenticated_root_path)
   end
+  
+  describe "show the announcement button" do 
+      before :each do 
+          @league = League.new
+          
+          @commissioner = User.create
+          @commissioner.email = "test@test.com"
+          @commissioner.first_name = "test"
+          @commissioner.last_name = "user"
+      end
+      
+      it "should display the add announcement button if the user is an admin" do
+          @league.commissioner_id = 1
+          
+          expect(User).to receive(:find).with(1).and_return(@commissioner)
+          expect(User).to receive(:find).with(2).and_return(@commissioner)
+          expect(League).to receive(:find).with("1").and_return(@league)
+          
+          get :show, {:id => 1}
+          
+          expect(assigns(:show_announcements)).to eq true
+      end
+  
+      it "should not display the add announcement button if the user is an admin" do
+          @league.commissioner_id = 2
+          
+          expect(User).to receive(:find).with(2).and_return(@commissioner).twice
+          expect(League).to receive(:find).with("1").and_return(@league)
+          
+          get :show, {:id => 1}
+          
+          expect(assigns(:show_announcements)).to eq false
+      end
+  end
 
   it "index should load all the leagues" do
       expect(League).to receive(:all)
