@@ -43,7 +43,7 @@ class LeaguesController < ApplicationController
     @players = [];
     i = 1;
     memberIds.each do |user_id|
-      user = User.find(user_id);
+      user = User.find(user_id)
       @players << {
         :id => user.id,
         :rank => i,
@@ -76,6 +76,9 @@ class LeaguesController < ApplicationController
     
     week = Time.now.strftime('%U')
     @league_pick = LeaguePick.where(user_id: current_user.id, league_id: @league.id, week: week).find_each
+    
+    @show_announcements = false
+    @show_announcements = true unless @league.commissioner_id != current_user.id
     
   end
 
@@ -297,6 +300,32 @@ class LeaguesController < ApplicationController
     else
       flash[:notice]="You are already a member of this league"
     end
+    redirect_to authenticated_root_path
+  end
+  
+  def add_announcement
+    # use find by id instead of find since that will return nil if the record doesn't exist.
+    # find just throws an exception.
+    
+    @league = League.find_by_id(params[:league_id])
+    
+    if @league == nil then
+      flash[:notice] = "Oops, that league doesn't exist!"
+      redirect_to authenticated_root_path
+      return
+    end
+  end
+  
+  def create_announcement
+    announcement = Announcement.new
+    announcement.league_id = params[:league_id]
+    announcement.announcement = params[:text][:announcement]
+    announcement.start_date = params[:text][:start_time]
+    announcement.end_date = params[:text][:end_time]
+    
+    announcement.save
+    
+    flash[:notice] = "Added an announcement to your league!"
     redirect_to authenticated_root_path
   end
 

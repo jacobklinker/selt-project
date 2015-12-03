@@ -3,24 +3,24 @@
   %head
     = javascript_include_tag "picks.js"
   %body
-    %h1{:align => "center"} #{current_user.first_name}'s Picks
+    %h1{:align => "center", :class => "section_header"} #{current_user.first_name}'s Picks
     %br
     = form_tag games_submit_picks_path(@league_id), :method => :post do
       %table.table-striped.container#games
         %thead
           %tr
-            %th{:class => "col-2 left", :align => "center"} Pick 'Em
-            %th{:class => "col-2", :align => "center"} Away
-            %th{:class => "col-2", :align => "center"}
-            %th{:class => "col-2", :align => "center"} Home
-            %th{:class => "col-2 right", :align => "center"} Pick 'Em
+            %th{:class => "span2", :align => "center"} Pick 'Em
+            %th{:class => "span3", :align => "center"} Away
+            %th{:class => "span2", :align => "center"}
+            %th{:class => "span3", :align => "center"} Home
+            %th{:class => "span2", :align => "center"} Pick 'Em
             
         %tbody
           - @games.each do |game|
             %tr.spaced
               %td{:class => "col-2", :align => "center"}
                 = radio_button_tag "picks[#{game.id}]", "#{game.away_team}", false, class: "left", :onclick => "radioCount(#{@num_picks})"
-              %td{:class => "col-2", :align => "center"} 
+              %td{:class => "col-3", :align => "center"} 
                 %h3 #{game.away_team}
                 - if game.away_odds > 0
                   %div.odds +#{game.away_odds}
@@ -30,7 +30,7 @@
                 %h6 #{game.game_time.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %l:%M%p")} (ET)
                 %h4 VS.<br /><br />
                 %button.btn{:type => "button", :onclick => "clearPick(#{game.id})", :id => "clearpick[#{game.id}]"} Clear Pick 
-              %td{:class => "col-2", :align => "center"} 
+              %td{:class => "col-3", :align => "center"} 
                 %h3 #{game.home_team} 
                 - if game.home_odds > 0
                   %div.odds +#{game.home_odds}

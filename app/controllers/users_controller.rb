@@ -19,6 +19,7 @@ class UsersController < ApplicationController
         ids << @user.league5_id unless @user.league5_id == nil
         
         @leagues = [];
+        @announcements = [];
         ids.each do |league_id|
             league = League.find(league_id);
             user = User.find(league.commissioner_id);
@@ -27,6 +28,14 @@ class UsersController < ApplicationController
                 :commissioner => user.first_name + " " + user.last_name,
                 :position => "1/12"
             };
+            
+            anns = Announcement.where "league_id = #{league_id} AND start_date <= '#{DateTime.now.beginning_of_day}' AND end_date >= '#{DateTime.now.end_of_day}'"
+            anns.each do |a|
+                @announcements << {
+                    :league => league,
+                    :announcement => a.announcement
+                }
+            end
         end
     end
     

@@ -4,28 +4,31 @@
     %title Pick 'Em
     = stylesheet_link_tag 'application', 'media' => 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js'
+    = stylesheet_link_tag "https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css"
+    = javascript_include_tag 'https://code.jquery.com/jquery-migrate-1.1.1.js'
     = csrf_meta_tags
 
   %body
     %div.container
-      %nav.nav.navbar.nav-tabs.navbar-default{:role => "navigation"}
+      %nav.navbar.nav-tabs.navbar-default{:role => "navigation"}
         .container-fluid
           %ul.nav
             %li
               - if !user_signed_in?
-                = link_to "Home", authenticated_root_path, :id => 'home'
+                = link_to "Home", authenticated_root_path, :id => 'home', :style => 'font-weight:bold'
               - else
-                = link_to "Home", unauthenticated_root_path, :id => 'home'
+                = link_to "Home", unauthenticated_root_path, :id => 'home', :style =>'font-weight:bold'
               - if !user_signed_in?
                 %li
-                  = link_to "Login", users_sign_in_path, :id => 'login'
+                  = link_to "Login", users_sign_in_path, :id => 'login', :style => 'font-weight:bold'
               - else
                 %li
-                  = link_to "Account Settings", users_account_settings_path, :id => 'account_settings'
+                  = link_to "Account Settings", users_account_settings_path, :id => 'account_settings', :style => 'font-weight:bold'
           %ul.nav.pull-right
             %li
               - if user_signed_in?
-                = link_to "Logout", destroy_user_session_path, :method => :delete, :id => 'logout'
+                = link_to "Logout", destroy_user_session_path, :method => :delete, :id => 'logout', :style => 'font-weight:bold'
         
       - if !notice.nil?
         %p.notice= notice
