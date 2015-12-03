@@ -311,6 +311,20 @@ class LeaguesController < ApplicationController
   end
   
   def create_announcement
+    if (League.find_by_id(params[:league_id]) == nil) then
+      flash[:notice] = "Oops, that league doesn't exist!"
+      redirect_to authenticated_root_path
+      
+      return
+    end 
+    
+    if (params[:text] == nil || params[:text][:announcement] == nil || params[:text][:start_time] == nil || params[:text][:end_time] == nil) then
+      flash[:notice] = "Please complete the form!"
+      redirect_to leagues_add_announcements_path(params[:league_id])
+      
+      return
+    end 
+    
     announcement = Announcement.new
     announcement.league_id = params[:league_id]
     announcement.announcement = params[:text][:announcement]

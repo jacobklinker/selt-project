@@ -54,6 +54,35 @@ describe LeaguesController do
           expect(assigns(:show_announcements)).to eq false
       end
   end
+  
+  describe "saving announcements" do 
+      it "should save the announcement if all fields are filled" do
+          expect(League).to receive(:find_by_id).with("1").and_return(League.new)
+          
+          post :create_announcement, { :league_id => 1, :text => { :announcement => "test", :start_time => "2015-12-04", :end_time => "2015-12-05" } }
+                
+          expect(flash[:notice]).to eq("Added an announcement to your league!")
+          expect(response).to redirect_to(authenticated_root_path)
+      end
+      
+      it "should redirect to home if the league id is invalid" do
+          expect(League).to receive(:find_by_id).with("1").and_return(nil)
+          
+          post :create_announcement, { :league_id => 1 }
+                
+          expect(flash[:notice]).to eq("Oops, that league doesn't exist!")
+          expect(response).to redirect_to(authenticated_root_path)
+      end 
+      
+      it "should redirect to league page if the league id is valid but all other params are invalid" do
+          expect(League).to receive(:find_by_id).with("1").and_return(League.new)
+
+          post :create_announcement, { :league_id => 1 }
+                
+          expect(flash[:notice]).to eq("Please complete the form!")
+          expect(response).to redirect_to(leagues_add_announcements_path("1"))
+      end 
+  end
 
   it "index should load all the leagues" do
       expect(League).to receive(:all)
