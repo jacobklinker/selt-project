@@ -8,6 +8,7 @@ class ScoreSyncsController < ApplicationController
     
     def index
         @syncs = ScoreSync.all
+        WeeklyWinner.determine_weekly_winners
     end
     
     def new

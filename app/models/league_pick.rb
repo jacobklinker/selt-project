@@ -31,14 +31,10 @@ class LeaguePick < ActiveRecord::Base
             @games.each do |game|
                 if((game[:home_winner]==true && game[:home_team_cover]==2) || (game[:home_winner]==false && game[:home_team_cover]==0) )
                     wins=wins+1
-                    puts "win"
-                    puts game
                 elsif(game[:home_team_cover]==1)
                     pushes=pushes+1
                 elsif((game[:home_winner]==true && game[:home_team_cover]==0) || (game[:home_winner]==false && game[:home_team_cover]==2))
                     losses=losses+1
-                    puts "loss"
-                    puts game
                 end
             end
             

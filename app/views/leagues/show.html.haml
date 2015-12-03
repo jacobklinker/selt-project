@@ -65,11 +65,11 @@
               %td= winner[:week_number]
               %td= winner[:name]
               %td= winner[:points]
+            %tr
+              %td= WeeklyWinner.find(1).week
+              %td= User.find((WeeklyWinner.find(1)).winners[0]).first_name + User.find(WeeklyWinner.find(1).winners[0]).last_name
+              %td= (LeaguePick.where(user_id: User.find(WeeklyWinner.find(1).winners[0]), week: 48))[0].weeklyTotal       
       %hr
-  adkfja
-  = (LeaguePick.find(4)).wins
-  = (LeaguePick.find(4)).losses
-  = (LeaguePick.find(4)).pushes    
   
   = link_to 'Edit', edit_league_path(@league)
   |
