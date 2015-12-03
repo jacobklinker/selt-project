@@ -318,7 +318,7 @@ class LeaguesController < ApplicationController
       return
     end 
     
-    if (params[:text] == nil || params[:text][:announcement] == nil || params[:text][:start_time] == nil || params[:text][:end_time] == nil) then
+    if (params[:text] == nil || params[:text][:announcement] == "" || params[:text][:start_time] == "" || params[:text][:end_time] == "") then
       flash[:notice] = "Please complete the form!"
       redirect_to leagues_add_announcements_path(params[:league_id])
       
