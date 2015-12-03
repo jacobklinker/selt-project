@@ -40,15 +40,21 @@
             %th
               %h5 Name
             %th
-              %h5 Overall Points
+              %h5 Wins
+            %th
+              %h5 Losses              
+            %th
+              %h5 Pushes              
             %th
               %h5 This weeks picks
         %tbody
-          - @players.each do |player|
+          - @updated_standings.each do |player|
             %tr
               %td= player[:rank]
               %td= player[:name]
-              %td= player[:points]
+              %td= player[:wins]
+              %td= player[:losses]
+              %td= player[:pushes]
               %td= link_to "View", show_picks_path(@league.id, player[:id])
       %hr
   
@@ -63,15 +69,11 @@
             %th
               %h5 Name
             %th
-<<<<<<< HEAD
               %h6 Wins
             %th
               %h6 Losses
             %th
               %h6 Pushes
-=======
-              %h5 Points
->>>>>>> master
         %tbody
           - @season_weekly_winners.each do |winner|
             %tr

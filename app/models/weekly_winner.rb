@@ -50,5 +50,7 @@ class WeeklyWinner < ActiveRecord::Base
             week_winners.save!
         end
         
+        def self.update_standings
+        end
     end
 end

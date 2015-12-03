@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20151203024414) do
-=======
-ActiveRecord::Schema.define(version: 20151130190515) do
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "league_id"
@@ -24,7 +21,6 @@ ActiveRecord::Schema.define(version: 20151130190515) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
   end
->>>>>>> master
 
   create_table "games", force: :cascade do |t|
     t.string   "home_team",                      null: false

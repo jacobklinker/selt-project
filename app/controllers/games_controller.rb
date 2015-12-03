@@ -94,11 +94,6 @@ class GamesController < ApplicationController
     
     def show_picks
         league = League.find(params[:league_id])
-<<<<<<< HEAD
-        user = User.find(params[:user_id])
-        week = Time.now.strftime('%U')
-
-=======
         @user = User.find(params[:user_id])
         week = adjust_week_for_viewing_picks(Time.now.strftime('%U'))
         
@@ -112,7 +107,6 @@ class GamesController < ApplicationController
             render "games/make_my_picks_first"
             return
         end
->>>>>>> master
         
         @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week).take
         

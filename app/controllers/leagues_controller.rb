@@ -74,6 +74,47 @@ class LeaguesController < ApplicationController
       i = i + 1;
     end
     
+    @standings = Hash.new
+    i = 1;
+    all_year_league_picks=LeaguePick.where(league_id: @league.id)
+    all_year_league_picks.each do |league_pick|
+      if(!(@standings.has_key?(league_pick.user_id)))
+        @standings[league_pick.user_id]={:wins => league_pick.wins, :losses => league_pick.losses, :pushes => league_pick.pushes}
+      else
+        temp=@standings
+        @standings[league_pick.user_id]={:wins => (temp[league_pick.user_id][:wins] + league_pick.wins), :losses => (temp[league_pick.user_id][:losses] + league_pick.losses), :pushes => (temp[league_pick.user_id][:pushes] + league_pick.pushes)} 
+      end
+    end
+    @updated_standings=[]
+    @standings=@standings.sort_by{|k,v| [v[:wins], v[:pushes]]}.reverse!
+
+    @standings.each do |entry|
+      user = User.find(entry[0]);
+      @updated_standings << {
+        :rank => i,
+        :name => user.first_name + " " + user.last_name,
+        :wins => entry[1][:wins],
+        :losses =>entry[1][:losses],
+        :pushes =>entry[1][:pushes],
+        :id => user.id
+      }
+      i=i+1
+    end
+    puts @updated_standings
+      #weekly_winners.each do |week_winner|
+     # (week_winner.winners.size).times do |winner_index|
+      #  user = User.find(week_winner.winners[winner_index]);
+       # @season_weekly_winners << {
+        #  :week_number => i,
+         # :name => user.first_name + " " + user.last_name,
+          #:wins => (LeaguePick.where(user_id: user.id, week: week_winner.week)[0]).wins,
+          #:losses => (LeaguePick.where(user_id: user.id, week: week_winner.week)[0]).losses,
+        #  :pushes => (LeaguePick.where(user_id: user.id, week: week_winner.week)[0]).pushes
+        #}
+      #end
+      #i = i + 1;
+    #end
+    
     week = Time.now.strftime('%U')
     @league_pick = LeaguePick.where(user_id: current_user.id, league_id: @league.id, week: week).find_each
     
