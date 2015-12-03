@@ -42,9 +42,15 @@ Then /^the "([^\"]*)" field should contain "([^\"]*)"$/ do |field, value|
 end
 
 Given(/^the following league picks have been added:$/) do |table|
+    week = Time.now.strftime('%U')
+    
+    if (Time.now.wday <= 2) 
+        week = week.to_i - 1
+    end
+    
     table.hashes.each do |league_pick|
         LeaguePick.create(:league_id => league_pick[:league_id], 
-            :user_id => league_pick[:user_id], :week => Time.now.strftime('%U'))
+            :user_id => league_pick[:user_id], :week => week)
     end
 end
 

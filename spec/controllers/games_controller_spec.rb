@@ -35,6 +35,7 @@ describe GamesController do
             time = double(Time)
             allow(Time).to receive(:now).and_return(time)
             expect(time).to receive(:strftime).with("%U").and_return(1)
+            allow(controller).to receive(:adjust_week_for_viewing_picks).with(1).and_return(1)
         end
         
         it "should redirect to league home when submitting picks" do
@@ -90,6 +91,7 @@ describe GamesController do
                     expect(LeaguePick).to receive(:where).with(league_id: 1, user_id: 1, week: 1).and_return(@where_my_picks)
                     allow(controller.current_user).to receive(:id).and_return(1)
                     post :show_picks, {:league_id => 1, :user_id => 1}
+                    expect(flash[:notice]).to eq("You need to make your picks for this week first!")
                     expect(response).to redirect_to(games_picks_path(@league))
                 end
                 
@@ -353,6 +355,57 @@ describe GamesController do
             expect(assigns(:games)).to eq [game2]
         end
         
+    end
+    
+    describe "adjust the week number based on the current day" do
+        
+        before :each do
+          @time = double(Time)
+          expect(Time).to receive(:now).and_return(@time)
+        end
+        
+        it "should adjust on Sunday" do
+          expect(@time).to receive(:wday).and_return(0)
+          week = controller.adjust_week_for_viewing_picks(1)
+          expect(week).to eq(0)
+        end
+        
+        it "should adjust on Monday" do
+          expect(@time).to receive(:wday).and_return(1)
+          week = controller.adjust_week_for_viewing_picks(1)
+          expect(week).to eq(0)
+        end
+        
+        it "should adjust on Tuesday" do
+          expect(@time).to receive(:wday).and_return(2)
+          week = controller.adjust_week_for_viewing_picks(1)
+          expect(week).to eq(0)
+        end
+        
+        it "should not adjust on Wednesday" do
+          expect(@time).to receive(:wday).and_return(3)
+          week = controller.adjust_week_for_viewing_picks(1)
+          expect(week).to eq(1)
+        end
+        
+        it "should not adjust on Thursday" do
+          expect(@time).to receive(:wday).and_return(4)
+          week = controller.adjust_week_for_viewing_picks(1)
+          expect(week).to eq(1)
+        end
+        
+        it "should not adjust on Friday" do
+          expect(@time).to receive(:wday).and_return(5)
+          week = controller.adjust_week_for_viewing_picks(1)
+          expect(week).to eq(1)
+        end
+        
+        it "should not adjust on Saturday" do
+          expect(@time).to receive(:wday).and_return(6)
+          week = controller.adjust_week_for_viewing_picks(1)
+          expect(week).to eq(1)
+        end
+    
     end
     
 end
