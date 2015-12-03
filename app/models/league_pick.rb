@@ -53,9 +53,8 @@ class LeaguePick < ActiveRecord::Base
             score=0;
             @league_picks.each do |league_pick|
                 score=((league_pick.wins)*2) + league_pick.pushes
-                puts "Score"
-                puts league_pick.user_id
-                puts score
+                league_pick.weeklyTotal=score
+                league_pick.save!
             end
         end
         
