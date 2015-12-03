@@ -583,8 +583,8 @@ describe LeaguesController do
 
       allow(League).to receive(:find).and_return(league)
       allow(league).to receive(:number_members).and_return(0)
-      allow(league).to receive(:user1_id).and_return(2)
-      allow(league).to receive(:user2_id).and_return(3)
+      allow(league).to receive(:user1_id).and_return(1)
+      allow(league).to receive(:user2_id).and_return(nil)
       allow(league).to receive(:user3_id).and_return(4)
       allow(league).to receive(:user4_id).and_return(5)
       allow(league).to receive(:user5_id).and_return(6)
@@ -604,7 +604,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(3)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(3).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -613,7 +613,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user2_id=).and_return(3)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -625,7 +625,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 3rd if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -639,7 +639,7 @@ describe LeaguesController do
       allow(league).to receive(:number_members).and_return(0)
       allow(league).to receive(:user1_id).and_return(2)
       allow(league).to receive(:user2_id).and_return(3)
-      allow(league).to receive(:user3_id).and_return(4)
+      allow(league).to receive(:user3_id).and_return(nil)
       allow(league).to receive(:user4_id).and_return(5)
       allow(league).to receive(:user5_id).and_return(6)
       allow(league).to receive(:user6_id).and_return(7)
@@ -658,7 +658,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(4)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(4).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -667,7 +667,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user3_id=).and_return(4)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -679,7 +679,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 4th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -694,7 +694,7 @@ describe LeaguesController do
       allow(league).to receive(:user1_id).and_return(2)
       allow(league).to receive(:user2_id).and_return(3)
       allow(league).to receive(:user3_id).and_return(4)
-      allow(league).to receive(:user4_id).and_return(5)
+      allow(league).to receive(:user4_id).and_return(nil)
       allow(league).to receive(:user5_id).and_return(6)
       allow(league).to receive(:user6_id).and_return(7)
       allow(league).to receive(:user7_id).and_return(8)
@@ -712,7 +712,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(5)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(5).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -721,7 +721,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user4_id=).and_return(5)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -733,7 +733,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 5th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -749,7 +749,7 @@ describe LeaguesController do
       allow(league).to receive(:user2_id).and_return(3)
       allow(league).to receive(:user3_id).and_return(4)
       allow(league).to receive(:user4_id).and_return(5)
-      allow(league).to receive(:user5_id).and_return(6)
+      allow(league).to receive(:user5_id).and_return(nil)
       allow(league).to receive(:user6_id).and_return(7)
       allow(league).to receive(:user7_id).and_return(8)
       allow(league).to receive(:user8_id).and_return(9)
@@ -766,7 +766,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(6)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(6).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -775,7 +775,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user5_id=).and_return(6)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -787,7 +787,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 6th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -804,7 +804,7 @@ describe LeaguesController do
       allow(league).to receive(:user3_id).and_return(4)
       allow(league).to receive(:user4_id).and_return(5)
       allow(league).to receive(:user5_id).and_return(6)
-      allow(league).to receive(:user6_id).and_return(7)
+      allow(league).to receive(:user6_id).and_return(nil)
       allow(league).to receive(:user7_id).and_return(8)
       allow(league).to receive(:user8_id).and_return(9)
       allow(league).to receive(:user9_id).and_return(10)
@@ -820,7 +820,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(7)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(7).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -829,7 +829,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user6_id=).and_return(7)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -841,7 +841,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 7th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -859,7 +859,7 @@ describe LeaguesController do
       allow(league).to receive(:user4_id).and_return(5)
       allow(league).to receive(:user5_id).and_return(6)
       allow(league).to receive(:user6_id).and_return(7)
-      allow(league).to receive(:user7_id).and_return(8)
+      allow(league).to receive(:user7_id).and_return(nil)
       allow(league).to receive(:user8_id).and_return(9)
       allow(league).to receive(:user9_id).and_return(10)
       allow(league).to receive(:user10_id).and_return(11)
@@ -874,7 +874,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(8)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(8).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -883,7 +883,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user7_id=).and_return(8)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -895,7 +895,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 8th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -914,7 +914,7 @@ describe LeaguesController do
       allow(league).to receive(:user5_id).and_return(6)
       allow(league).to receive(:user6_id).and_return(7)
       allow(league).to receive(:user7_id).and_return(8)
-      allow(league).to receive(:user8_id).and_return(9)
+      allow(league).to receive(:user8_id).and_return(nil)
       allow(league).to receive(:user9_id).and_return(10)
       allow(league).to receive(:user10_id).and_return(11)
       allow(league).to receive(:user11_id).and_return(12)
@@ -928,7 +928,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(9)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(9).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -937,7 +937,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user8_id=).and_return(9)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -949,7 +949,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 9th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -969,7 +969,7 @@ describe LeaguesController do
       allow(league).to receive(:user6_id).and_return(7)
       allow(league).to receive(:user7_id).and_return(8)
       allow(league).to receive(:user8_id).and_return(9)
-      allow(league).to receive(:user9_id).and_return(10)
+      allow(league).to receive(:user9_id).and_return(nil)
       allow(league).to receive(:user10_id).and_return(11)
       allow(league).to receive(:user11_id).and_return(12)
       allow(league).to receive(:user12_id).and_return(13)
@@ -982,7 +982,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(10)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(10).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -991,7 +991,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user9_id=).and_return(10)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -1003,7 +1003,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 10th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1024,7 +1024,7 @@ describe LeaguesController do
       allow(league).to receive(:user7_id).and_return(8)
       allow(league).to receive(:user8_id).and_return(9)
       allow(league).to receive(:user9_id).and_return(10)
-      allow(league).to receive(:user10_id).and_return(11)
+      allow(league).to receive(:user10_id).and_return(nil)
       allow(league).to receive(:user11_id).and_return(12)
       allow(league).to receive(:user12_id).and_return(13)
       allow(league).to receive(:user13_id).and_return(14)
@@ -1036,7 +1036,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(11)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(11).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -1045,7 +1045,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user10_id=).and_return(11)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -1057,7 +1057,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 11th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1079,7 +1079,7 @@ describe LeaguesController do
       allow(league).to receive(:user8_id).and_return(9)
       allow(league).to receive(:user9_id).and_return(10)
       allow(league).to receive(:user10_id).and_return(11)
-      allow(league).to receive(:user11_id).and_return(12)
+      allow(league).to receive(:user11_id).and_return(nil)
       allow(league).to receive(:user12_id).and_return(13)
       allow(league).to receive(:user13_id).and_return(14)
       allow(league).to receive(:user14_id).and_return(15)
@@ -1090,7 +1090,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(12)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(12).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -1099,7 +1099,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user11_id=).and_return(12)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -1111,7 +1111,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 12th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1134,7 +1134,7 @@ describe LeaguesController do
       allow(league).to receive(:user9_id).and_return(10)
       allow(league).to receive(:user10_id).and_return(11)
       allow(league).to receive(:user11_id).and_return(12)
-      allow(league).to receive(:user12_id).and_return(13)
+      allow(league).to receive(:user12_id).and_return(nil)
       allow(league).to receive(:user13_id).and_return(14)
       allow(league).to receive(:user14_id).and_return(15)
       allow(league).to receive(:user15_id).and_return(16)
@@ -1144,7 +1144,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(13)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(13).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -1153,7 +1153,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user12_id=).and_return(13)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -1165,7 +1165,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 13th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1189,7 +1189,7 @@ describe LeaguesController do
       allow(league).to receive(:user10_id).and_return(11)
       allow(league).to receive(:user11_id).and_return(12)
       allow(league).to receive(:user12_id).and_return(13)
-      allow(league).to receive(:user13_id).and_return(14)
+      allow(league).to receive(:user13_id).and_return(nil)
       allow(league).to receive(:user14_id).and_return(15)
       allow(league).to receive(:user15_id).and_return(16)
       allow(league).to receive(:user16_id).and_return(17)
@@ -1198,7 +1198,7 @@ describe LeaguesController do
       allow(league).to receive(:user19_id).and_return(20)
       allow(league).to receive(:user20_id).and_return(21)
       allow(controller.current_user).to receive(:id).and_return(14)
-      allow(User).to receive(:find).with(1).and_return(user)
+      allow(User).to receive(:find).with(14).and_return(user)
       allow(league).to receive(:user1_id=).and_return(2)
       allow(league).to receive(:number_members=).and_return(2)
       allow(league).to receive(:id).and_return(1)
@@ -1207,7 +1207,7 @@ describe LeaguesController do
       allow(user).to receive(:num_leagues=).and_return(1)
       allow(user).to receive(:save!)
       allow(league).to receive(:save!)
-      
+      allow(league).to receive(:user13_id=).and_return(14)
       allow(user).to receive(:league2_id=).and_return(3)
       allow(user).to receive(:league3_id=).and_return(4)
       allow(user).to receive(:league4_id=).and_return(5)
@@ -1219,7 +1219,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 14th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1273,7 +1273,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 15th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1327,7 +1327,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 16th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1381,7 +1381,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 17th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1435,7 +1435,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 18th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1489,7 +1489,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 19th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1543,7 +1543,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
     it "move to the 20th if statement of checking if user is in the league" do 
       allow_message_expectations_on_nil()
@@ -1597,7 +1597,7 @@ describe LeaguesController do
       #current_user.id=10
       
       post :add_user_to_league, {:league_id => 1}
-      expect(flash[:notice]).to eq("You are already a member of this league")
+      expect(flash[:notice]).to eq("Successfully added to the league")
    end
   end
   describe "testing update" do
@@ -1637,6 +1637,7 @@ describe LeaguesController do
           allow(User).to receive(:find).and_return(@user)
           allow(controller.current_user).to receive(:id).and_return(1)
           allow(@user).to receive(:num_leagues).and_return(0)
+          allow(@user).to receive(:league1_id).and_return(nil)
           allow(@user).to receive(:league1_id=).and_return(1)
           allow(@user).to receive(:num_leagues=).and_return(1)
           expect(@user).to receive(:save!)
@@ -1650,6 +1651,8 @@ describe LeaguesController do
           allow(User).to receive(:find).and_return(@user)
           allow(controller.current_user).to receive(:id).and_return(1)
           allow(@user).to receive(:num_leagues).and_return(1)
+          allow(@user).to receive(:league1_id).and_return(5)
+          allow(@user).to receive(:league2_id).and_return(nil)
           allow(@user).to receive(:league2_id=).and_return(1)
           allow(@user).to receive(:num_leagues=).and_return(2)
           expect(@user).to receive(:save!)
@@ -1662,6 +1665,9 @@ describe LeaguesController do
           allow(User).to receive(:find).and_return(@user)
           allow(controller.current_user).to receive(:id).and_return(1)
           allow(@user).to receive(:num_leagues).and_return(2)
+          allow(@user).to receive(:league1_id).and_return(5)
+          allow(@user).to receive(:league2_id).and_return(6)
+          allow(@user).to receive(:league3_id).and_return(nil)
           allow(@user).to receive(:league3_id=).and_return(1)
           allow(@user).to receive(:num_leagues=).and_return(3)
           expect(@user).to receive(:save!)
@@ -1674,6 +1680,10 @@ describe LeaguesController do
           allow(User).to receive(:find).and_return(@user)
           allow(controller.current_user).to receive(:id).and_return(1)
           allow(@user).to receive(:num_leagues).and_return(3)
+          allow(@user).to receive(:league1_id).and_return(5)
+          allow(@user).to receive(:league2_id).and_return(6)
+          allow(@user).to receive(:league3_id).and_return(7)
+          allow(@user).to receive(:league4_id).and_return(nil)
           allow(@user).to receive(:league4_id=).and_return(1)
           allow(@user).to receive(:num_leagues=).and_return(4)
           expect(@user).to receive(:save!)
@@ -1686,6 +1696,11 @@ describe LeaguesController do
           allow(User).to receive(:find).and_return(@user)
           allow(controller.current_user).to receive(:id).and_return(1)
           allow(@user).to receive(:num_leagues).and_return(4)
+          allow(@user).to receive(:league1_id).and_return(5)
+          allow(@user).to receive(:league2_id).and_return(6)
+          allow(@user).to receive(:league3_id).and_return(7)
+          allow(@user).to receive(:league4_id).and_return(8)
+          allow(@user).to receive(:league5_id).and_return(nil)
           allow(@user).to receive(:league5_id=).and_return(1)
           allow(@user).to receive(:num_leagues=).and_return(5)
           expect(@user).to receive(:save!)
