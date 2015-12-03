@@ -5,20 +5,21 @@
     %div.row
       %div.span12
         %p.header Welcome to the Pick 'Em app.  From your home page, you can navigate to your active leagues, or create a new league of your own.  Enjoy, and best of luck with your picks!
-    %div.row
-      %div.span12
-        %h3.section_header Announcements
-        %hr
-        %table
-          %tr
-            %td.icon 
-              = image_tag "announcement-icon.PNG"
-            %td This is an announcement!
-          %tr
-            %td.icon 
-              = image_tag "announcement-icon.PNG"
-            %td This is another announcement!  
-        %hr
+
+    - if @announcements.size > 0
+      %div.row
+        %div.span12
+          %h3.section_header Announcements
+          %hr
+          %table
+            - @announcements.each do |a|
+              %tr
+                %td.icon 
+                  = image_tag "announcement-icon.PNG"
+                %td= a[:league].league_name
+                %td= a[:announcement]
+          %hr
+
     %div.row
       %div.span12
         %h3.section_header My Leagues
