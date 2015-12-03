@@ -495,7 +495,7 @@ class LeaguesController < ApplicationController
       elsif @league.user18_id==nil
         @league.user18_id = current_user.id
         @league.number_members= num_members+1
-      elsif n@league.user19_id==nil
+      elsif @league.user19_id==nil
         @league.user19_id = current_user.id
         @league.number_members= num_members+1
       elsif @league.user20_id==nil
