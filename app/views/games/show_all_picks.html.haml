@@ -1,41 +1,42 @@
-- @players.each do |player|
-  %p #{player[:name]}
-  %table.container.table-striped#games
-    %thead
-      %tr
-        %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Away Odds
-        %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Away Team
-        %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Home Team
-        %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Home Odds
-         
-    %tbody
-      - player[:games].each do |game|
+%body
+  - @players.each do |player|
+    %h3.section_header #{player[:name]}
+    %table.container.table-striped#games
+      %thead
         %tr
-        - if game[:home_winner]
-          %td{:class => "col-2", :align => "center"}
-            - if game[:game].away_odds < 0
-              %div #{game[:game].away_odds}
-            - else
-              %div +#{game[:game].away_odds}
-          %td{:class => "col-2", :align => "center"}= game[:game].away_team
-          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].home_team
-          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}
-            - if game[:game].home_odds < 0
-              %div #{game[:game].home_odds}
-            - else
-              %div +#{game[:game].home_odds}
-        - else
-          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}
-            - if game[:game].away_odds < 0
-              %div #{game[:game].away_odds}
-            - else
-              %div +#{game[:game].away_odds}
-          %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].away_team
-          %td{:class => "col-2", :align => "center"}= game[:game].home_team
-          %td{:class => "col-2", :align => "center"}
-            - if game[:game].home_odds < 0
-              %div #{game[:game].home_odds}
-            - else
-              %div +#{game[:game].home_odds}
-  %br
-  %p TIEBREAKER: #{@tiebreaker_game.home_team} vs. #{@tiebreaker_game.away_team}, Predicted Points: #{player[:tiebreaker_pick].points_estimate}
+          %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Away Odds
+          %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Away Team
+          %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Home Team
+          %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Home Odds
+           
+      %tbody
+        - player[:games].each do |game|
+          %tr
+          - if game[:home_winner]
+            %td{:class => "col-2", :align => "center"}
+              - if game[:game].away_odds < 0
+                %div #{game[:game].away_odds}
+              - else
+                %div +#{game[:game].away_odds}
+            %td{:class => "col-2", :align => "center"}= game[:game].away_team
+            %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].home_team
+            %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}
+              - if game[:game].home_odds < 0
+                %div #{game[:game].home_odds}
+              - else
+                %div +#{game[:game].home_odds}
+          - else
+            %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}
+              - if game[:game].away_odds < 0
+                %div #{game[:game].away_odds}
+              - else
+                %div +#{game[:game].away_odds}
+            %td{:class => "col-2", :align => "center", :style => "font-weight: bold;"}= game[:game].away_team
+            %td{:class => "col-2", :align => "center"}= game[:game].home_team
+            %td{:class => "col-2", :align => "center"}
+              - if game[:game].home_odds < 0
+                %div #{game[:game].home_odds}
+              - else
+                %div +#{game[:game].home_odds}
+    %br
+    %p TIEBREAKER: #{@tiebreaker_game.home_team} vs. #{@tiebreaker_game.away_team}, Predicted Points: #{player[:tiebreaker_pick].points_estimate}

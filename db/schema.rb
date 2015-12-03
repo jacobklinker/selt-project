@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202053848) do
+ActiveRecord::Schema.define(version: 20151203143954) do
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "league_id"
@@ -117,9 +117,13 @@ ActiveRecord::Schema.define(version: 20151202053848) do
   create_table "tiebreaker_picks", force: :cascade do |t|
     t.integer "user_id"
     t.integer "league_id"
-    t.integer "week"
     t.integer "points_estimate"
+    t.integer "game_id"
+    t.integer "league_pick_id"
   end
+
+  add_index "tiebreaker_picks", ["game_id"], name: "index_tiebreaker_picks_on_game_id"
+  add_index "tiebreaker_picks", ["league_pick_id"], name: "index_tiebreaker_picks_on_league_pick_id"
 
   create_table "tiebreakers", force: :cascade do |t|
     t.integer "league_id"

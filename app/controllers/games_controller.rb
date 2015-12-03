@@ -84,8 +84,11 @@ class GamesController < ApplicationController
     def submit_picks
         league = League.find(params[:league_id])
         picks = params[:picks]
-        tiebreaker = params[:tiebreaker]
         week = Time.now.strftime('%U')
+        tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
+        @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
+        points_estimate = params[:tiebreaker]
+        tiebreaker_game_id = @tiebreaker_game.id
         @picks = []
         
         league_pick = LeaguePick.create(:league_id => league.id, :user_id => current_user.id, :week => week)
@@ -95,7 +98,7 @@ class GamesController < ApplicationController
             @picks << pick
         end
         
-        TiebreakerPick.create(:league_id => league.id, :user_id => current_user.id, :week => week, :points_estimate => tiebreaker)
+        TiebreakerPick.create(:game_id => tiebreaker_game_id, :league_pick_id => league_pick.id, :points_estimate => points_estimate)
         
         flash[:notice] = "Picks saved successfully!"
         redirect_to league_path(league)
@@ -110,7 +113,7 @@ class GamesController < ApplicationController
         tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
         
         @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
-        @tiebreaker_pick = TiebreakerPick.where(league_id: league.id, user_id: current_user.id, week: week).take
+        @tiebreaker_pick = TiebreakerPick.where(league_pick_id: my_picks.id).take
         
         if my_picks == nil && @user.id == current_user.id
             redirect_to games_picks_path(league)
@@ -174,7 +177,7 @@ class GamesController < ApplicationController
         memberIds.each do |user_id|
           user = User.find(user_id)
           league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week).take
-          tiebreaker_pick = TiebreakerPick.where(league_id: league.id, user_id: current_user.id, week: week).take
+          tiebreaker_pick = TiebreakerPick.where(league_pick_id: league_pick.id).take
           picks = Pick.where(league_pick_id: league_pick.id).find_each
           games = []
         
