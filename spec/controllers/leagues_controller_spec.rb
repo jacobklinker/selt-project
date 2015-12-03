@@ -1694,5 +1694,8 @@ describe LeaguesController do
   end
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> master
