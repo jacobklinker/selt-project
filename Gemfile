@@ -8,6 +8,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'haml'
 gem 'jquery-rails'
+gem 'jquery-turbolinks'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
@@ -32,6 +33,8 @@ group :development, :test do
   gem 'launchy'
   gem 'rspec-rails'
   gem 'autotest'
+  gem 'jasmine'
+  gem 'jasmine-jquery-rails'
 end
 
 group :production do

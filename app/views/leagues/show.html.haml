@@ -4,14 +4,19 @@
   
   %br
   - if (@league_pick == nil || @league_pick.size() == 0) && (Time.now.in_time_zone("Central Time (US & Canada)").wday < 6 && Time.now.in_time_zone("Central Time (US & Canada)").wday >1)
-    =button_to 'Make picks for this week', games_picks_path(@league), :class => 'btn btn-primary btn-block', :method => :get
+    =button_to 'Make picks for this week', games_picks_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
   - else
-    =button_to 'View your picks for this week', show_picks_path(@league.id, @current_user.id), :class => 'btn btn-primary btn-block', :method => :get
+    =button_to 'View your picks for this week', show_picks_path(@league.id, @current_user.id), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
 
+  - if (@show_announcements)
+    %br
+    %p As an admin, you can create announcements that your leagues' other players can view: 
+    =button_to 'Create Announcement', leagues_add_announcements_path(@league), :class => 'btn btn-default', :method => :get
+    
   %div.row
     %div.span12
       %hr
-      %h3 League Information
+      %h3.section_header League Information
       %table
       - @infos.each do |info|
         %tr
@@ -26,18 +31,18 @@
       
   %div.row
     %div.span12
-      %h3 League Standings
+      %h3.section_header League Standings
       %table.table.table-striped
         %thead
           %tr
             %th
-              %h6 Rank
+              %h5 Rank
             %th
-              %h6 Name
+              %h5 Name
             %th
-              %h6 Overall Points
+              %h5 Overall Points
             %th
-              %h6 This weeks picks
+              %h5 This weeks picks
         %tbody
           - @players.each do |player|
             %tr
@@ -49,16 +54,16 @@
   
   %div.row
     %div.span12
-      %h3 Weekly Winners
+      %h3.section_header Weekly Winners
       %table.table.table-striped
         %thead
           %tr
             %th
-              %h6 Week Number
+              %h5 Week Number
             %th
-              %h6 Name
+              %h5 Name
             %th
-              %h6 Points
+              %h5 Points
         %tbody
           - @weekly_winners.each do |winner|
             %tr

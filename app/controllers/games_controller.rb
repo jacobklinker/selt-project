@@ -94,10 +94,21 @@ class GamesController < ApplicationController
     
     def show_picks
         league = League.find(params[:league_id])
-        user = User.find(params[:user_id])
-        week = Time.now.strftime('%U')
+        @user = User.find(params[:user_id])
+        week = adjust_week_for_viewing_picks(Time.now.strftime('%U'))
         
-        @league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week).take
+        my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week).take
+        
+        if my_picks == nil && @user.id == current_user.id
+            flash[:notice] = "You need to make your picks for this week first!"
+            redirect_to games_picks_path(league)
+            return
+        elsif my_picks == nil
+            render "games/make_my_picks_first"
+            return
+        end
+        
+        @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week).take
         
         if @league_pick == nil 
             render "games/no_picks"
@@ -114,5 +125,18 @@ class GamesController < ApplicationController
                 :home_winner => pick.home_wins
             }
         end
+    end
+    
+    # adjust the current week. If it is sunday - tuesday, this should move back
+    # to the previous week so week can display those old picks. If it is
+    # wednesday - saturday, you should be able to make your picks or view them
+    # for the current week.
+    def adjust_week_for_viewing_picks(week)
+        time = Time.now
+        if (time.wday <= 2)
+            week = week.to_i - 1
+        end
+        
+        return week
     end
 end
