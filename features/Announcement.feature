@@ -37,6 +37,8 @@ Scenario: Add announcement to an existing league
   When I login with "test@test.com" and password "password"
   And I visit the add announcement page
   And I type "Test Announcement" into the "announcement" box
+  And I type "12-05-2015" into the "start_time" box
+  And I type "12-07-2015" into the "end_time" box
   And I click the "create" button
   Then I should see "Added an announcement to your league!"
   
