@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203000258) do
+ActiveRecord::Schema.define(version: 20151203024414) do
 
   create_table "games", force: :cascade do |t|
     t.string   "home_team",                      null: false
@@ -147,5 +147,14 @@ ActiveRecord::Schema.define(version: 20151203000258) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "weekly_winners", force: :cascade do |t|
+    t.integer  "league_id"
+    t.integer  "week"
+    t.integer  "year"
+    t.text     "winners"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
