@@ -1641,7 +1641,7 @@ describe LeaguesController do
           allow(@user).to receive(:num_leagues=).and_return(1)
           expect(@user).to receive(:save!)
          
-          post :create, :myparams => {:email_list =>"email1, email2"}, :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}
+          post :create, {:email_list=>"", :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}}
         end
         it "will make the new league and store as 2nd league" do
           @user=double(User)
@@ -1653,7 +1653,7 @@ describe LeaguesController do
           allow(@user).to receive(:league2_id=).and_return(1)
           allow(@user).to receive(:num_leagues=).and_return(2)
           expect(@user).to receive(:save!)
-          post :create, :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}
+          post :create, {:email_list=>"", :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}}
         end
         it "will make the new league and store as 3rd league" do
           @user=double(User)
@@ -1665,7 +1665,7 @@ describe LeaguesController do
           allow(@user).to receive(:league3_id=).and_return(1)
           allow(@user).to receive(:num_leagues=).and_return(3)
           expect(@user).to receive(:save!)
-          post :create, :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}
+          post :create, {:email_list=>"", :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}}
         end
         it "will make the new league and store as 4th league" do
           @user=double(User)
@@ -1677,7 +1677,7 @@ describe LeaguesController do
           allow(@user).to receive(:league4_id=).and_return(1)
           allow(@user).to receive(:num_leagues=).and_return(4)
           expect(@user).to receive(:save!)
-          post :create, :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}
+          post :create, {:email_list=>"", :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}}
         end
         it "will make the new league and store as 5th league" do
           @user=double(User)
@@ -1689,13 +1689,9 @@ describe LeaguesController do
           allow(@user).to receive(:league5_id=).and_return(1)
           allow(@user).to receive(:num_leagues=).and_return(5)
           expect(@user).to receive(:save!)
-          post :create, :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}
+          post :create, {:email_list=>"", :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}}
         end
+      end
+    end
   end
-
-
-<<<<<<< HEAD
-
-
-=======
->>>>>>> master
+end
