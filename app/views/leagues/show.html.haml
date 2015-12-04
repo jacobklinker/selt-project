@@ -10,8 +10,8 @@
   - else
     =button_to 'View your picks for this week', show_picks_path(@league.id, @current_user.id), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
     
-  - if (@tiebreaker != nil) && (Time.now.in_time_zone("Central Time (US & Canada)").wday > 5 && Time.now.in_time_zone("Central Time (US & Canada)").wday < 2)
-    =button_to 'View everyone\'s picks for this week', show_all_picks_path(@league.id), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
+  - if (@tiebreaker != nil && @league_pick != nil)
+    =button_to 'View everyone\'s picks for this week', show_all_picks_path(@league.id, @tiebreaker), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
   
   - if current_user.id==@league.commissioner_id && @tiebreaker == nil
     =button_to 'Set tiebreaker for this week', leagues_set_tiebreaker_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
@@ -52,7 +52,7 @@
               %td= player[:rank]
               %td= player[:name]
               %td= player[:points]
-              - if (@tiebreaker != nil) && (Time.now.in_time_zone("Central Time (US & Canada)").wday > 5 && Time.now.in_time_zone("Central Time (US & Canada)").wday < 2)
+              - if (@tiebreaker != nil)
                 %td= link_to "View", show_picks_path(@league.id, player[:id], @tiebreaker.id)
               - else
                 %td Not available yet!

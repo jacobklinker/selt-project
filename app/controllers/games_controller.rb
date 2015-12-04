@@ -23,9 +23,8 @@ class GamesController < ApplicationController
     
     def picks
         league = League.find(params[:league_id])
-        @tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         @num_picks = league.number_picks_settings;
-        #week = Time.now.strftime('%U')
+        week = Time.now.strftime('%U')
         allGames = Game.all
         futureGames = []
         allGames.each do |game|
@@ -35,8 +34,8 @@ class GamesController < ApplicationController
         end
         @league_id = params[:league_id]
         
-        #tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
-        @tiebreaker_game = Game.where(id: @tiebreaker.game_id)
+        tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
+        @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
         
         conference = league.conference_settings;
         games = []
@@ -84,10 +83,9 @@ class GamesController < ApplicationController
     
     def submit_picks
         league = League.find(params[:league_id])
-        tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         picks = params[:picks]
         week = Time.now.strftime('%U')
-        #tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
+        tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
         @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
         points_estimate = params[:tiebreaker]
         tiebreaker_game_id = @tiebreaker_game.id
@@ -108,12 +106,11 @@ class GamesController < ApplicationController
     
     def show_picks
         league = League.find(params[:league_id])
-        tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         @user = User.find(params[:user_id])
         week = Time.now.strftime('%U')
         
         my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week).take
-        #tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
+        tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
         
         if my_picks == nil && @user.id == current_user.id
             redirect_to games_picks_path(league)
@@ -123,7 +120,7 @@ class GamesController < ApplicationController
             return
         end
         
-        @tiebreaker_game = Game.where(id: tiebreaker.game_id)
+        @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
         @tiebreaker_pick = TiebreakerPick.where(league_pick_id: my_picks.id).take
         
         @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week).take
@@ -180,27 +177,25 @@ class GamesController < ApplicationController
         memberIds.each do |user_id|
           user = User.find(user_id)
           league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week).take
-          if league_pick != nil
-              tiebreaker_pick = TiebreakerPick.where(league_pick_id: league_pick.id).take
-              picks = Pick.where(league_pick_id: league_pick.id).find_each
-              games = []
-            
-              picks.each do |pick|
-                game = Game.find(pick.game_id)
-                games << {
-                    :game => game, 
-                    :home_winner => pick.home_wins
-                }
-              end
-              @players << {
-                :id => user.id,
-                :name => user.first_name + " " + user.last_name,
-                :league_pick => league_pick,
-                :picks => picks,
-                :games => games,
-                :tiebreaker_pick => tiebreaker_pick
-              }
-            end
+          tiebreaker_pick = TiebreakerPick.where(league_pick_id: league_pick.id).take
+          picks = Pick.where(league_pick_id: league_pick.id).find_each
+          games = []
+        
+          picks.each do |pick|
+            game = Game.find(pick.game_id)
+            games << {
+                :game => game, 
+                :home_winner => pick.home_wins
+            }
+          end
+          @players << {
+            :id => user.id,
+            :name => user.first_name + " " + user.last_name,
+            :league_pick => league_pick,
+            :picks => picks,
+            :games => games,
+            :tiebreaker_pick => tiebreaker_pick
+          }
         end
     end
     
