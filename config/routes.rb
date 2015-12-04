@@ -31,6 +31,5 @@ Rails.application.routes.draw do
   post 'leagues/add_announcement/:league_id', to: 'leagues#add_announcement', as: 'leagues_add_announcements'
   get 'leagues/set_tiebreaker/:league_id', to:'leagues#set_tiebreaker', as: 'leagues_set_tiebreaker'
   post "games/submit_tiebreaker/:league_id", to: "leagues#submit_tiebreaker", as: "leagues_submit_tiebreaker"
-  get 'leagues/add_announcement/:league_id', to: 'leagues#add_announcement', as: 'leagues_add_announcements'
   post 'leagues/create_announcement/:league_id', to: 'leagues#create_announcement', as: 'create_announcement'
 end
