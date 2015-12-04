@@ -5,7 +5,7 @@
   %body
     %h1{:align => "center", :class => "section_header"} #{current_user.first_name}'s Picks
     %br
-    = form_tag games_submit_picks_path(@league_id), :method => :post do
+    = form_tag games_submit_picks_path(@league_id, @tiebreaker), :method => :post do
       %table.table-striped.container#games
         %thead
           %tr
