@@ -1,0 +1,27 @@
+%body
+  %div.row
+    - @players.each do |player|
+      %div.span3
+        %h3.section_header.crop #{player[:name]}
+        %table.container.table-striped.span3#games
+          %thead
+               
+          %tbody
+            - player[:games].each do |game|
+              %tr
+              - if game[:home_winner]
+                %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}= game[:game].home_team
+                %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
+                  - if game[:game].home_odds < 0
+                    %div #{game[:game].home_odds}
+                  - else
+                    %div +#{game[:game].home_odds}
+              - else
+                %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}= game[:game].away_team
+                %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
+                  - if game[:game].away_odds < 0
+                    %div #{game[:game].away_odds}
+                  - else
+                    %div +#{game[:game].away_odds}
+        %br
+        %p TIEBREAKER: #{player[:tiebreaker_pick].points_estimate}

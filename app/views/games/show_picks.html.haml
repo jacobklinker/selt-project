@@ -1,6 +1,6 @@
-%h1 #{@user.first_name}'s Picks
+%h1.section_header.jumbotron #{@user.first_name}'s Picks
 
-%table.container#games
+%table.container.table-striped#games
   %thead
     %tr
       %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Away Odds
@@ -9,18 +9,6 @@
       %th{:class => "col-2", :align => "center", :style => "text-decoration: underline; font-weight: normal;"} Home Odds
      
   %tbody
-    %tr
-      %td
-    %tr
-      %td
-    %tr
-      %td
-    %tr
-      %td
-    %tr
-      %td
-    %tr
-      %td
     - @games.each do |game|
       %tr
         - if game[:home_winner]
@@ -49,3 +37,5 @@
               %div #{game[:game].home_odds}
             - else
               %div +#{game[:game].home_odds}
+%br
+%p TIEBREAKER: #{@tiebreaker_game.home_team} vs. #{@tiebreaker_game.away_team}, Predicted Points: #{@tiebreaker_pick.points_estimate}
