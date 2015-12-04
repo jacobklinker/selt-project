@@ -1774,9 +1774,9 @@ describe LeaguesController do
             allow(@league).to receive(:number_members=)
             allow(@user).to receive(:num_leagues=)
             allow(@user).to receive(:num_leagues).and_return(4)
-            allow(@league).to receive(:to_model).and_return(@obj)
-            allow(@obj).to receive(:persisted?)
-            allow(@obj).to receive(:model_name)
+            #allow(@league).to receive(:to_model).and_return(@obj)
+            #allow(@obj).to receive(:persisted?)
+            #allow(@obj).to receive(:model_name)
             
            
             allow(@user).to receive(:league1_id=).and_return(nil)
@@ -1796,6 +1796,7 @@ describe LeaguesController do
             allow(@user).to receive(:league5_id).and_return(5)
          
             put :update, {id: @league.id,:league => {:league_name=>"LeagueName", :commissioner_id=>"2", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""},:email_list => "t@m.com",:player_to_delete_ids => [1]}
+            expect(flash[:notice]).to eq("League was successfully updated.")
         end
         it 'should update the page and go into the second deleted user and delete league 2' do
             allow(@user).to receive(:league1_id).and_return(2)
@@ -1805,6 +1806,7 @@ describe LeaguesController do
             allow(@user).to receive(:league5_id).and_return(5)
          
             put :update, {id: @league.id,:league => {:league_name=>"LeagueName", :commissioner_id=>"2", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""},:email_list => "t@m.com",:player_to_delete_ids => [2]}
+            expect(flash[:notice]).to eq("League was successfully updated.")
         end
         it 'should update the page and go into the 3-20 deleted users and delete league 3' do
             allow(@user).to receive(:league1_id).and_return(3)
@@ -1814,6 +1816,7 @@ describe LeaguesController do
             allow(@user).to receive(:league5_id).and_return(5)
          
             put :update, {id: @league.id,:league => {:league_name=>"LeagueName", :commissioner_id=>"2", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""},:email_list => "t@m.com",:player_to_delete_ids => [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
+            expect(flash[:notice]).to eq("League was successfully updated.")
         end
         it 'should update the page and go into the 3-20 deleted users and delete league 4' do
             allow(@user).to receive(:league1_id).and_return(4)
@@ -1823,6 +1826,7 @@ describe LeaguesController do
             allow(@user).to receive(:league5_id).and_return(5)
          
             put :update, {id: @league.id,:league => {:league_name=>"LeagueName", :commissioner_id=>"2", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""},:email_list => "t@m.com",:player_to_delete_ids => [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
+            expect(flash[:notice]).to eq("League was successfully updated.")
         end
         it 'should update the page and go into the 3-20 deleted users and delete league 5' do
             allow(@user).to receive(:league1_id).and_return(5)
@@ -1832,6 +1836,7 @@ describe LeaguesController do
             allow(@user).to receive(:league5_id).and_return(1)
          
             put :update, {id: @league.id,:league => {:league_name=>"LeagueName", :commissioner_id=>"2", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""},:email_list => "t@m.com",:player_to_delete_ids => [3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20]}
+            expect(flash[:notice]).to eq("League was successfully updated.")
         end
     end
     describe 'do not add user to league' do  
