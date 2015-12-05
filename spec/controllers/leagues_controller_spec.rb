@@ -6,6 +6,83 @@ describe LeaguesController do
     allow_message_expectations_on_nil
     allow(controller.current_user).to receive(:id).and_return(1)
   end
+  
+  it "should show the add announcement page for a valid league" do
+      expect(League).to receive(:find_by_id).with("1").and_return(League.new)
+      get :add_announcement, {:league_id => 1}
+  end
+  
+  it "should redirect to the home page for an invalid league" do 
+      expect(League).to receive(:find_by_id).with("1").and_return(nil)
+
+      get :add_announcement, {:league_id => 1}
+      
+      expect(flash[:notice]).to eq("Oops, that league doesn't exist!")
+      expect(response).to redirect_to(authenticated_root_path)
+  end
+  
+  describe "show the announcement button" do 
+      before :each do 
+          @league = League.new
+          
+          @commissioner = User.create
+          @commissioner.email = "test@test.com"
+          @commissioner.first_name = "test"
+          @commissioner.last_name = "user"
+      end
+      
+      it "should display the add announcement button if the user is an admin" do
+          @league.commissioner_id = 1
+          
+          expect(User).to receive(:find).with(1).and_return(@commissioner)
+          expect(User).to receive(:find).with(2).and_return(@commissioner)
+          expect(League).to receive(:find).with("1").and_return(@league)
+          
+          get :show, {:id => 1}
+          
+          expect(assigns(:show_announcements)).to eq true
+      end
+  
+      it "should not display the add announcement button if the user is an admin" do
+          @league.commissioner_id = 2
+          
+          expect(User).to receive(:find).with(2).and_return(@commissioner).twice
+          expect(League).to receive(:find).with("1").and_return(@league)
+          
+          get :show, {:id => 1}
+          
+          expect(assigns(:show_announcements)).to eq false
+      end
+  end
+  
+  describe "saving announcements" do 
+      it "should save the announcement if all fields are filled" do
+          expect(League).to receive(:find_by_id).with("1").and_return(League.new)
+          
+          post :create_announcement, { :league_id => 1, :text => { :announcement => "test", :start_time => "2015-12-04", :end_time => "2015-12-05" } }
+                
+          expect(flash[:notice]).to eq("Added an announcement to your league!")
+          expect(response).to redirect_to(authenticated_root_path)
+      end
+      
+      it "should redirect to home if the league id is invalid" do
+          expect(League).to receive(:find_by_id).with("1").and_return(nil)
+          
+          post :create_announcement, { :league_id => 1 }
+                
+          expect(flash[:notice]).to eq("Oops, that league doesn't exist!")
+          expect(response).to redirect_to(authenticated_root_path)
+      end 
+      
+      it "should redirect to league page if the league id is valid but all other params are invalid" do
+          expect(League).to receive(:find_by_id).with("1").and_return(League.new)
+
+          post :create_announcement, { :league_id => 1 }
+                
+          expect(flash[:notice]).to eq("Please complete the form!")
+          expect(response).to redirect_to(leagues_add_announcements_path("1"))
+      end 
+  end
 
   it "index should load all the leagues" do
       expect(League).to receive(:all)
@@ -1694,4 +1771,6 @@ describe LeaguesController do
       end
     end
   end
+  
+  
 end

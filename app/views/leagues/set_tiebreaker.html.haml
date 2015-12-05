@@ -1,0 +1,39 @@
+!!!
+%html
+  %head
+  %body
+    %h1{:align => "center", :class => "section_header"} #{@league_name} Tiebreaker
+    %br
+    = form_tag leagues_submit_tiebreaker_path(@league_id), :method => :post do
+      %table.table-striped.container#games
+        %thead
+          %tr
+            %th{:class => "span2", :align => "center"} Set Tiebreaker
+            %th{:class => "span4", :align => "center"} Away
+            %th{:class => "span2", :align => "center"}
+            %th{:class => "span4", :align => "center"} Home
+
+        %tbody
+          - @games.each do |game|
+            %tr.spaced
+              %td{:class => "col-2", :align => "center"}
+                = radio_button_tag "tiebreaker", "#{game.id}", false, class: "left", :onclick => "enableSubmit()"
+              %td{:class => "col-3", :align => "center"} 
+                %h3 #{game.away_team}
+                - if game.away_odds > 0
+                  %div.odds +#{game.away_odds}
+                - else
+                  %div.odds #{game.away_odds}
+              %td{:class => "col-2", :align => "center"}
+                %h6 #{game.game_time.in_time_zone("Eastern Time (US & Canada)").strftime("%m-%d-%Y %l:%M%p")} (ET)
+                %h4 VS.<br /><br />
+              %td{:class => "col-3", :align => "center"} 
+                %h3 #{game.home_team} 
+                - if game.home_odds > 0
+                  %div.odds +#{game.home_odds}
+                - else
+                  %div.odds #{game.home_odds}
+      %br
+      %div.row
+        %div.span12
+          = submit_tag 'Set Tiebreaker', class: "btn btn-block", :disabled => true, id: "set_tiebreaker"

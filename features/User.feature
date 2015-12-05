@@ -19,7 +19,6 @@ Scenario: Return to user homepage when authenticated
   And I click the "Home" link
   Then I should see "Welcome to"
   And I should see "Logout"
-  And I should see "Announcements"
   And I should see "My Leagues"
   #And I should see "Create League"
   And I should see "Account Settings"
