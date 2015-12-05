@@ -204,7 +204,12 @@ class GamesController < ApplicationController
           end
         end
     end
-    
+
+    def home_team_cover
+        Game.all.each do |game|
+            puts game
+        end
+    end
     # adjust the current week. If it is sunday - tuesday, this should move back
     # to the previous week so week can display those old picks. If it is
     # wednesday - saturday, you should be able to make your picks or view them

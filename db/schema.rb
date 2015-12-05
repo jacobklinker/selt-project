@@ -23,20 +23,26 @@ ActiveRecord::Schema.define(version: 20151203143954) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.string   "home_team",                   null: false
-    t.string   "away_team",                   null: false
+    t.string   "home_team",                      null: false
+    t.string   "away_team",                      null: false
     t.float    "home_odds"
     t.float    "away_odds"
     t.integer  "home_score"
     t.integer  "away_score"
-    t.boolean  "is_finished", default: false
+    t.boolean  "is_finished",    default: false
     t.datetime "game_time"
+    t.integer  "homeTeamCover"
+    t.integer  "homeTeamCover2"
   end
 
   create_table "league_picks", force: :cascade do |t|
     t.integer "user_id"
     t.integer "league_id"
     t.integer "week"
+    t.integer "wins"
+    t.integer "losses"
+    t.integer "pushes"
+    t.integer "weeklyTotal"
   end
 
   create_table "leagues", force: :cascade do |t|
@@ -165,5 +171,14 @@ ActiveRecord::Schema.define(version: 20151203143954) do
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+
+  create_table "weekly_winners", force: :cascade do |t|
+    t.integer  "league_id"
+    t.integer  "week"
+    t.integer  "year"
+    t.text     "winners"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
