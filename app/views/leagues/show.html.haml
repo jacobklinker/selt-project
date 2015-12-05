@@ -9,8 +9,6 @@
     =button_to 'Make picks for this week', games_picks_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
   - else
     =button_to 'View your picks for this week', show_picks_path(@league.id, @current_user.id), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
-    
-  - if (@tiebreaker != nil && @league_pick != nil)
     =button_to 'View everyone\'s picks for this week', show_all_picks_path(@league.id, @tiebreaker), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
   
   - if current_user.id==@league.commissioner_id && @tiebreaker == nil

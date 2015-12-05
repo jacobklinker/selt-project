@@ -23,6 +23,7 @@ class GamesController < ApplicationController
     
     def picks
         league = League.find(params[:league_id])
+        #@tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         @num_picks = league.number_picks_settings;
         week = Time.now.strftime('%U')
         allGames = Game.all
@@ -34,8 +35,8 @@ class GamesController < ApplicationController
         end
         @league_id = params[:league_id]
         
-        tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
-        @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
+        @tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
+        @tiebreaker_game = Game.where(id: @tiebreaker.game_id).take
         
         conference = league.conference_settings;
         games = []
@@ -83,6 +84,7 @@ class GamesController < ApplicationController
     
     def submit_picks
         league = League.find(params[:league_id])
+        #tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         picks = params[:picks]
         week = Time.now.strftime('%U')
         tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
@@ -106,6 +108,7 @@ class GamesController < ApplicationController
     
     def show_picks
         league = League.find(params[:league_id])
+        #tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         @user = User.find(params[:user_id])
         week = Time.now.strftime('%U')
         
@@ -120,10 +123,9 @@ class GamesController < ApplicationController
             return
         end
         
+        @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week).take
         @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
         @tiebreaker_pick = TiebreakerPick.where(league_pick_id: my_picks.id).take
-        
-        @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week).take
         
         if @league_pick == nil 
             render "games/no_picks"
@@ -177,25 +179,29 @@ class GamesController < ApplicationController
         memberIds.each do |user_id|
           user = User.find(user_id)
           league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week).take
-          tiebreaker_pick = TiebreakerPick.where(league_pick_id: league_pick.id).take
-          picks = Pick.where(league_pick_id: league_pick.id).find_each
-          games = []
-        
-          picks.each do |pick|
-            game = Game.find(pick.game_id)
-            games << {
-                :game => game, 
-                :home_winner => pick.home_wins
-            }
+          if league_pick != nil
+              tiebreaker_pick = TiebreakerPick.where(league_pick_id: league_pick.id).take
+              if(tiebreaker_pick != nil)
+                  picks = Pick.where(league_pick_id: league_pick.id).find_each
+                  games = []
+                
+                  picks.each do |pick|
+                    game = Game.find(pick.game_id)
+                    games << {
+                        :game => game, 
+                        :home_winner => pick.home_wins
+                    }
+                  end
+                  @players << {
+                    :id => user.id,
+                    :name => user.first_name + " " + user.last_name,
+                    :league_pick => league_pick,
+                    :picks => picks,
+                    :games => games,
+                    :tiebreaker_pick => tiebreaker_pick
+                  }
+              end
           end
-          @players << {
-            :id => user.id,
-            :name => user.first_name + " " + user.last_name,
-            :league_pick => league_pick,
-            :picks => picks,
-            :games => games,
-            :tiebreaker_pick => tiebreaker_pick
-          }
         end
     end
     
