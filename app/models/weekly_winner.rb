@@ -6,7 +6,7 @@ class WeeklyWinner < ActiveRecord::Base
         year = Time.now.strftime('%Y').to_i
         
         #Need to delete
-        week=week+1
+        #week=week+1
         #
 
         League.all.each do |league|
