@@ -18,3 +18,4 @@
 
 %br
 = button_to 'Force New Score Sync', new_score_sync_path, :method => :get, :id => "force_sync"
+= button_to 'Manual Weekly Winner/Standings Update', :action => "manualUpdate", :controller => "score_syncs"

@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get "users/sign_up"
   get "users/sign_in"
   
+  post '/score_syncs/manualUpdate', to: 'score_syncs#manualUpdate', as: 'manualUpdate'
+  
   get "games/picks/:league_id", to: 'games#picks', as: 'games_picks'
   post "games/submit_picks/:league_id", to: "games#submit_picks", as: "games_submit_picks"
   get "games/show_picks/:league_id/:user_id", to: 'games#show_picks', as: "show_picks"
