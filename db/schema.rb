@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203143954) do
+ActiveRecord::Schema.define(version: 20151207205838) do
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "league_id"
@@ -22,28 +22,11 @@ ActiveRecord::Schema.define(version: 20151203143954) do
     t.datetime "updated_at",   null: false
   end
 
-  create_table "games", force: :cascade do |t|
-    t.string   "home_team",                      null: false
-    t.string   "away_team",                      null: false
-    t.float    "home_odds"
-    t.float    "away_odds"
-    t.integer  "home_score"
-    t.integer  "away_score"
-    t.boolean  "is_finished",    default: false
-    t.datetime "game_time"
-    t.integer  "homeTeamCover"
-    t.integer  "homeTeamCover2"
-  end
+# Could not dump table "games" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
-  create_table "league_picks", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "league_id"
-    t.integer "week"
-    t.integer "wins"
-    t.integer "losses"
-    t.integer "pushes"
-    t.integer "weeklyTotal"
-  end
+# Could not dump table "league_picks" because of following NoMethodError
+#   undefined method `[]' for nil:NilClass
 
   create_table "leagues", force: :cascade do |t|
     t.string   "league_name"
