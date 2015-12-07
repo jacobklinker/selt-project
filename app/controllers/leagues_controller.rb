@@ -109,6 +109,8 @@ class LeaguesController < ApplicationController
       }
       
       if(lastwins==entry[1][:wins] && lastlosses==entry[1][:losses] && entry[1][:pushes])
+        i=i
+      else
         i=i+1
       end
       
