@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(version: 20151203143954) do
   end
 
   create_table "tiebreaker_picks", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "league_id"
     t.integer "points_estimate"
     t.integer "game_id"
     t.integer "league_pick_id"

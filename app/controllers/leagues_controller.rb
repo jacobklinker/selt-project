@@ -122,7 +122,7 @@ class LeaguesController < ApplicationController
     #end
     
     week = Time.now.strftime('%U')
-    @league_pick = LeaguePick.where(user_id: current_user.id, league_id: @league.id, week: week).find_each
+    @league_pick = LeaguePick.where(user_id: current_user.id, league_id: @league.id, week: week).take
     
     @show_announcements = false
     @show_announcements = true unless @league.commissioner_id != current_user.id
