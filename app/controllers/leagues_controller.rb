@@ -72,9 +72,9 @@ class LeaguesController < ApplicationController
         @season_weekly_winners << {
           :week_number => i,
           :name => user.first_name + " " + user.last_name,
-          :wins => (LeaguePick.where(user_id: user.id, week: week_winner.week)[0]).wins,
-          :losses => (LeaguePick.where(user_id: user.id, week: week_winner.week)[0]).losses,
-          :pushes => (LeaguePick.where(user_id: user.id, week: week_winner.week)[0]).pushes
+          :wins => (LeaguePick.where(user_id: user.id, league_id: @league.id, week: week_winner.week)[0]).wins,
+          :losses => (LeaguePick.where(user_id: user.id, league_id: @league.id, week: week_winner.week)[0]).losses,
+          :pushes => (LeaguePick.where(user_id: user.id, league_id: @league.id, week: week_winner.week)[0]).pushes
         }
       end
       i = i + 1;
@@ -94,17 +94,34 @@ class LeaguesController < ApplicationController
     @updated_standings=[]
     @standings=@standings.sort_by{|k,v| [v[:wins], v[:pushes]]}.reverse!
 
+    lastwins=0
+    lastlosses=0
+    lastpushes=0
+    lastrank=0
     @standings.each do |entry|
       user = User.find(entry[0]);
+      if(lastwins==entry[1][:wins] && lastlosses==entry[1][:losses] && entry[1][:pushes])
+        rank=lastrank
+      else
+        rank=i
+      end
+      i=i+1
       @updated_standings << {
-        :rank => i,
+        :rank => rank,
         :name => user.first_name + " " + user.last_name,
         :wins => entry[1][:wins],
         :losses =>entry[1][:losses],
         :pushes =>entry[1][:pushes],
         :id => user.id
       }
-      i=i+1
+      
+      lastrank=rank
+      
+      lastwins=entry[1][:wins]
+      lastlosses=entry[1][:losses]
+      lastpushes=entry[1][:pushes]
+      
+      
     end
     puts @updated_standings
       #weekly_winners.each do |week_winner|
