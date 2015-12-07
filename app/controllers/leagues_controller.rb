@@ -65,11 +65,8 @@ class LeaguesController < ApplicationController
     @season_weekly_winners = []
     year = Time.now.strftime('%Y').to_i
     i = 1;
-    puts "League ID"
-    puts @league.id
     weekly_winners=WeeklyWinner.where(league_id: @league.id, year: year )
     weekly_winners.each do |week_winner|
-      puts week_winner.winners
       (week_winner.winners.size).times do |winner_index|
         user = User.find(week_winner.winners[winner_index]);
         @season_weekly_winners << {
@@ -97,6 +94,9 @@ class LeaguesController < ApplicationController
     @updated_standings=[]
     @standings=@standings.sort_by{|k,v| [v[:wins], v[:pushes]]}.reverse!
 
+    lastwins=0
+    lastlosses=0
+    lastpushes=0
     @standings.each do |entry|
       user = User.find(entry[0]);
       @updated_standings << {
@@ -107,7 +107,16 @@ class LeaguesController < ApplicationController
         :pushes =>entry[1][:pushes],
         :id => user.id
       }
-      i=i+1
+      
+      if(lastwins==entry[1][:wins] && lastlosses==entry[1][:losses] && entry[1][:pushes])
+        i=i+1
+      end
+      
+      lastwins=entry[1][:wins]
+      lastlosses=entry[1][:losses]
+      lastpushes=entry[1][:pushes]
+      
+      
     end
     puts @updated_standings
       #weekly_winners.each do |week_winner|
