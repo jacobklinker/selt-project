@@ -97,10 +97,17 @@ class LeaguesController < ApplicationController
     lastwins=0
     lastlosses=0
     lastpushes=0
+    lastrank=0
     @standings.each do |entry|
       user = User.find(entry[0]);
+      if(lastwins==entry[1][:wins] && lastlosses==entry[1][:losses] && entry[1][:pushes])
+        rank=lastrank
+      else
+        rank=i
+      end
+      i=i+1
       @updated_standings << {
-        :rank => i,
+        :rank => rank,
         :name => user.first_name + " " + user.last_name,
         :wins => entry[1][:wins],
         :losses =>entry[1][:losses],
@@ -108,11 +115,7 @@ class LeaguesController < ApplicationController
         :id => user.id
       }
       
-      if(lastwins==entry[1][:wins] && lastlosses==entry[1][:losses] && entry[1][:pushes])
-        i=i
-      else
-        i=i+1
-      end
+      lastrank=rank
       
       lastwins=entry[1][:wins]
       lastlosses=entry[1][:losses]
