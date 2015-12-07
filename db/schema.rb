@@ -120,10 +120,11 @@ ActiveRecord::Schema.define(version: 20151203143954) do
 
   create_table "syncs", force: :cascade do |t|
     t.datetime "timestamp"
-    t.integer  "new_games",     default: 0
-    t.integer  "updated_games", default: 0
-    t.integer  "failed_games",  default: 0
-    t.boolean  "is_successful", default: true
+    t.integer  "new_games",          default: 0
+    t.integer  "updated_games",      default: 0
+    t.integer  "failed_games",       default: 0
+    t.boolean  "is_successful",      default: true
+    t.integer  "pinnacle_feed_time"
   end
 
   create_table "tiebreaker_picks", force: :cascade do |t|
