@@ -65,16 +65,19 @@ class LeaguesController < ApplicationController
     @season_weekly_winners = []
     year = Time.now.strftime('%Y').to_i
     i = 1;
+    puts "League ID"
+    puts @league.id
     weekly_winners=WeeklyWinner.where(league_id: @league.id, year: year )
     weekly_winners.each do |week_winner|
+      puts week_winner.winners
       (week_winner.winners.size).times do |winner_index|
         user = User.find(week_winner.winners[winner_index]);
         @season_weekly_winners << {
           :week_number => i,
           :name => user.first_name + " " + user.last_name,
-          :wins => (LeaguePick.where(user_id: user.id, week: week_winner.week)[0]).wins,
-          :losses => (LeaguePick.where(user_id: user.id, week: week_winner.week)[0]).losses,
-          :pushes => (LeaguePick.where(user_id: user.id, week: week_winner.week)[0]).pushes
+          :wins => (LeaguePick.where(user_id: user.id, league_id: @league.id, week: week_winner.week)[0]).wins,
+          :losses => (LeaguePick.where(user_id: user.id, league_id: @league.id, week: week_winner.week)[0]).losses,
+          :pushes => (LeaguePick.where(user_id: user.id, league_id: @league.id, week: week_winner.week)[0]).pushes
         }
       end
       i = i + 1;
