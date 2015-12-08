@@ -11,7 +11,7 @@
   - elsif (@league_pick == nil || @league_pick.size() == 0) && ((Time.now.in_time_zone("Central Time (US & Canada)").wday < 6) && Time.now.in_time_zone("Central Time (US & Canada)").wday > 2)
     =button_to 'Make picks for this week', games_picks_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
   
-  - if ((Time.now.in_time_zone("Central Time (US & Canada)").wday > 5) || Time.now.in_time_zone("Central Time (US & Canada)").wday < 3)
+  - if ((Time.now.in_time_zone("Central Time (US & Canada)").wday > 5) || Time.now.in_time_zone("Central Time (US & Canada)").wday < 3) && @season_weekly_winners != []
     =button_to 'View everyone\'s picks for last week', show_all_picks_path(@league.id), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
   - elsif @league_pick != nil
     =button_to 'View your picks for this week', show_picks_path(@league.id, @current_user.id), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
