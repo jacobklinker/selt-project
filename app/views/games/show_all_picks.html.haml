@@ -54,7 +54,7 @@
                     - else
                       %div +#{game[:game].away_odds}
                 - elsif game[:is_finished] &&(game[:correct_pick]==0)
-                  %td{:class => "col-1", :align => "left", :style => "color:red;"}= game[:game].away_team
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color:red;"}= game[:game].away_team
                   %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color: red;"}
                     - if game[:game].away_odds < 0
                       %div #{game[:game].away_odds}
