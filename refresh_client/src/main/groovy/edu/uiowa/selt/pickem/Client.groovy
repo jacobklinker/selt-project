@@ -17,6 +17,8 @@
 package edu.uiowa.selt.pickem
 
 public class Client {
+    
+    static final String URL = "https://glacial-reef-4224.herokuapp.com"
 
     public static void main(String[] args) {
         Timer timer = new Timer()

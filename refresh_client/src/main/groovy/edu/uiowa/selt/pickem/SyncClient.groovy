@@ -21,7 +21,7 @@ import groovyx.net.http.HTTPBuilder
 public class SyncClient extends TimerTask {
     @Override
     void run() {
-        def http = new HTTPBuilder("https://glacial-reef-4224.herokuapp.com")
+        def http = new HTTPBuilder(Client.URL)
         def html = http.get(path: '/syncs/new')
         println "Finished sync with pinnacle sports."
     }
