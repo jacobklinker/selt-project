@@ -20,16 +20,7 @@ Given /^I am on the unauthenticated homepage$/ do
  end
  
  When /^I click the "(.*?)" button$/ do |id|
-  if id == "Make picks for this week"
-   day = Time.now.strftime("%w").to_i
-   if day < 3 || day > 4
-    pending "BUTTON ONLY AVAILABLE WEDNESDAY - FRIDAY"
-   else
-    click_button id
-   end
-  else
    click_button id
-  end
  end
  
  When /^I signed up a user with email "(.*?)" and password "(.*?)" and first name "(.*?)" and last name "(.*?)"$/ do |email, password, first_name, last_name|
