@@ -169,6 +169,10 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | email          | password | first_name | last_name |
     | test@test.com  | password | test       | user      |
     | test2@test.com | password | test2      | user2     |
+    
+    Given the following leagues have been added:
+    | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
+    | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
 
     Given the following games have synced:
     | home_team   | away_team | home_odds | away_odds | game_time        |
@@ -181,7 +185,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     
     Given the following league picks have been added:
     | league_id     | user_id |
-    | 1             | 2       |
+    | 1             | 1       |
     
     Given the following tiebreaker picks have been added:
     | league_pick_id | points_estimate |
@@ -209,15 +213,20 @@ Feature: Authenticated users can view detailed information on the leagues they a
     
     Given the following games have synced:
     | home_team   | away_team | home_odds | away_odds | game_time           |
+    | Iowa        | Maryland  | 10        | -10       | WEEK_AGO            |
+    | Iowa State  | Texas     | -8        | 8         | WEEK_AGO            |
     | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE         |
     | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE         |
     
     Given the following tiebreakers have been added:
     | league | game | week        |
-    | 1      | 2    | TODAYS_DATE |
+    | 1      | 2    | WEEK_AGO    |
+    | 1      | 3    | TODAYS_DATE |
     
     Given the following league picks have been added:
     | league_id     | user_id |
+    | 1             | 1       |
+    | 1             | 2       |
     | 1             | 1       |
     | 1             | 2       |
     
@@ -227,11 +236,17 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | 2         | 1               | false       |
     | 1         | 2               | true        |
     | 2         | 2               | true        |
+    | 3         | 1               | true        |
+    | 4         | 1               | false       |
+    | 3         | 2               | true        |
+    | 4         | 2               | true        |
     
     Given the following tiebreaker picks have been added:
     | league_pick_id | points_estimate |
     | 1              | 69              |
     | 2              | 123             |
+    | 3              | 69              |
+    | 4              | 123             |
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
@@ -250,23 +265,23 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
     
     Given the following games have synced:
-    | home_team   | away_team | home_odds | away_odds | game_time        |
-    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
-    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE      |
+    | home_team   | away_team | home_odds | away_odds | game_time           |
+    | Iowa        | Maryland  | 10        | -10       | WEEK_AGO            |
+    | Iowa State  | Texas     | -8        | 8         | WEEK_AGO            |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE         |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE         |
     
     Given the following tiebreakers have been added:
     | league | game | week        |
-    | 1      | 1    | TODAYS_DATE |
+    | 1      | 2    | WEEK_AGO    |
+    | 1      | 3    | TODAYS_DATE |
     
     Given the following league picks have been added:
     | league_id     | user_id |
     | 1             | 1       |
     | 1             | 2       |
-    
-    Given the following tiebreaker picks have been added:
-    | league_pick_id | points_estimate |
-    | 1              | 69              |
-    | 2              | 123             |
+    | 1             | 1       |
+    | 1             | 2       |
     
     Given the following picks have been added:
     | game_id   | league_pick_id  | home_wins   |
@@ -274,6 +289,17 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | 2         | 1               | false       |
     | 1         | 2               | true        |
     | 2         | 2               | true        |
+    | 3         | 1               | true        |
+    | 4         | 1               | false       |
+    | 3         | 2               | true        |
+    | 4         | 2               | true        |
+    
+    Given the following tiebreaker picks have been added:
+    | league_pick_id | points_estimate |
+    | 1              | 69              |
+    | 2              | 123             |
+    | 3              | 69              |
+    | 4              | 123             |
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
