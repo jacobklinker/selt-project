@@ -17,12 +17,6 @@ require_relative '../../lib/models/tweet.rb'
 class ScoresSync
     
     def self.perform
-        Game.home_team_cover
-        puts "in scores sync"
-        puts "in scores sync"
-        puts "in scores sync"
-        puts "in scores sync"
-        puts "in scores sync"
         sync = ScoreSync.new
         sync.sync_start = Time.now
         

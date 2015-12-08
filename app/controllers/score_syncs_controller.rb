@@ -13,14 +13,9 @@ class ScoreSyncsController < ApplicationController
     
     def new
         ScoresSync.perform
-        flash[:notice] = "Finished new score sync from Twitter."
         Game.home_team_cover
-        puts "WORKING"
-        puts "WORKING"
-        puts "WORKING"
-        puts "WORKING"
-        puts "WORKING"
-        puts "WORKING"
+        flash[:notice] = "Finished new score sync from Twitter."
+       
         #Where this will go-- Game.home_team_cover
        # day = ((Time.now.strftime('%w').to_i))
         #hour = ((Time.now.strftime('%H').to_i))
