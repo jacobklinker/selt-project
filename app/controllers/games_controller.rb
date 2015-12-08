@@ -194,7 +194,9 @@ class GamesController < ApplicationController
           tiebreaker = Tiebreaker.where(league_id: league.id, week: week.to_i).take
         end
         
-        @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
+        if tiebreaker != nil
+          @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
+        end
 
         memberIds.each do |user_id|
           user = User.find(user_id)
