@@ -20,6 +20,10 @@ And /I am on the league page/ do
   visit league_path(League.first())
 end
 
+And /I am on the picks page/ do
+    visit games_picks_path(League.first(), Tiebreaker.first())
+end
+
 And /I choose the first away team/ do
     find('.left', 'picks[1]').click()
 end
@@ -63,6 +67,17 @@ end
 
 When(/^I click the first user$/) do
     find(:xpath, "//a[@href='/games/show_picks/1/1']").click
+end
+
+When(/^I click the make or view picks button$/) do
+    day = Time.now.strftime("%w").to_i
+    if day < 3
+        click_button("View everyone's picks for last week")
+        print "VIEW PICKS LAST WEEK"
+    else
+        click_button("Make picks for this week")
+        print "MAKE PICKS"
+    end
 end
 
 When(/^I click the second user$/) do

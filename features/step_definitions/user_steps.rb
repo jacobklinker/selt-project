@@ -6,6 +6,7 @@ Given /^I am on the unauthenticated homepage$/ do
   visit authenticated_root_path
  end
  
+ 
  Given /the following users have been added:/ do |users_table|
   users_table.hashes.each do |user|
    user = User.new(:email => user[:email], :password => user[:password], :password_confirmation => user[:password], :first_name => user[:first_name], :last_name => user[:last_name],:num_leagues=>user[:num_leagues])

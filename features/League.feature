@@ -24,6 +24,27 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 |
     | Test League   | 1     | 2     |
 
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time           |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE         |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE         |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
+    
+    Given the following league picks have been added:
+    | league_id     | user_id |
+    | 1             | 1       |
+    | 1             | 2       |
+    
+    Given the following picks have been added:
+    | game_id   | league_pick_id  | home_wins   |
+    | 1         | 1               | true        |
+    | 2         | 1               | false       |
+    | 1         | 2               | true        |
+    | 2         | 2               | true        |
+
     When I login with "test@test.com" and password "password"
     And I am on the league page
     Then I should see "Test League"
@@ -117,9 +138,27 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
     | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
     
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE      |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 1    | TODAYS_DATE |
+    
     Given the following league picks have been added:
     | league_id     | user_id |
     | 1             | 2       |
+    
+    Given the following tiebreaker picks have been added:
+    | league_pick_id | points_estimate |
+    | 1              | 69              |
+    
+    Given the following picks have been added:
+    | game_id   | league_pick_id  | home_wins   |
+    | 1         | 1               | true        |
+    | 2         | 1               | false       |
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
@@ -132,13 +171,27 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | test@test.com  | password | test       | user      |
     | test2@test.com | password | test2      | user2     |
 
-    Given the following leagues have been added:
-    | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
-    | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE      |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 1    | TODAYS_DATE |
     
     Given the following league picks have been added:
     | league_id     | user_id |
-    | 1             | 1       |
+    | 1             | 2       |
+    
+    Given the following tiebreaker picks have been added:
+    | league_pick_id | points_estimate |
+    | 1              | 69              |
+    
+    Given the following picks have been added:
+    | game_id   | league_pick_id  | home_wins   |
+    | 1         | 1               | true        |
+    | 2         | 1               | false       |
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
@@ -157,8 +210,12 @@ Feature: Authenticated users can view detailed information on the leagues they a
     
     Given the following games have synced:
     | home_team   | away_team | home_odds | away_odds | game_time           |
-    | Iowa        | Maryland  | 10        | -10       | 2015-11-14T16:05:00 |
-    | Iowa State  | Texas     | -8        | 8         | 2015-11-14T16:05:00 |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE         |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE         |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
     
     Given the following league picks have been added:
     | league_id     | user_id |
@@ -171,6 +228,11 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | 2         | 1               | false       |
     | 1         | 2               | true        |
     | 2         | 2               | true        |
+    
+    Given the following tiebreaker picks have been added:
+    | league_pick_id | points_estimate |
+    | 1              | 69              |
+    | 2              | 123             |
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
@@ -189,14 +251,23 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
     
     Given the following games have synced:
-    | home_team   | away_team | home_odds | away_odds | game_time           |
-    | Iowa        | Maryland  | 10        | -10       | 2015-11-14T16:05:00 |
-    | Iowa State  | Texas     | -8        | 8         | 2015-11-14T16:05:00 |
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE      |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 1    | TODAYS_DATE |
     
     Given the following league picks have been added:
     | league_id     | user_id |
     | 1             | 1       |
     | 1             | 2       |
+    
+    Given the following tiebreaker picks have been added:
+    | league_pick_id | points_estimate |
+    | 1              | 69              |
+    | 2              | 123             |
     
     Given the following picks have been added:
     | game_id   | league_pick_id  | home_wins   |
@@ -220,13 +291,20 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Big 10                 | 5                     |
     
-    Given I am on the syncs admin page
-    When I press the force sync button
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE      |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 1    | TODAYS_DATE |
 
     When I login with "test@test.com" and password "password"
-    And I am on the league page
-    When I click the "Make picks for this week" button
-    Then I should see only "Big 10" games
+    And I am on the picks page
+    Then I should see "Iowa"
+    And I should not see "Texas"
+    
     
   Scenario: I can pick only SEC games:
      Given the following users have been added:
@@ -238,13 +316,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | SEC                    | 5                     |
     
-    Given I am on the syncs admin page
-    When I press the force sync button
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Alabama     | Texas     | -8        | 8         | TODAYS_DATE      |
     
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
+
     When I login with "test@test.com" and password "password"
-    And I am on the league page
-    When I click the "Make picks for this week" button
-    Then I should see only "SEC" games
+    And I am on the picks page
+    Then I should not see "Iowa"
+    And I should see "Alabama"
     
   Scenario: I can pick only ACC games:
      Given the following users have been added:
@@ -256,13 +340,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | ACC                    | 5                     |
     
-    Given I am on the syncs admin page
-    When I press the force sync button
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Duke        | Texas     | -8        | 8         | TODAYS_DATE      |
     
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
+
     When I login with "test@test.com" and password "password"
-    And I am on the league page
-    When I click the "Make picks for this week" button
-    Then I should see only "ACC" games
+    And I am on the picks page
+    Then I should not see "Iowa"
+    And I should see "Duke"
     
   Scenario: I can pick only PAC 12 games:
      Given the following users have been added:
@@ -274,13 +364,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | PAC 12                 | 5                     |
     
-    Given I am on the syncs admin page
-    When I press the force sync button
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Oregon      | Texas     | -8        | 8         | TODAYS_DATE      |
     
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
+
     When I login with "test@test.com" and password "password"
-    And I am on the league page
-    When I click the "Make picks for this week" button
-    Then I should see only "PAC 12" games
+    And I am on the picks page
+    Then I should not see "Iowa"
+    And I should see "Oregon"
   
   Scenario: I can pick only Mid-American Conference games:
      Given the following users have been added:
@@ -292,13 +388,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings     | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Mid-American Conference | 5                     |
     
-    Given I am on the syncs admin page
-    When I press the force sync button
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Ohio        | Texas     | -8        | 8         | TODAYS_DATE      |
     
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
+
     When I login with "test@test.com" and password "password"
-    And I am on the league page
-    When I click the "Make picks for this week" button
-    Then I should see only "Mid-American Conference" games
+    And I am on the picks page
+    Then I should not see "Iowa"
+    And I should see "Ohio"
   
   Scenario: I can pick only Mountain West Conference games:
      Given the following users have been added:
@@ -310,13 +412,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings      | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Mountain West Conference | 5                     |
     
-    Given I am on the syncs admin page
-    When I press the force sync button
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Wyoming     | Texas     | -8        | 8         | TODAYS_DATE      |
     
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
+
     When I login with "test@test.com" and password "password"
-    And I am on the league page
-    When I click the "Make picks for this week" button
-    Then I should see only "Mountain West Conference" games
+    And I am on the picks page
+    Then I should not see "Iowa"
+    And I should see "Wyoming"
     
    Scenario: I can pick only Sun Belt games:
      Given the following users have been added:
@@ -328,13 +436,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Sun Belt            | 5                     |
     
-    Given I am on the syncs admin page
-    When I press the force sync button
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Idaho       | Texas     | -8        | 8         | TODAYS_DATE      |
     
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
+
     When I login with "test@test.com" and password "password"
-    And I am on the league page
-    When I click the "Make picks for this week" button
-    Then I should see only "Sun Belt" games
+    And I am on the picks page
+    Then I should not see "Iowa"
+    And I should see "Idaho"
     
   Scenario: I can pick only Big 12 games:
      Given the following users have been added:
@@ -346,13 +460,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Big 12              | 5                     |
     
-    Given I am on the syncs admin page
-    When I press the force sync button
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Kansas      | Texas     | -8        | 8         | TODAYS_DATE      |
     
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
+
     When I login with "test@test.com" and password "password"
-    And I am on the league page
-    When I click the "Make picks for this week" button
-    Then I should see only "Big 12" games
+    And I am on the picks page
+    Then I should not see "Iowa"
+    And I should see "Kansas"
     
   Scenario: I can pick only Conference USA games:
      Given the following users have been added:
@@ -364,13 +484,19 @@ Feature: Authenticated users can view detailed information on the leagues they a
     | name          | user1 | user2 | commissioner_id | conference_settings         | number_picks_settings |
     | Test League   | 1     | 2     | 1               | Conference USA              | 5                     |
     
-    Given I am on the syncs admin page
-    When I press the force sync button
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time        |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
+    | Marshall    | Texas     | -8        | 8         | TODAYS_DATE      |
     
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 2    | TODAYS_DATE |
+
     When I login with "test@test.com" and password "password"
-    And I am on the league page
-    When I click the "Make picks for this week" button
-    Then I should see only "Conference USA" games
+    And I am on the picks page
+    Then I should not see "Iowa"
+    And I should see "Marshall"
     
   Scenario: I cannot submit picks before I pick the required number of games:
      Given the following users have been added:

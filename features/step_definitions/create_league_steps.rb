@@ -6,7 +6,6 @@ When /^I create a league with "(.*?)" as a League Name and "(.*?)" as conference
   select num_picks, :from => "league_number_picks_settings"
   
   click_on 'Create League'
-  puts page.body
 end
  
 When /^I am on the create new league page$/ do
