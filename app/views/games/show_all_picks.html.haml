@@ -12,27 +12,27 @@
               - if game[:home_winner]
                 - if game[:is_finished] &&(game[:correct_pick]==2)
                   %td{:class => "col-1", :align => "left", :style => "font-weight: bold; color: green"}= game[:game].home_team
-                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color: green;"}
                     - if game[:game].home_odds < 0
                       %div #{game[:game].home_odds}
                     - else
                       %div +#{game[:game].home_odds}
                 - elsif game[:is_finished] &&(game[:correct_pick]==1)
                   %td{:class => "col-1", :align => "left", :style => "font-weight: bold; color: yellow"}= game[:game].home_team
-                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color: yellow;"}
                     - if game[:game].home_odds < 0
                       %div #{game[:game].home_odds}
                     - else
                       %div +#{game[:game].home_odds}
                 - elsif game[:is_finished] &&(game[:correct_pick]==0)
-                  %td{:class => "col-1", :align => "left", :style => "color: red; "}= game[:game].home_team
-                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color: red; "}= game[:game].home_team
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color: red;"}
                     - if game[:game].home_odds < 0
                       %div #{game[:game].home_odds}
                     - else
                       %div +#{game[:game].home_odds}
                 - else
-                  %td{:class => "col-1", :align => "left"}= game[:game].home_team
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}= game[:game].home_team
                   %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
                     - if game[:game].home_odds < 0
                       %div #{game[:game].home_odds}
@@ -40,28 +40,28 @@
                       %div +#{game[:game].home_odds}
               - else
                 - if game[:is_finished] &&(game[:correct_pick]==2)
-                  %td{:class => "col-1", :align => "left", :style => "color:green;"}= game[:game].away_team
-                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color:green;"}= game[:game].away_team
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color: green;"}
                     - if game[:game].away_odds < 0
                       %div #{game[:game].away_odds}
                     - else
                       %div +#{game[:game].away_odds}
                 - elsif game[:is_finished] &&(game[:correct_pick]==1)
-                  %td{:class => "col-1", :align => "left", :style => "color:yellow;"}= game[:game].away_team
-                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color:orange;"}= game[:game].away_team
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color: orange;"}
                     - if game[:game].away_odds < 0
                       %div #{game[:game].away_odds}
                     - else
                       %div +#{game[:game].away_odds}
                 - elsif game[:is_finished] &&(game[:correct_pick]==0)
                   %td{:class => "col-1", :align => "left", :style => "color:red;"}= game[:game].away_team
-                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;color: red;"}
                     - if game[:game].away_odds < 0
                       %div #{game[:game].away_odds}
                     - else
                       %div +#{game[:game].away_odds}
                 - else
-                  %td{:class => "col-1", :align => "left"}= game[:game].away_team
+                  %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}=game[:game].away_team
                   %td{:class => "col-1", :align => "left", :style => "font-weight: bold;"}
                     - if game[:game].away_odds < 0
                       %div #{game[:game].away_odds}
