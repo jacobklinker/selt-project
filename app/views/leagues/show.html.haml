@@ -6,9 +6,9 @@
   - if current_user.id==@league.commissioner_id && @tiebreaker == nil
     =button_to 'Set tiebreaker for this week', leagues_set_tiebreaker_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
     
-  - if @tiebreaker == nil || ((Time.now.in_time_zone("Central Time (US & Canada)").wday > 5) || Time.now.in_time_zone("Central Time (US & Canada)").wday < 3)
+  - if @tiebreaker == nil || ((Time.now.in_time_zone("Central Time (US & Canada)").wday > 5) || Time.now.in_time_zone("Central Time (US & Canada)").wday < 2)
     =button_to 'Make picks for this week', games_picks_path(@league, @tiebreaker), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold', :disabled => 'true'
-  - elsif (@league_pick == nil || @league_pick.size() == 0) && ((Time.now.in_time_zone("Central Time (US & Canada)").wday < 6) && Time.now.in_time_zone("Central Time (US & Canada)").wday > 2)
+  - elsif (@league_pick == nil) && ((Time.now.in_time_zone("Central Time (US & Canada)").wday < 6) && Time.now.in_time_zone("Central Time (US & Canada)").wday > 1)
     =button_to 'Make picks for this week', games_picks_path(@league), :class => 'btn btn-default btn-block', :method => :get, :style => 'font-weight:bold'
   
   - if ((Time.now.in_time_zone("Central Time (US & Canada)").wday > 5) || Time.now.in_time_zone("Central Time (US & Canada)").wday < 3)
