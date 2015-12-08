@@ -187,10 +187,24 @@ class GamesController < ApplicationController
                 
                   picks.each do |pick|
                     game = Game.find(pick.game_id)
+                    if((game[:home_winner]==true && game[:home_team_cover]==2) || (game[:home_winner]==false && game[:home_team_cover]==0) )
+                        correct_pick=2
+                    elsif(game[:home_team_cover]==1)
+                        correct_pick=1
+                    elsif((game[:home_winner]==true && game[:home_team_cover]==0) || (game[:home_winner]==false && game[:home_team_cover]==2))
+                        correct_pick=0
+                    end
+                    puts "hello"
+                    puts game[:home_winner]
+                    puts game[:home_team_cover]
+                    puts game
                     games << {
                         :game => game, 
-                        :home_winner => pick.home_wins
+                        :home_winner => pick.home_wins,
+                        :correct_pick => correct_pick,
+                        :is_finished => game.is_finished
                     }
+
                   end
                   @players << {
                     :id => user.id,
