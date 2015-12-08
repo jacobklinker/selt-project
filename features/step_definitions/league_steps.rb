@@ -65,6 +65,15 @@ When(/^I click the first user$/) do
     find(:xpath, "//a[@href='/games/show_picks/1/1']").click
 end
 
+When(/^I click the make or view picks button$/) do
+    day = Time.now.strftime("%w").to_i
+    if day < 3
+        click_button("View everyone's picks for last week")
+    else
+        click_button("Make picks for this week")
+    end
+end
+
 When(/^I click the second user$/) do
     find(:xpath, "//a[@href='/games/show_picks/1/2']").click
 end

@@ -88,7 +88,9 @@ class LeaguesController < ApplicationController
         @standings[league_pick.user_id]={:wins => league_pick.wins, :losses => league_pick.losses, :pushes => league_pick.pushes}
       else
         temp=@standings
-        @standings[league_pick.user_id]={:wins => (temp[league_pick.user_id][:wins] + league_pick.wins), :losses => (temp[league_pick.user_id][:losses] + league_pick.losses), :pushes => (temp[league_pick.user_id][:pushes] + league_pick.pushes)} 
+        if temp[league_pick.user_id][:wins] != nil
+          @standings[league_pick.user_id]={:wins => (temp[league_pick.user_id][:wins] + league_pick.wins), :losses => (temp[league_pick.user_id][:losses] + league_pick.losses), :pushes => (temp[league_pick.user_id][:pushes] + league_pick.pushes)} 
+        end
       end
     end
     @updated_standings=[]

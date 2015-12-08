@@ -111,9 +111,17 @@ class GamesController < ApplicationController
         #tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         @user = User.find(params[:user_id])
         week = Time.now.strftime('%U')
+        day = Time.now.strftime('%w')
         
-        my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week).take
-        tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
+        if(day.to_i < 3)
+          my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week.to_i-1).take
+          tiebreaker = Tiebreaker.where(league_id: league.id, week: week.to_i-1).take
+          @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week.to_i-1).take
+        else
+          my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week).take
+          tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
+          @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week).take
+        end
         
         if my_picks == nil && @user.id == current_user.id
             redirect_to games_picks_path(league)
@@ -123,7 +131,7 @@ class GamesController < ApplicationController
             return
         end
         
-        @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week).take
+        
         @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
         @tiebreaker_pick = TiebreakerPick.where(league_pick_id: my_picks.id).take
         
@@ -147,8 +155,7 @@ class GamesController < ApplicationController
     def show_all_picks
         league = League.find(params[:league_id])
         week = Time.now.strftime('%U')
-        tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
-        @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
+        day = Time.now.strftime('%w')
         
         # list of members
         memberIds = [];
@@ -175,10 +182,21 @@ class GamesController < ApplicationController
             
         @players = [];
         
+        if day.to_i < 3
+          tiebreaker = Tiebreaker.where(league_id: league.id, week: week.to_i-1).take
+        else
+          tiebreaker = Tiebreaker.where(league_id: league.id, week: week.to_i).take
+        end
+        
+        @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
 
         memberIds.each do |user_id|
           user = User.find(user_id)
-          league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week).take
+          if day.to_i < 3
+            league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week.to_i-1).take
+          else
+            league_pick = LeaguePick.where(league_id: league.id, user_id: user.id, week: week.to_i).take
+          end
           if league_pick != nil
               tiebreaker_pick = TiebreakerPick.where(league_pick_id: league_pick.id).take
               if(tiebreaker_pick != nil)

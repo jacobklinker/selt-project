@@ -9,6 +9,13 @@ Given(/^the following games have synced:$/) do |games|
     end
 end
 
+Given(/^the following tiebreakers have been added:$/) do |tiebreaker|\
+    week = Time.now.strftime('%w')
+    tiebreakers.hashes.each do |tiebreaker|
+        Tiebreaker.create(:league_id => tiebreaker[:league], :week => week, :game_id => tiebreaker[:game])
+    end
+end
+
 Then(/^I can see a list of games that are saved$/) do
     expect(page).to have_content("Iowa / 10")
     expect(page).to have_content("Maryland / -10")
