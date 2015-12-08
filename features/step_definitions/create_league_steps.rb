@@ -4,6 +4,7 @@ When /^I create a league with "(.*?)" as a League Name and "(.*?)" as conference
   fill_in "email_list", :with => emails
   select conf_settings, :from => "league_conference_settings"
   select num_picks, :from => "league_number_picks_settings"
+  #click_on('work')
   
   click_on 'Create League'
 end
