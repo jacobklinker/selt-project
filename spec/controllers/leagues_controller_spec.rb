@@ -287,15 +287,23 @@ describe LeaguesController do
         
         expect(assigns(:games)).to eq [game2]
     end
-    it "should successfully submit a tiebreaker"
+    it "should successfully submit a tiebreaker" do
       games = []
-        game1 = Game.new(:game_time => Time.now + 1000)
-        game2 = Game.new(:game_time => Time.now + 2000)
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000)
+        game2 = Game.new(:id => 2, :game_time => Time.now + 2000)
         games << game1
         games << game2
         
       week = Time.now.strftime('%U')
-      expect()
+      
+      league = League.new(:number_picks_settings => 5, :conference_settings => "Conference USA")
+      allow(League).to receive(:find).with("1").and_return(league)
+      
+      expect(Tiebreaker).to receive(:create).with(:league_id => league.id, :game_id => "1", :week => week)
+      
+      post :submit_tiebreaker, {:league_id => "1", :tiebreaker => "1"}
+    
+      expect(flash[:notice]).to eq("Tiebreaker set successfully!")
     end
   end
   describe "viewing a valid league" do 
