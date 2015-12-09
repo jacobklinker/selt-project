@@ -26,5 +26,5 @@ Scenario: Login to confirmed account
   And I should see "Welcome to Pick 'Em, test!"
   And I should see "Logout"
   And I should see "My Leagues"
-  And I should see "Account Settings"
+  And I should see "About Pick 'Em"
   And I should not see "Login"

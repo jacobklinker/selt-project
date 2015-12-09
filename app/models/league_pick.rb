@@ -59,7 +59,7 @@ class LeaguePick < ActiveRecord::Base
     def self.member_has_picked(league)
     
         @league=league
-        pickMade=LeaguePick.where(:league_id => @league.id, :week => Time.now.strftime('%U'))
+        pickMade=LeaguePick.where(:league_id => @league.id, :week => Time.now.in_time_zone("Central Time (US & Canada)").strftime('%U'))
         
         pickMade.exists?
     end

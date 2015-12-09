@@ -21,15 +21,15 @@ Scenario: Return to user homepage when authenticated
   And I should see "Logout"
   And I should see "My Leagues"
   #And I should see "Create League"
-  And I should see "Account Settings"
+  And I should see "About Pick 'Em"
   And I should not see "Login"
 
   
-Scenario: Go to account settings page
+Scenario: Go to About Pick 'Em page
   Given the following users have been added:
   | email          | password | first_name | last_name |
   | test@test.com  | password | test       | user      |
   
   When I login with "test@test.com" and password "password"
-  And I click the "Account Settings" link
+  And I click the "About Pick 'Em" link
   Then I should see "Adjust your account settings here."

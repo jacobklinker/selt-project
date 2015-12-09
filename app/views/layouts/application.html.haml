@@ -22,9 +22,8 @@
               - if !user_signed_in?
                 %li
                   = link_to "Login", users_sign_in_path, :id => 'login', :style => 'font-weight:bold'
-              - else
-                %li
-                  = link_to "Account Settings", users_account_settings_path, :id => 'account_settings', :style => 'font-weight:bold'
+            %li
+              = link_to "About Pick \'Em", users_about_page_path, :id => 'about_page', :style => 'font-weight:bold'
           %ul.nav.pull-right
             %li
               - if user_signed_in?

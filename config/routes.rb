@@ -28,7 +28,7 @@ Rails.application.routes.draw do
   get "games/show_picks/:league_id/:user_id", to: 'games#show_picks', as: "show_picks"
   get "games/show_all_picks/:league_id", to: 'games#show_all_picks', as: "show_all_picks"
   
-  get "users/account_settings"
+  get "users/about_page"
   
   get 'leagues/add_announcement/:league_id', to: 'leagues#add_announcement', as: 'leagues_add_announcements'
   get 'leagues/set_tiebreaker/:league_id', to:'leagues#set_tiebreaker', as: 'leagues_set_tiebreaker'
