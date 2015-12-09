@@ -1894,6 +1894,15 @@ describe LeaguesController do
   end
 
   describe "creating a new league" do
+    it "should return a new league object" do
+      league = double(League)
+      expect(League).to receive(:new).and_return(league)
+      
+      get :new
+      
+      expect(assigns(:league)).to eq(league)
+    end
+    
     describe "Create a league" do
       describe "when a user alreay has 5 leagues" do
         it "will not create the league notifies the user" do
