@@ -81,6 +81,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     And I am on the league page
     And I click the "Edit" link
     Then the "League name" field should contain "Test League"
+    And the "Conference settings" field should contain "FBS"
     And the "Number picks settings" field should contain "5"
     
   Scenario: I have the option to edit league settings as commissioner
@@ -109,6 +110,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
+    When it is between "Wednesday" and "Friday"
     When I click the "Make picks for this week" button
     Then I should see "test's Picks"
     
@@ -124,6 +126,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
+    When it is between "Wednesday" and "Friday"
     When I click the first user
     Then I should see my picks listed on the screen
     
@@ -161,6 +164,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
+    When it is between "Wednesday" and "Friday"
     When I click the second user
     Then I should see "You need to make your picks before you can view other's!"
     
@@ -198,6 +202,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
+    When it is between "Wednesday" and "Friday"
     When I click the second user
     Then I should see "This user hasn't made any picks yet!"
     
@@ -251,6 +256,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     When I login with "test@test.com" and password "password"
     And I am on the league page
     # TODO fixme, should be second user not first user
+    When it is between "Wednesday" and "Friday"
     When I click the second user
     Then I should see the picks for the second user listed on screen
     
@@ -303,6 +309,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
+    When it is between "Wednesday" and "Friday"
     When I click the first user
     Then I should see the picks for the first user listed on screen
     
@@ -538,6 +545,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     
     When I login with "test@test.com" and password "password"
     And I am on the league page
+    When it is between "Wednesday" and "Friday"
     When I click the "Make picks for this week" button
     And I make 1 picks
     Then the "Submit Picks" button should be disabled
@@ -557,6 +565,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     
     When I login with "test@test.com" and password "password"
     And I am on the league page
+    When it is between "Wednesday" and "Friday"
     When I click the "Make picks for this week" button
     And I make 11 picks
     Then the "Submit Picks" button should be enabled

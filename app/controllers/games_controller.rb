@@ -25,7 +25,7 @@ class GamesController < ApplicationController
         league = League.find(params[:league_id])
         #@tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         @num_picks = league.number_picks_settings;
-        week = Time.now.strftime('%U')
+        week = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%U')
         allGames = Game.all
         futureGames = []
         allGames.each do |game|
@@ -86,7 +86,7 @@ class GamesController < ApplicationController
         league = League.find(params[:league_id])
         #tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         picks = params[:picks]
-        week = Time.now.strftime('%U')
+        week = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%U')
         tiebreaker = Tiebreaker.where(league_id: league.id, week: week).take
         @tiebreaker_game = Game.where(id: tiebreaker.game_id).take
         points_estimate = params[:tiebreaker]
@@ -110,8 +110,8 @@ class GamesController < ApplicationController
         league = League.find(params[:league_id])
         #tiebreaker = Tiebreaker.find(params[:tiebreaker_id])
         @user = User.find(params[:user_id])
-        week = Time.now.strftime('%U')
-        day = Time.now.strftime('%w')
+        week = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%U')
+        day = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%w')
         
         if(day.to_i < 3)
           my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week.to_i-1).take
@@ -158,8 +158,8 @@ class GamesController < ApplicationController
     
     def show_all_picks
         league = League.find(params[:league_id])
-        week = Time.now.strftime('%U')
-        day = Time.now.strftime('%w')
+        week = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%U')
+        day = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%w')
         
         # list of members
         memberIds = [];
@@ -213,20 +213,10 @@ class GamesController < ApplicationController
                 
                   picks.each do |pick|
                     game = Game.find(pick.game_id)
-                    if((pick.home_wins==true && game[:homeTeamCover]==2) || (pick.home_wins==false && game[:homeTeamCover]==0) )
-                        correct_pick=2
-                    elsif(game[:homeTeamCover]==1)
-                        correct_pick=1
-                    elsif((pick.home_wins==true && game[:homeTeamCover]==0) || (pick.home_wins==false && game[:homeTeamCover]==2))
-                        correct_pick=0
-                    end
                     games << {
                         :game => game, 
-                        :home_winner => pick.home_wins,
-                        :correct_pick => correct_pick,
-                        :is_finished => game.is_finished
+                        :home_winner => pick.home_wins
                     }
-
                   end
                   @players << {
                     :id => user.id,

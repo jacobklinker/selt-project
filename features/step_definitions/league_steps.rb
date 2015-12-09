@@ -84,6 +84,52 @@ When(/^I click the second user$/) do
     find(:xpath, "//a[@href='/games/show_picks/1/2']").click
 end
 
+When /^it is between "([^\"]*)" and "([^\"]*)"$/ do |first_day, last_day|
+    case first_day
+        when "Sunday"
+            first_day=0
+        when "Monday"
+            first_day=1
+        when "Tuesday"
+            first_day=2
+        when "Wednesday"
+            first_day=3
+        when "Thursday"
+            first_day=4
+        when "Friday"
+            first_day=5
+        when "Saturday"
+            first_day=6
+        else
+            pending "INVALID DAY PROVIDED"
+    end
+        
+    case last_day
+        when "Sunday"
+            last_day=0
+        when "Monday"
+            last_day=1
+        when "Tuesday"
+            last_day=2
+        when "Wednesday"
+            last_day=3
+        when "Thursday"
+            last_day=4
+        when "Friday"
+            last_day=5
+        when "Saturday"
+            last_day=6
+        else
+            pending "INVALID DAY PROVIDED"
+    end
+    
+    day = Time.now.in_time_zone("Central Time (US & Canada)").strftime("%w").to_i
+    
+    if day < first_day || day > last_day
+        pending "FEATURE NOT AVAILABLE ON THIS DAY OF THE WEEK"
+    end
+end
+
 Then(/^I should see the picks for the first user listed on screen$/) do
     expect(page).to have_content("Iowa")
     expect(page).to have_content("Iowa State")

@@ -82,47 +82,51 @@ class LeaguesController < ApplicationController
     
     @standings = Hash.new
     i = 1;
-    all_year_league_picks=LeaguePick.where(league_id: @league.id)
-    all_year_league_picks.each do |league_pick|
-      if(!(@standings.has_key?(league_pick.user_id)))
-        @standings[league_pick.user_id]={:wins => league_pick.wins, :losses => league_pick.losses, :pushes => league_pick.pushes}
-      else
-        temp=@standings
-        if temp[league_pick.user_id][:wins] != nil
-          @standings[league_pick.user_id]={:wins => (temp[league_pick.user_id][:wins] + league_pick.wins), :losses => (temp[league_pick.user_id][:losses] + league_pick.losses), :pushes => (temp[league_pick.user_id][:pushes] + league_pick.pushes)} 
+    
+    @updated_standings=[]
+    if @season_weekly_winners == []
+      @updated_standings = @players
+    else
+      all_year_league_picks=LeaguePick.where(league_id: @league.id)
+      all_year_league_picks.each do |league_pick|
+        if(!(@standings.has_key?(league_pick.user_id)))
+          @standings[league_pick.user_id]={:wins => league_pick.wins, :losses => league_pick.losses, :pushes => league_pick.pushes}
+        else
+          temp=@standings
+          if temp[league_pick.user_id][:wins] != nil
+            @standings[league_pick.user_id]={:wins => (temp[league_pick.user_id][:wins] + league_pick.wins), :losses => (temp[league_pick.user_id][:losses] + league_pick.losses), :pushes => (temp[league_pick.user_id][:pushes] + league_pick.pushes)} 
+          end
         end
       end
-    end
-    @updated_standings=[]
-    @standings=@standings.sort_by{|k,v| [v[:wins], v[:pushes]]}.reverse!
-
-    lastwins=0
-    lastlosses=0
-    lastpushes=0
-    lastrank=0
-    @standings.each do |entry|
-      user = User.find(entry[0]);
-      if(lastwins==entry[1][:wins] && lastlosses==entry[1][:losses] && entry[1][:pushes])
-        rank=lastrank
-      else
-        rank=i
+      @standings=@standings.sort_by{|k,v| [v[:wins], v[:pushes]]}.reverse!
+  
+      lastwins=0
+      lastlosses=0
+      lastpushes=0
+      lastrank=0
+      @standings.each do |entry|
+        user = User.find(entry[0]);
+        if(lastwins==entry[1][:wins] && lastlosses==entry[1][:losses] && entry[1][:pushes])
+          rank=lastrank
+        else
+          rank=i
+        end
+        i=i+1
+        @updated_standings << {
+          :rank => rank,
+          :name => user.first_name + " " + user.last_name,
+          :wins => entry[1][:wins],
+          :losses =>entry[1][:losses],
+          :pushes =>entry[1][:pushes],
+          :id => user.id
+        }
+        
+        lastrank=rank
+        
+        lastwins=entry[1][:wins]
+        lastlosses=entry[1][:losses]
+        lastpushes=entry[1][:pushes]
       end
-      i=i+1
-      @updated_standings << {
-        :rank => rank,
-        :name => user.first_name + " " + user.last_name,
-        :wins => entry[1][:wins],
-        :losses =>entry[1][:losses],
-        :pushes =>entry[1][:pushes],
-        :id => user.id
-      }
-      
-      lastrank=rank
-      
-      lastwins=entry[1][:wins]
-      lastlosses=entry[1][:losses]
-      lastpushes=entry[1][:pushes]
-      
       
     end
     puts @updated_standings
