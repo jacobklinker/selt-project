@@ -81,6 +81,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     And I am on the league page
     And I click the "Edit" link
     Then the "League name" field should contain "Test League"
+    And the "Conference settings" field should contain "FBS"
     And the "Number picks settings" field should contain "5"
     
   Scenario: I have the option to edit league settings as commissioner
@@ -122,19 +123,10 @@ Feature: Authenticated users can view detailed information on the leagues they a
     Given the following leagues have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
     | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
-    
-    Given the following games have synced:
-    | home_team   | away_team | home_odds | away_odds | game_time        |
-    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE      |
-    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE      |
-    
-    Given the following tiebreakers have been added:
-    | league | game | week        |
-    | 1      | 1    | TODAYS_DATE |
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
-    And it is between "Wednesday" and "Saturday"
+    When it is between "Wednesday" and "Friday"
     When I click the first user
     Then I should see my picks listed on the screen
     
@@ -264,6 +256,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     When I login with "test@test.com" and password "password"
     And I am on the league page
     # TODO fixme, should be second user not first user
+    When it is between "Wednesday" and "Friday"
     When I click the second user
     Then I should see the picks for the second user listed on screen
     
@@ -316,6 +309,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
+    When it is between "Wednesday" and "Friday"
     When I click the first user
     Then I should see the picks for the first user listed on screen
     

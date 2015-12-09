@@ -123,7 +123,7 @@ When /^it is between "([^\"]*)" and "([^\"]*)"$/ do |first_day, last_day|
             pending "INVALID DAY PROVIDED"
     end
     
-    day = Time.now.strftime("%w").to_i
+    day = Time.now.in_time_zone("Central Time (US & Canada)").strftime("%w").to_i
     
     if day < first_day || day > last_day
         pending "FEATURE NOT AVAILABLE ON THIS DAY OF THE WEEK"
