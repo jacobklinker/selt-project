@@ -32,15 +32,20 @@ describe GamesController do
     describe "work with the current week" do 
         
         before :each do
+            now = double(Time)
             @time = double(Time)
-            allow(Time).to receive(:now).and_return(@time)
+            allow(Time).to receive(:now).and_return(now)
+            allow(now).to receive(:in_time_zone).with("Central Time (US & Canada)").and_return(@time)
             allow(@time).to receive(:strftime).with("%U").and_return(1)
+            allow(now).to receive(:strftime).with("%U").and_return(1)
+            allow(@time).to receive(:strftime).with("%w").and_return(3)
+            allow(now).to receive(:strftime).with("%w").and_return(3)
             allow(controller).to receive(:adjust_week_for_viewing_picks).with(1).and_return(1)
             
-            @tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 1, :week => 1)
             obj = double(Object)
             obj2 = double(Object)
             obj3 = double(Object)
+            @tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 1, :week => 1)
             allow(Game).to receive(:where).and_return(obj2)
             allow(Tiebreaker).to receive(:where).and_return(obj)
             allow(obj).to receive(:take).and_return(@tiebreaker)
@@ -73,6 +78,12 @@ describe GamesController do
             expect(Pick).to receive(:create).with(:game_id => 1, :league_pick_id => 1, :home_wins => true).once
             expect(Pick).to receive(:create).with(:game_id => 2, :league_pick_id => 1, :home_wins => false).once
             
+            #t = double(Tiebreaker)
+            #expect(Tiebreaker).to receive(:where).with(league_id: 1, week: week).and_return(t)
+            #g = double(Game)
+            #expect(Game).to receive(:where).with(id: t.game_id).and_return(g)
+            expect(TiebreakerPick).to receive(:create)#.with(:game_id => @obj2.id, :league_pick_id => league_pick.id, :points_estimate => 34)
+            
             post :submit_picks, {:league_id => 1, :tiebreaker_id => 1, :picks => {"1" => "Iowa", "2" => "Ohio State"}}
             
             expect(flash[:notice]).to eq("Picks saved successfully!")
@@ -85,17 +96,17 @@ describe GamesController do
                 allow_message_expectations_on_nil()
                 
                 @league = double(League)
-                user = double(User)
+                @user = double(User)
                 #tiebreaker = double(Tiebreaker)
                 
                 week = Time.now.strftime('%U')
                 #tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 1, :week => week.to_i)
                 
                 expect(League).to receive(:find).with("1").and_return(@league)
-                expect(User).to receive(:find).with("1").and_return(user)
+                expect(User).to receive(:find).with("1").and_return(@user)
                 #expect(Tiebreaker).to receive(:find).with("1").and_return(tiebreaker)
                 allow(@league).to receive(:id).and_return(1)
-                expect(user).to receive(:id).and_return(1)
+                expect(@user).to receive(:id).and_return(1)
                 
                 @where = double(Object)
                 @where_my_picks = double(Object)
@@ -104,9 +115,12 @@ describe GamesController do
             describe "where I have not made my picks" do
                 before :each do
                     expect(@where_my_picks).to receive(:take).and_return(nil)
+                    expect(LeaguePick).to receive(:where).with(league_id: 1, user_id: 1, week: 1).and_return(@where_my_picks)
                 end
                 
                 it "should redirect me to make my picks if I'm trying to view my own" do
+                    expect(@user).to receive(:id).and_return(1)
+                    expect(@where_my_picks).to receive(:take).and_return(nil)
                     expect(LeaguePick).to receive(:where).with(league_id: 1, user_id: 1, week: 1).and_return(@where_my_picks)
                     allow(controller.current_user).to receive(:id).and_return(1)
                     post :show_picks, {:league_id => 1, :user_id => 1, :tiebreaker_id => 1}
@@ -115,6 +129,8 @@ describe GamesController do
                 end
                 
                 it "should notify me that I have to make my own picks first" do
+                    expect(@where_my_picks).to receive(:take).and_return(nil)
+                    expect(@user).to receive(:id).and_return(1)
                     expect(LeaguePick).to receive(:where).with(league_id: 1, user_id: 2, week: 1).and_return(@where_my_picks)
                     allow(controller.current_user).to receive(:id).and_return(2)
                     post :show_picks, {:league_id => 1, :user_id => 1, :tiebreaker_id => 1}
