@@ -269,7 +269,7 @@ describe LeaguesController do
         
         expect(assigns(:games)).to eq [game2]
     end
-     it "should display Conference USA games in the future" do
+    it "should display Conference USA games in the future" do
       games = []
         game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Alabama")
         game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Marshall")
@@ -286,6 +286,16 @@ describe LeaguesController do
         post :set_tiebreaker, {:league_id => 1}
         
         expect(assigns(:games)).to eq [game2]
+    end
+    it "should successfully submit a tiebreaker"
+      games = []
+        game1 = Game.new(:game_time => Time.now + 1000)
+        game2 = Game.new(:game_time => Time.now + 2000)
+        games << game1
+        games << game2
+        
+      week = Time.now.strftime('%U')
+      expect()
     end
   end
   describe "viewing a valid league" do 

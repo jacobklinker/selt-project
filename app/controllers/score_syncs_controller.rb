@@ -14,6 +14,8 @@ class ScoreSyncsController < ApplicationController
     def new
         ScoresSync.perform
         Game.home_team_cover
+        Tiebreaker.set_default_tiebreaker
+        
         flash[:notice] = "Finished new score sync from Twitter."
        
         #Where this will go-- Game.home_team_cover
