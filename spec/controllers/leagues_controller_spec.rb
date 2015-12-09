@@ -287,7 +287,7 @@ describe LeaguesController do
         
         expect(assigns(:games)).to eq [game2]
     end
-    it "should successfully submit a tiebreaker"
+    it "should successfully submit a tiebreaker" do
       games = []
         game1 = Game.new(:game_time => Time.now + 1000)
         game2 = Game.new(:game_time => Time.now + 2000)
