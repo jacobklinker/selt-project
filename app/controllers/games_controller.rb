@@ -93,7 +93,7 @@ class GamesController < ApplicationController
         tiebreaker_game_id = @tiebreaker_game.id
         @picks = []
         
-        league_pick = LeaguePick.create(:league_id => league.id, :user_id => current_user.id, :week => week)
+        league_pick = LeaguePick.create(:league_id => league.id, :user_id => current_user.id, :week => week, :wins => 0, :losses => 0, :pushes => 0)
         picks.each do |game_id, team_name|
             game = Game.find(game_id)
             pick = Pick.create(:game_id => game.id, :league_pick_id => league_pick.id, :home_wins => game.home_team == team_name)
