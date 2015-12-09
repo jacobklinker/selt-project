@@ -271,7 +271,6 @@ describe LeaguesController do
     end
     it "should display Conference USA games in the future" do
       games = []
-<<<<<<< HEAD
         game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Alabama")
         game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Marshall")
         games << game1
