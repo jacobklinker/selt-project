@@ -88,7 +88,216 @@ describe LeaguesController do
       expect(League).to receive(:all)
       post :index
   end
-  
+  describe "setting a tiebreaker" do
+    it "should display FBS games in the future" do
+      games = []
+        game1 = Game.new(:game_time => Time.now + 1000)
+        game2 = Game.new(:game_time => Time.now + 2000)
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "FBS")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq games
+    end
+    it "should display Big 10 games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Kansas")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "Big 10")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game1]
+    end
+    it "should display SEC games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Kansas")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "SEC")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game1]
+    end
+    it "should display ACC games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Kansas")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "ACC")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game2]
+    end
+    it "should display PAC 12 games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Stanford", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Kansas")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "PAC 12")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game1]
+    end
+    it "should display Mid-American Conference games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Akron", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Kansas")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "Mid-American Conference")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game1]
+    end
+    it "should display American Athletic Conference games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Temple", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Kansas")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "American Athletic Conference")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game1]
+    end
+    it "should display Sun Belt games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Idaho", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Kansas")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "Sun Belt")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game1]
+    end
+    it "should display Mountain West games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Wyoming")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Kansas")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "Mountain West Conference")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game1]
+    end
+    it "should display Big 12 games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Kansas")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "Big 12")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game2]
+    end
+    it "should display Conference USA games in the future" do
+      games = []
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Marshall")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "Conference USA")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game2]
+    end
+    it "should successfully submit a tiebreaker" do
+      games = []
+        game1 = Game.new(:game_time => Time.now + 1000)
+        game2 = Game.new(:game_time => Time.now + 2000)
+        games << game1
+        games << game2
+        
+      week = Time.now.strftime('%U')
+      expect()
+    end
+  end
   describe "viewing a valid league" do 
     before :each do
       @league = League.new
