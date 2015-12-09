@@ -445,7 +445,7 @@ class LeaguesController < ApplicationController
             user.save!
           end
         end
-        format.html { redirect_to @league, notice: 'League was successfully updated.' }
+        format.html { redirect_to authenticated_root_path, notice: 'League was successfully updated.' }
         format.json { render :show, status: :ok, location: @league }
       else
         format.html { render :edit }
