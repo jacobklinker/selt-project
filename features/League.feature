@@ -107,12 +107,21 @@ Feature: Authenticated users can view detailed information on the leagues they a
     Given the following leagues have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
     | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
+    
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time           |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE         |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE         |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 1    | TODAYS_DATE |
 
-    When I login with "test@test.com" and password "password"
+    When I login with "test2@test.com" and password "password"
     And I am on the league page
     When it is between "Wednesday" and "Friday"
-    When I click the "Make picks for this week" button
-    Then I should see "test's Picks"
+    When I click the make picks button
+    Then I should see "test2's Picks"
     
   Scenario: I am redirected to make my picks when I try and view them
     Given the following users have been added:
@@ -123,6 +132,15 @@ Feature: Authenticated users can view detailed information on the leagues they a
     Given the following leagues have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings | number_picks_settings |
     | Test League   | 1     | 2     | 1               | FBS                 | 5                     |
+    
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time           |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE         |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE         |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 1    | TODAYS_DATE |
 
     When I login with "test@test.com" and password "password"
     And I am on the league page
@@ -539,6 +557,15 @@ Feature: Authenticated users can view detailed information on the leagues they a
     Given the following leagues have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | FBS                    | 2                     |
+    
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time           |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE         |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE         |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 1    | TODAYS_DATE |
 
     Given I am on the syncs admin page
     When I press the force sync button
@@ -546,7 +573,7 @@ Feature: Authenticated users can view detailed information on the leagues they a
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When it is between "Wednesday" and "Friday"
-    When I click the "Make picks for this week" button
+    When I click the make picks button
     And I make 1 picks
     Then the "Submit Picks" button should be disabled
     
@@ -559,6 +586,15 @@ Feature: Authenticated users can view detailed information on the leagues they a
     Given the following leagues have been added:
     | name          | user1 | user2 | commissioner_id | conference_settings    | number_picks_settings |
     | Test League   | 1     | 2     | 1               | FBS                    | 2                     |
+    
+    Given the following games have synced:
+    | home_team   | away_team | home_odds | away_odds | game_time           |
+    | Iowa        | Maryland  | 10        | -10       | TODAYS_DATE         |
+    | Iowa State  | Texas     | -8        | 8         | TODAYS_DATE         |
+    
+    Given the following tiebreakers have been added:
+    | league | game | week        |
+    | 1      | 1    | TODAYS_DATE |
 
     Given I am on the syncs admin page
     When I press the force sync button
@@ -566,6 +602,6 @@ Feature: Authenticated users can view detailed information on the leagues they a
     When I login with "test@test.com" and password "password"
     And I am on the league page
     When it is between "Wednesday" and "Friday"
-    When I click the "Make picks for this week" button
+    When I click the make picks button
     And I make 11 picks
     Then the "Submit Picks" button should be enabled
