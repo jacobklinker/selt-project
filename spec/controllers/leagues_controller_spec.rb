@@ -1868,9 +1868,11 @@ describe LeaguesController do
             allow(@league).to receive(:number_members=)
             allow(@user).to receive(:num_leagues=)
             allow(@user).to receive(:num_leagues).and_return(4)
-            #allow(@league).to receive(:to_model).and_return(@obj)
-            #allow(@obj).to receive(:persisted?)
-            #allow(@obj).to receive(:model_name)
+            allow(@league).to receive(:to_model).and_return(@obj)
+            allow(@obj).to receive(:persisted?)
+            allow(@obj).to receive(:model_name).and_return(@obj)
+            allow(@obj).to receive(:route_key).and_return(@obj)
+            
             
            
             allow(@user).to receive(:league1_id=).and_return(nil)
