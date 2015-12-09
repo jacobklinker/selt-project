@@ -3,7 +3,7 @@ class Tiebreaker < ActiveRecord::Base
     has_one :game
     
     def self.set_default_tiebreaker
-        if (Time.now.in_time_zone("Central Time (US & Canada)").wday == 3)
+        if (Time.now.in_time_zone("Central Time (US & Canada)").wday >= 3)
             week = Time.now.in_time_zone("Central Time (US & Canada)").strftime("%U")
             tiebreakers = Tiebreaker.where(week: week)
             
