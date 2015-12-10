@@ -13,7 +13,6 @@ class WeeklyWinner < ActiveRecord::Base
             @league_picks = LeaguePick.where(league_id: league.id, week: week).find_each
             if(@league_picks.any?) then 
                 current_leader=@league_picks.next_values[0]
-                puts User.find(current_leader.user_id).first_name
                 maxScore=current_leader.wins
                 winners=[]
                 winners.push(current_leader.user_id)
@@ -33,8 +32,6 @@ class WeeklyWinner < ActiveRecord::Base
                                 winners.push(current_leader.user_id)
                             end
                         elsif(league_pick.pushes==current_leader.pushes)
-                            puts "ID"
-                            puts league_pick.id
                             challengingTiebreaker=TiebreakerPick.where(league_pick_id: league_pick.id).take
                             currentTiebreaker=TiebreakerPick.where(league_pick_id: LeaguePick.where(user_id: winners[0], week: week, league_id: league.id)).take
                             totalScore= Game.find(challengingTiebreaker.game_id).home_score + Game.find(challengingTiebreaker.game_id).away_score

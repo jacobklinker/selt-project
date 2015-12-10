@@ -4,6 +4,10 @@ class LeaguesController < ApplicationController
   def index
     @leagues = League.all
   end
+  
+  def new
+    @league = League.new
+  end
 
   def show
     if @league == nil then
@@ -129,7 +133,6 @@ class LeaguesController < ApplicationController
       end
       
     end
-    puts @updated_standings
       #weekly_winners.each do |week_winner|
      # (week_winner.winners.size).times do |winner_index|
       #  user = User.find(week_winner.winners[winner_index]);
@@ -150,10 +153,6 @@ class LeaguesController < ApplicationController
     @show_announcements = false
     @show_announcements = true unless @league.commissioner_id != current_user.id
     
-  end
-
-  def new
-    @league = League.new
   end
 
   def edit
@@ -445,7 +444,7 @@ class LeaguesController < ApplicationController
             user.save!
           end
         end
-        format.html { redirect_to @league, notice: 'League was successfully updated.' }
+        format.html { redirect_to league_path(@league), notice: 'League was successfully updated.' }
         format.json { render :show, status: :ok, location: @league }
       else
         format.html { render :edit }

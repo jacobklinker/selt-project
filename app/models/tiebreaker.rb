@@ -37,7 +37,6 @@ class Tiebreaker < ActiveRecord::Base
             leagues_without_tiebreaker.each do |league|
                 index = r.rand(0...max)
                 game = futureGames[index]
-                puts game
                 Tiebreaker.create(:league_id => league, :week => week, :game_id => game.id)
             end
         end
