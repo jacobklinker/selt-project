@@ -71,7 +71,7 @@ describe GamesController do
             game1 = Game.new(:id => 1, :home_team => "Iowa")
             game2 = Game.new(:id => 2, :home_team => "Michigan")
             
-            expect(LeaguePick).to receive(:create).with(:league_id => 1, :user_id => 1, :week => 1).and_return(league_pick)
+            expect(LeaguePick).to receive(:create).with(:league_id => 1, :user_id => 1, :week => 1, :wins => 0, :losses => 0, :pushes => 0).and_return(league_pick)
             expect(Game).to receive(:find).with("1").and_return(game1)
             expect(Game).to receive(:find).with("2").and_return(game2)
             
