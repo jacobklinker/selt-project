@@ -19,7 +19,6 @@ class ScoreSyncsController < ApplicationController
         flash[:notice] = "Finished new score sync from Twitter."
         
         week = Time.now.in_time_zone("Central Time (US & Canada)").strftime("%U").to_i
-        puts Time.now.in_time_zone("Central Time (US & Canada)").strftime("%U").to_i
         if (Time.now.in_time_zone("Central Time (US & Canada)").wday == 0 &&  !WeeklyWinner.where(week: week).any?) #If Sunday & no weeklywinners for this week
             if(LeaguePick.where(week: (week-1)).any?)
                 LeaguePick.calculateScores

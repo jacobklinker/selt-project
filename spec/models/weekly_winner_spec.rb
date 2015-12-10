@@ -1,9 +1,11 @@
 require 'rails_helper'
 
-#describe WeeklyWinner do
-    #describe "Calling determine weekly winners" do
+describe WeeklyWinner do
+    describe "Calling determine weekly winners" do
     
-        #it "will create weekly winners object" do
+        it "will create weekly winners object" do
+            league1=double(League.create(:id =>1))
+            league_pick=LeaguePick.where(league_id: 1, week: 48).find_each
         #    week_winners = WeeklyWinner.create(:league_id => 1, :week => 50, :year => 2015, :winners => [3]) 
         #    week = ((Time.now.strftime('%U').to_i)-1)
         #    year = Time.now.strftime('%Y').to_i
@@ -27,10 +29,10 @@ require 'rails_helper'
             #@league_picks=LeaguePick.where(league_id: 1, week: 49).find_each
             
             
-         #   WeeklyWinner.determine_weekly_winners
+            WeeklyWinner.determine_weekly_winners
         #    expect(WeeklyWinner).to receive(:find).with(1).and_return(week_winners)
-#        end
-#    end 
+        end
+    end 
     
     #describe "removing unneeded tweet information from example tweets" do
      #   
@@ -49,4 +51,4 @@ require 'rails_helper'
       #  where_pick = double(Object)
       #  expect(Pick).to receive(:where).with(league_pick_id: 1).and_return(where_pick)
       #  expect(where_pick).to receive(:find_each).and_return(picks)
-#end
+end
