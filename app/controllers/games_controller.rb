@@ -112,8 +112,10 @@ class GamesController < ApplicationController
         @user = User.find(params[:user_id])
         week = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%U')
         day = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%w')
-        
+        #puts Time.now
+        #puts day.to_i
         if(day.to_i < 3)
+          puts "BEFORE WEDNESDAY!"
           my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week.to_i-1).take
           tiebreaker = Tiebreaker.where(league_id: league.id, week: week.to_i-1).take
           @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week.to_i-1).take
@@ -186,8 +188,6 @@ class GamesController < ApplicationController
             
         @players = [];
         
-        print "WEEK "
-        print week
         if day.to_i < 3
           tiebreaker = Tiebreaker.where(league_id: league.id, week: week.to_i-1).take
         else

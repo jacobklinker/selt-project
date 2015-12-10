@@ -96,20 +96,22 @@ describe GamesController do
                 allow_message_expectations_on_nil()
                 
                 @league = double(League)
-                @user = double(User)
+                @user = User.new(:id => 1, :first_name => "First", :last_name => "Last")
                 #tiebreaker = double(Tiebreaker)
                 
                 week = Time.now.strftime('%U')
                 #tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 1, :week => week.to_i)
                 
-                expect(League).to receive(:find).with("1").and_return(@league)
-                expect(User).to receive(:find).with("1").and_return(@user)
+                allow(League).to receive(:find).with("1").and_return(@league)
+                allow(User).to receive(:find).with("1").and_return(@user)
                 #expect(Tiebreaker).to receive(:find).with("1").and_return(tiebreaker)
                 allow(@league).to receive(:id).and_return(1)
-                expect(@user).to receive(:id).and_return(1)
+                allow(@user).to receive(:id).and_return(1)
                 
                 @where = double(Object)
                 @where_my_picks = double(Object)
+                @where2 = double(Object)
+                @where_my_picks2 = double(Object)
             end
             
             describe "where I have not made my picks" do
@@ -141,16 +143,16 @@ describe GamesController do
             describe "where I have made my picks" do
                 
                 before :each do
-                    expect(LeaguePick).to receive(:where).with(league_id: 1, user_id: 2, week: 1).and_return(@where_my_picks)
-                    expect(LeaguePick).to receive(:where).with(league_id: 1, user_id: 1, week: 1).and_return(@where)
+                    allow(LeaguePick).to receive(:where).with(league_id: 1, user_id: 2, week: 1).and_return(@where_my_picks)
+                    allow(LeaguePick).to receive(:where).with(league_id: 1, user_id: 1, week: 1).and_return(@where)
                     #my_picks = double(LeaguePick)
                     my_picks = LeaguePick.new(:id => 1);
-                    expect(@where_my_picks).to receive(:take).and_return(my_picks)
+                    allow(@where_my_picks).to receive(:take).and_return(my_picks)
                     allow(controller.current_user).to receive(:id).and_return(2)
+                    week = Time.now.strftime('%U')
                 end
                 
                 it "should show no picks page when none have been made for a user" do
-                    week = Time.now.strftime('%U')
                     #@tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 1, :week => week.to_i)
                     tiebreaker_pick = TiebreakerPick.new(:id => 1, :league_pick_id => 1);
                     expect(@where).to receive(:take).and_return(nil)
@@ -158,16 +160,18 @@ describe GamesController do
                     expect(response).to render_template("games/no_picks")
                 end
                 
-                it "should render all picks for a player" do
+                it "should render all picks for a player before Wednesday" do
+                    new_time = Time.local(2015, 12, 6, 10, 0, 0)
+                    Timecop.freeze(new_time)
+                    puts(Time.now)
+                    
                     league_pick = LeaguePick.new(:id => 1)
                     expect(@where).to receive(:take).and_return(league_pick)
-                    week = Time.now.strftime('%U')
                     #@tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 1, :week => week.to_i)
                     tiebreaker_pick = TiebreakerPick.new(:id => 1, :league_pick_id => 1);
                     
                     pick1 = Pick.new(:game_id => 1, :home_wins => true)
                     pick2 = Pick.new(:game_id => 2, :home_wins => false)
-                    week = Time.now.strftime('%U')
                     #@tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 1, :week => week.to_i)
                     picks = [pick1, pick2]
                     where_pick = double(Object)
@@ -186,6 +190,84 @@ describe GamesController do
                     # expect(:games.at(0).home_wins).to eq(true)
                     # expect(:games.at(1).game).to eq(game2)
                     # expect(:games.at(1).game).to eq(false)
+                    #Timecop.return
+                end
+                
+                it "should render all picks made by league members" do
+                    week = Time.now.in_time_zone("Central Time (US & Canada)").strftime("%U").to_i
+                    tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 2, :week => week)
+                    tiebreaker_pick1 = TiebreakerPick.new(:id => 1, :league_pick_id => 3, :points_estimate => 44);
+                    tiebreaker_pick2 = TiebreakerPick.new(:id => 2, :league_pick_id => 4, :points_estimate => 69);
+                    
+                    @user2 = User.new(:id => 2, :first_name => "First", :last_name => "Las")
+                    expect(User).to receive(:find).with(1).and_return(@user)
+                    expect(User).to receive(:find).with(2).and_return(@user2)
+                    allow(@user2).to receive(:id).and_return(2)
+                    allow(League).to receive(:new)
+                    @new_league = League.new(:id => 2, :user1_id => @user.id, :user2_id => @user2.id)
+                    expect(League).to receive(:find).with("2").and_return(@new_league)
+                    
+                    league_pick1 = LeaguePick.new(:id => 3, :league_id => 2, :user_id => 1, :week => week)
+                    league_pick2 = LeaguePick.new(:id => 4, :league_id => 2, :user_id => 2, :week => week)
+                    
+                    obj1 = double(Object)
+                    obj2 = double(Object)
+                    
+                    expect(LeaguePick).to receive(:where).with(league_id: 2, user_id: 1, week: 1).and_return(obj1)
+                    expect(LeaguePick).to receive(:where).with(league_id: 2, user_id: 2, week: 1).and_return(obj2)
+                    expect(obj1).to receive(:take).and_return(league_pick1)
+                    expect(obj2).to receive(:take).and_return(league_pick2)
+                    
+                    expect(TiebreakerPick).to receive(:where).with(league_pick_id: league_pick1.id).and_return(obj1)
+                    expect(obj1).to receive(:take).and_return(tiebreaker_pick1)
+                    expect(TiebreakerPick).to receive(:where).with(league_pick_id: league_pick2.id).and_return(obj2)
+                    expect(obj2).to receive(:take).and_return(tiebreaker_pick2)
+                    
+                    game1 = Game.new(:id => 1, :home_team => "Iowa", :homeTeamCover => 2)
+                    game2 = Game.new(:id => 2, :home_team => "Michigan", :homeTeamCover => 1)
+                    game3 = Game.new(:id => 3, :home_team => "Rutgers", :homeTeamCover => 0)
+                    
+                    pick1 = Pick.new(:league_pick_id => 3, :game_id => 1, :home_wins => true)
+                    pick2 = Pick.new(:league_pick_id => 4, :game_id => 1, :home_wins => false)
+                    pick3 = Pick.new(:league_pick_id => 3, :game_id => 2, :home_wins => true)
+                    pick4 = Pick.new(:league_pick_id => 4, :game_id => 3, :home_wins => true)
+                    pick5 = Pick.new(:league_pick_id => 3, :game_id => 3, :home_wins => false)
+                    picks3 = [pick1, pick3, pick5]
+                    picks4 = [pick2, pick4]
+                    #@tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 1, :week => week.to_i)
+                    allow(Pick).to receive(:where).with(league_pick_id: 3).and_return(obj1)
+                    allow(obj1).to receive(:find_each).and_return([pick1, pick3, pick5])
+                    allow(Pick).to receive(:where).with(league_pick_id: 4).and_return(obj2)
+                    allow(obj2).to receive(:find_each).and_return([pick2, pick4])
+                    
+                    allow(Game).to receive(:find).with(game1.id).and_return(game1)
+                    allow(Game).to receive(:find).with(game2.id).and_return(game2)
+                    allow(Game).to receive(:find).with(game3.id).and_return(game3)
+                    
+                    allow(@new_league).to receive(:user1_id).and_return(@user.id)
+                    allow(@new_league).to receive(:user2_id).and_return(@user2.id)
+                    allow(@new_league).to receive(:user3_id).and_return(nil)
+                    allow(@new_league).to receive(:user4_id).and_return(nil)
+                    allow(@new_league).to receive(:user5_id).and_return(nil)
+                    allow(@new_league).to receive(:user6_id).and_return(nil)
+                    allow(@new_league).to receive(:user7_id).and_return(nil)
+                    allow(@new_league).to receive(:user8_id).and_return(nil)
+                    allow(@new_league).to receive(:user9_id).and_return(nil)
+                    allow(@new_league).to receive(:user10_id).and_return(nil)
+                    allow(@new_league).to receive(:user11_id).and_return(nil)
+                    allow(@new_league).to receive(:user12_id).and_return(nil)
+                    allow(@new_league).to receive(:user13_id).and_return(nil)
+                    allow(@new_league).to receive(:user14_id).and_return(nil)
+                    allow(@new_league).to receive(:user15_id).and_return(nil)
+                    allow(@new_league).to receive(:user16_id).and_return(nil)
+                    allow(@new_league).to receive(:user17_id).and_return(nil)
+                    allow(@new_league).to receive(:user18_id).and_return(nil)
+                    allow(@new_league).to receive(:user19_id).and_return(nil)
+                    allow(@new_league).to receive(:user20_id).and_return(nil)
+                    
+                    post :show_all_picks, {:league_id => "2"}
+                    
+                    expect(response).to render_template("games/show_all_picks")
                 end
             end
             
@@ -413,7 +495,7 @@ describe GamesController do
         
         it "should display Sun Belt games in the future" do
             games = []
-            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Troy", :away_team => "Wisconsin")
+            game1 = Game.new(:game_time => Time.now + 1000, :home_team => "Idaho", :away_team => "Wisconsin")
             game2 = Game.new(:game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Illinois")
             games << game1
             games << game2

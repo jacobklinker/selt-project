@@ -34,10 +34,12 @@ class Tiebreaker < ActiveRecord::Base
             r = Random.new
             max = futureGames.size
             
-            leagues_without_tiebreaker.each do |league|
-                index = r.rand(0...max)
-                game = futureGames[index]
-                Tiebreaker.create(:league_id => league, :week => week, :game_id => game.id)
+            if max == 0
+                leagues_without_tiebreaker.each do |league|
+                    index = r.rand(0...max)
+                    game = futureGames[index]
+                    Tiebreaker.create(:league_id => league, :week => week, :game_id => game.id)
+                end
             end
         end
     end

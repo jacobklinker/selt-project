@@ -20,6 +20,7 @@ gem 'whenever'
 gem 'nokogiri'
 gem 'twitter'
 gem 'factory_girl'
+gem 'timecop'
 
 group :development, :test do
   gem 'sqlite3'

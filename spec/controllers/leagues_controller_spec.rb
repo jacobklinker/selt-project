@@ -25,7 +25,7 @@ describe LeaguesController do
     before :each do
       @league = League.new
 
-      @commissioner = User.create
+      @commissioner = User.new
       @commissioner.email = "test@test.com"
       @commissioner.first_name = "test"
       @commissioner.last_name = "user"
@@ -298,6 +298,9 @@ describe LeaguesController do
       
       league = League.new(:number_picks_settings => 5, :conference_settings => "Conference USA")
       allow(League).to receive(:find).with("1").and_return(league)
+      allow(league).to receive(:id).and_return(1)
+      
+      allow(League).to receive(:find).with("1").and_return(league)
       
       expect(Tiebreaker).to receive(:create).with(:league_id => league.id, :game_id => "1", :week => week)
       
@@ -311,7 +314,7 @@ describe LeaguesController do
       @league = League.new
       @league.commissioner_id = 1
 
-      @commissioner = User.create
+      @commissioner = User.new
       @commissioner.email = "test@test.com"
       @commissioner.first_name = "test"
       @commissioner.last_name = "user"
