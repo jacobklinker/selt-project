@@ -1,0 +1,1 @@
+#Feature: Weekly Winners can be calculated for a league

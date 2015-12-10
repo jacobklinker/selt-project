@@ -12,6 +12,7 @@ class WeeklyWinner < ActiveRecord::Base
         League.all.each do |league|
             @league_picks = LeaguePick.where(league_id: league.id, week: week).find_each
             if(@league_picks.any?) then 
+                puts @league_picks.next_values[0]
                 current_leader=@league_picks.next_values[0]
                 maxScore=current_leader.wins
                 winners=[]
