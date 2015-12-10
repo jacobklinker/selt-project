@@ -16,4 +16,15 @@ describe ScoreSyncsController do
         expect(flash[:notice]).to eq("Finished new score sync from Twitter.")
     end
     
+    it "should determine a weekly winner on sundays" do
+        new_time = Time.local(2015, 12, 6, 10, 0, 0) #SUNDAY after season starts 12/6/2015 
+        Timecop.freeze(new_time)
+        my_league_pick=double(LeaguePick.create(week: 48))
+        
+        post :new
+        
+        expect(response).to redirect_to(score_syncs_path)
+        expect(flash[:notice]).to eq("Finished new score sync from Twitter.")
+        Timecop.return
+    end
 end
