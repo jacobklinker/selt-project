@@ -8,7 +8,11 @@ class Game < ActiveRecord::Base
                 if((game.home_score+game.home_odds)==game.away_score)
                     game.homeTeamCover=1
                 elsif ((game.home_score+game.home_odds)>game.away_score)
+                    puts game.id
+                    puts game.home_team
+                    puts game.homeTeamCover
                     game.homeTeamCover=2
+                    puts game.homeTeamCover
                 else
                     game.homeTeamCover=0
                 end
