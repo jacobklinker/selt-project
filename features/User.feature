@@ -32,4 +32,4 @@ Scenario: Go to About Pick 'Em page
   
   When I login with "test@test.com" and password "password"
   And I click the "About Pick 'Em" link
-  Then I should see "Adjust your account settings here."
+  Then I should see "Instructions"

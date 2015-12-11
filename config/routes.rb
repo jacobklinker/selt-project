@@ -20,15 +20,14 @@ Rails.application.routes.draw do
   
   get "users/sign_up"
   get "users/sign_in"
-  
+  get "users/about_page", as: :about_page
+
   post '/score_syncs/manualUpdate', to: 'score_syncs#manualUpdate', as: 'manualUpdate'
   
   get "games/picks/:league_id", to: 'games#picks', as: 'games_picks'
   post "games/submit_picks/:league_id", to: "games#submit_picks", as: "games_submit_picks"
   get "games/show_picks/:league_id/:user_id", to: 'games#show_picks', as: "show_picks"
   get "games/show_all_picks/:league_id", to: 'games#show_all_picks', as: "show_all_picks"
-  
-  get "users/about_page"
   
   get 'leagues/add_announcement/:league_id', to: 'leagues#add_announcement', as: 'leagues_add_announcements'
   get 'leagues/set_tiebreaker/:league_id', to:'leagues#set_tiebreaker', as: 'leagues_set_tiebreaker'
