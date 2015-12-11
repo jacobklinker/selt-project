@@ -2551,10 +2551,9 @@ describe LeaguesController do
         allow(User).to receive(:find).with(2).and_return(@commissioner)
 
         
-        my_weekly_winner=double(WeeklyWinner.create(league_id:1, year: year, winners: [1]))
+        my_weekly_winner=double(WeeklyWinner.create(league_id:1, week: week, year: year, winners: [1]))
         my_tiebreaker=double(Tiebreaker.create(league_id: 1, week: week))
-        my_league_pick=double(LeaguePick.create(user_id:1, league_id:1, week: week, wins: 2))
-        
+        my_league_pick=double(LeaguePick.create(user_id:1, league_id:1, week: week, wins: 2, losses: 1, pushes: 0))
         
         allow(@league).to receive(:id).and_return(1)
         where_tiebreaker=Tiebreaker.where(league_id: 1, week: week)
@@ -2568,10 +2567,26 @@ describe LeaguesController do
         
         #Next Each with index
         allow(my_weekly_winner).to receive(:winners).and_return([1])
+        allow(@commissioner).to receive(:id).and_return(1)
+        allow(my_weekly_winner).to receive(:week).and_return(week)
         
         where_league_pick=LeaguePick.where(user_id: 1, league_id: 1, week: week)
+        allow(LeaguePick).to receive(:where).with(league_id: 1).and_return(where_league_pick)
+        allow(LeaguePick).to receive(:where).with(user_id: 1, league_id: 1, week: week.to_i).and_return(where_league_pick)
         allow(LeaguePick).to receive(:where).with(user_id: 1, league_id: 1, week: week).and_return(where_league_pick)
         allow(where_league_pick[0]).to receive(:wins).and_return(2)
+        allow(where_league_pick[0]).to receive(:losses).and_return(1)
+        allow(where_league_pick[0]).to receive(:pushes).and_return(0)
+        
+        #All standings
+        allow(my_league_pick).to receive(:user_id).and_return(1)
+        
+        #Let's get out
+        allow(controller.current_user).to receive(:id).and_return(1)
+        #where2_league_picks=LeaguePick.where(user_id: 1, league_id: 1, week: week)
+        #allow(LeaguePick).to receive(:where).with(user_id: 1, league_id: 1, week: week).and_return(where2_league_picks)
+        #allow(where2_league_picks).to receive(:take).and_return(my_league_pick)
+
         
         puts "bot test"
         get :show, {:id => 1}
