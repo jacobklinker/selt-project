@@ -2535,5 +2535,47 @@ describe LeaguesController do
         get :edit, {id:league.id,:league => {:league_name=>"LeagueName", :commissioner_id=>"2", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}}
       end
     end
+    describe "test weekly winners on show" do
+      it 'have weekly winners and standings' do
+        @league = League.new
+        @league.commissioner_id = 1
+        
+        @commissioner = User.new
+        @commissioner.email = "test@test.com"
+        @commissioner.first_name = "test"
+        @commissioner.last_name = "user"
+        week = Time.now.strftime('%U')
+        year = Time.now.strftime('%Y').to_i
+        allow(League).to receive(:find).with("1").and_return(@league)
+        allow(User).to receive(:find).with(1).and_return(@commissioner)
+        allow(User).to receive(:find).with(2).and_return(@commissioner)
+
+        
+        my_weekly_winner=double(WeeklyWinner.create(league_id:1, year: year, winners: [1]))
+        my_tiebreaker=double(Tiebreaker.create(league_id: 1, week: week))
+        my_league_pick=double(LeaguePick.create(user_id:1, league_id:1, week: week, wins: 2))
+        
+        
+        allow(@league).to receive(:id).and_return(1)
+        where_tiebreaker=Tiebreaker.where(league_id: 1, week: week)
+        
+        allow(Tiebreaker).to receive(:where).with(league_id: 1, week: week).and_return(where_tiebreaker)
+        allow(where_tiebreaker).to receive(:take).and_return(my_tiebreaker)
+        
+        #Weekly Winner Each
+        where_weekly_winners=WeeklyWinner.where(league_id: 1, year: year)
+        allow(WeeklyWinner).to receive(:where).with(league_id: 1, year: year).and_return(where_weekly_winners)
+        
+        #Next Each with index
+        allow(my_weekly_winner).to receive(:winners).and_return([1])
+        
+        where_league_pick=LeaguePick.where(user_id: 1, league_id: 1, week: week)
+        allow(LeaguePick).to receive(:where).with(user_id: 1, league_id: 1, week: week).and_return(where_league_pick)
+        allow(where_league_pick[0]).to receive(:wins).and_return(2)
+        
+        puts "bot test"
+        get :show, {:id => 1}
+      end
+    end
   end
 end

@@ -70,6 +70,7 @@ class LeaguesController < ApplicationController
     year = Time.now.strftime('%Y').to_i
     i = 1;
     weekly_winners=WeeklyWinner.where(league_id: @league.id, year: year )
+    puts weekly_winners
     weekly_winners.each do |week_winner|
       (week_winner.winners.size).times do |winner_index|
         user = User.find(week_winner.winners[winner_index]);
