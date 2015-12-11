@@ -31,15 +31,12 @@
               %th
                 %h5 Commissioner
               %th
-                %h5 Your Rank
-              %th
                 %h5 See League
           %tbody
             - @leagues.each do |league|
               %tr
                 %td= league[:league].league_name
                 %td= league[:commissioner]
-                %td= league[:position]
                 %td
                   %button.btn.btn-link= link_to "Visit League", league_path(league[:league])
             
