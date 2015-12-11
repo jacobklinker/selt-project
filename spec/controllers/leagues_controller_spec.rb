@@ -5,6 +5,11 @@ describe LeaguesController do
   before :each do
     allow_message_expectations_on_nil
     allow(controller.current_user).to receive(:id).and_return(1)
+    league0=double(League)
+    allow(league0).to receive(:bowlSeason).and_return(false)
+    obj0=double(Object)
+    allow(League).to receive(:all).and_return(obj0)
+    allow(obj0).to receive(:take).and_return(league0)
   end
 
   it "should show the add announcement page for a valid league" do
@@ -1922,6 +1927,7 @@ describe LeaguesController do
           allow(User).to receive(:find).and_return(@user)
           allow(@user).to receive(:num_leagues).and_return(5)
           allow(controller.current_user).to receive(:id).and_return(1)
+          
           post :create, :league => {:league_name=>"LeagueName", :commissioner_id=>"1", :current_leader_id=>"", :conference_settings=>"FBS", :number_picks_settings=>"5", :number_members=>"5", :user1_id=>"1", :user2_id=>"", :user3_id=>"", :user4_id=>"", :user5_id=>"", :user6_id=>"", :user7_id=>"", :user8_id=>"", :user9_id=>"", :user10_id=>"", :user11_id=>"", :user12_id=>"", :user13_id=>"", :user14_id=>"", :user15_id=>"", :user16_id=>"", :user17_id=>"", :user18_id=>"", :user19_id=>"", :user20_id=>""}
           expect(flash[:notice]).to eq("League not created because you have reached max number of leagues!!")
           expect(response).to redirect_to(authenticated_root_path)
