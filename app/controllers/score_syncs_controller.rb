@@ -30,8 +30,8 @@ class ScoreSyncsController < ApplicationController
         futureGames.each do |game|
             if((game.home_team=="Army" && game.away_team=="Navy") || (game.home_team=="Navy" && game.away_team=="Army"))
                 League.all.each do |league|
-                    #league.bowlSeason=true
-                    #league.save!
+                    league.bowlSeason=true
+                    league.save!
                 end
             end
         end
