@@ -115,7 +115,6 @@ class GamesController < ApplicationController
         #puts Time.now
         #puts day.to_i
         if(day.to_i < 3)
-          puts "BEFORE WEDNESDAY!"
           my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week.to_i-1).take
           tiebreaker = Tiebreaker.where(league_id: league.id, week: week.to_i-1).take
           @league_pick = LeaguePick.where(league_id: league.id, user_id: @user.id, week: week.to_i-1).take
