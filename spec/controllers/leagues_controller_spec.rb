@@ -25,7 +25,7 @@ describe LeaguesController do
     before :each do
       @league = League.new
 
-      @commissioner = User.create
+      @commissioner = User.new
       @commissioner.email = "test@test.com"
       @commissioner.first_name = "test"
       @commissioner.last_name = "user"
@@ -271,30 +271,42 @@ describe LeaguesController do
     end
     it "should display Conference USA games in the future" do
       games = []
-      game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Alabama")
-      game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Marshall")
-      games << game1
-      games << game2
-      obj = double(Object)
-      obj2 = double(Object)
-
-      league = League.new(:number_picks_settings => 5, :conference_settings => "Conference USA")
-
-      allow(League).to receive(:find).with("1").and_return(league)
-      expect(Game).to receive(:all).and_return(games)
-
-      post :set_tiebreaker, {:league_id => 1}
-
-      expect(assigns(:games)).to eq [game2]
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Alabama")
+        game2 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Duke", :away_team => "Marshall")
+        games << game1
+        games << game2
+        obj = double(Object)
+        obj2 = double(Object)
+        
+        league = League.new(:number_picks_settings => 5, :conference_settings => "Conference USA")
+        
+        allow(League).to receive(:find).with("1").and_return(league)
+        expect(Game).to receive(:all).and_return(games)
+        
+        post :set_tiebreaker, {:league_id => 1}
+        
+        expect(assigns(:games)).to eq [game2]
     end
     it "should successfully submit a tiebreaker" do
       games = []
-      game1 = Game.new(:game_time => Time.now + 1000)
-      game2 = Game.new(:game_time => Time.now + 2000)
-      games << game1
-      games << game2
-
+        game1 = Game.new(:id => 1, :game_time => Time.now + 1000)
+        game2 = Game.new(:id => 2, :game_time => Time.now + 2000)
+        games << game1
+        games << game2
+        
       week = Time.now.strftime('%U')
+      
+      league = League.new(:number_picks_settings => 5, :conference_settings => "Conference USA")
+      allow(League).to receive(:find).with("1").and_return(league)
+      allow(league).to receive(:id).and_return(1)
+      
+      allow(League).to receive(:find).with("1").and_return(league)
+      
+      expect(Tiebreaker).to receive(:create).with(:league_id => league.id, :game_id => "1", :week => week)
+      
+      post :submit_tiebreaker, {:league_id => "1", :tiebreaker => "1"}
+    
+      expect(flash[:notice]).to eq("Tiebreaker set successfully!")
     end
   end
   describe "viewing a valid league" do
@@ -302,7 +314,7 @@ describe LeaguesController do
       @league = League.new
       @league.commissioner_id = 1
 
-      @commissioner = User.create
+      @commissioner = User.new
       @commissioner.email = "test@test.com"
       @commissioner.first_name = "test"
       @commissioner.last_name = "user"
