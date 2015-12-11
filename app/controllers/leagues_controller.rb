@@ -209,6 +209,7 @@ class LeaguesController < ApplicationController
     @league.commissioner_id=current_user.id
     @league.user1_id=current_user.id
     @league.number_members = 1
+    @league.bowlSeason=(League.all.take).bowlSeason
     
     if @this_user.num_leagues >= 5
       flash[:notice]="League not created because you have reached max number of leagues!!"
