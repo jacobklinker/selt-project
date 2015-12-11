@@ -202,6 +202,7 @@ describe GamesController do
                 post :show_picks, {:league_id => 1, :user_id => 1, :tiebreaker_id => 1}
                 
                 expect(response).to render_template("games/show_picks")
+                Timecop.return
             end
             it "should render all picks made by league members last week" do
                 new_time = Time.local(2015, 12, 6, 10, 0, 0) #SUNDAY after season starts 12/6/2015 
@@ -282,6 +283,7 @@ describe GamesController do
                 post :show_all_picks, {:league_id => "2"}
                 
                 expect(response).to render_template("games/show_all_picks")
+                Timecop.return
             end
             it "should show no picks page when none have been made for a user" do
                 new_time = Time.local(2015, 12, 6, 10, 0, 0) #SUNDAY after season starts 12/6/2015 
@@ -297,6 +299,7 @@ describe GamesController do
                 expect(@where).to receive(:take).and_return(nil)
                 post :show_picks, {:league_id => 1, :user_id => 1, :tiebreaker_id => 1}
                 expect(response).to render_template("games/no_picks")
+                Timecop.return
             end
         end
         describe "after Wednesday" do
@@ -327,6 +330,7 @@ describe GamesController do
                 post :show_picks, {:league_id => 1, :user_id => 1, :tiebreaker_id => 1}
                 
                 expect(response).to render_template("games/show_picks")
+                Timecop.return
             end
             it "should render all picks made by league members this week" do
                 new_time = Time.local(2015, 12, 10, 10, 0, 0) #SUNDAY after season starts 12/6/2015 
@@ -407,6 +411,7 @@ describe GamesController do
                 post :show_all_picks, {:league_id => "2"}
                 
                 expect(response).to render_template("games/show_all_picks")
+                Timecop.return
             end
             it "should notify me that I have to make my own picks first" do
                 new_time = Time.local(2015, 12, 10, 10, 0, 0) #SUNDAY after season starts 12/6/2015 
@@ -421,6 +426,7 @@ describe GamesController do
                 allow(controller.current_user).to receive(:id).and_return(2)
                 post :show_picks, {:league_id => 1, :user_id => 1, :tiebreaker_id => 1}
                 expect(response).to render_template("games/make_my_picks_first")
+                Timecop.return
             end
              it "should show no picks page when none have been made for a user" do
                 new_time = Time.local(2015, 12, 10, 10, 0, 0) #SUNDAY after season starts 12/6/2015 
@@ -439,6 +445,7 @@ describe GamesController do
                 expect(@where).to receive(:take).and_return(nil)
                 post :show_picks, {:league_id => 1, :user_id => 1, :tiebreaker_id => 1}
                 expect(response).to render_template("games/no_picks")
+                Timecop.return
             end
         end
     end
@@ -474,7 +481,7 @@ describe GamesController do
         
         it "should display SEC games in the future" do
             games = []
-            game1 = Game.new(:id => 1, :game_time => Time.now + 1000, :home_team => "Iowa", :away_team => "Wisconsin")
+            game1 = Game.new(:id => 1, :game_time => Time.now + 2000, :home_team => "Iowa", :away_team => "Illinois")
             game2 = Game.new(:id => 2, :game_time => Time.now + 2000, :home_team => "Alabama", :away_team => "Illinois")
             games << game1
             games << game2
