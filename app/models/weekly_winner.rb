@@ -18,7 +18,6 @@ class WeeklyWinner < ActiveRecord::Base
                 winners=[]
                 winners.push(current_leader.user_id)
                 @league_picks.each do |league_pick|
-                    puts league_pick
                     if(league_pick.wins>maxScore)
                         maxScore=league_pick.wins
                         if(User.find(current_leader.user_id)!=User.find(league_pick.user_id))
@@ -35,8 +34,14 @@ class WeeklyWinner < ActiveRecord::Base
                             end
                         elsif(league_pick.pushes==current_leader.pushes)
                             challengingTiebreaker=TiebreakerPick.where(league_pick_id: league_pick.id).take
+                            puts challengingTiebreaker
                             currentTiebreaker=TiebreakerPick.where(league_pick_id: LeaguePick.where(user_id: winners[0], week: week, league_id: league.id)).take
+                            puts currentTiebreaker
                             totalScore= Game.find(challengingTiebreaker.game_id).home_score + Game.find(challengingTiebreaker.game_id).away_score
+                            puts "total score"
+                            puts totalScore
+                            puts currentTiebreaker.points_estimate
+                            puts challengingTiebreaker.points_estimate
                             if((currentTiebreaker.points_estimate-totalScore).abs < (challengingTiebreaker.points_estimate-totalScore).abs )
                             elsif((currentTiebreaker.points_estimate-totalScore).abs > (challengingTiebreaker.points_estimate-totalScore).abs)
                                 current_leader=league_pick
@@ -55,9 +60,6 @@ class WeeklyWinner < ActiveRecord::Base
                 week_winners.winners=winners
     
                 week_winners.save!
-                WeeklyWinner.all.each do |i|
-                    puts i.winners
-                end
             end
         end
         
