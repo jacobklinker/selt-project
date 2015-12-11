@@ -2,8 +2,16 @@ class WeeklyWinner < ActiveRecord::Base
     serialize :winners,Array
     
     def self.determine_weekly_winners
-        week = ((Time.now.strftime('%U').to_i)-1)
+        
+        test_league=League.all.take
         year = Time.now.strftime('%Y').to_i
+        
+        if(test_league.bowlSeason==true)
+            week=49...53, 0...2
+            year=year-1
+        else
+            week = ((Time.now.strftime('%U').to_i)-1)
+        end
         
         #Need to delete
         #week=week+1
