@@ -12,9 +12,10 @@ class Tiebreaker < ActiveRecord::Base
                 leagues_with_tiebreaker << tiebreaker.league_id
             end
             
+            leagues_without_tiebreaker = []
+            
             all_leagues = League.all
             
-            leagues_without_tiebreaker = []
             all_leagues.each do |league|
                 id = league.id
                 
@@ -23,10 +24,11 @@ class Tiebreaker < ActiveRecord::Base
                 end
             end
             
-            allGames = Game.all
+            #allGames = Game.all
             futureGames = []
-            allGames.each do |game|
-                if Time.now.utc < game.game_time.utc
+            #allGames.each do |game|
+            Game.all.each do |game|
+                if Time.now.in_time_zone("Central Time (US & Canada)") < game.game_time.in_time_zone("Central Time (US & Canada)")
                     futureGames.push(game)
                 end
             end
@@ -34,9 +36,9 @@ class Tiebreaker < ActiveRecord::Base
             r = Random.new
             max = futureGames.size
             
-            if max == 0
+            if max != 0
                 leagues_without_tiebreaker.each do |league|
-                    index = r.rand(0...max)
+                    index = r.rand(0...max-1)
                     game = futureGames[index]
                     Tiebreaker.create(:league_id => league, :week => week, :game_id => game.id)
                 end
