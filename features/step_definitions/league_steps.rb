@@ -80,6 +80,10 @@ When(/^I click the make or view picks button$/) do
     end
 end
 
+When(/^I click the make picks button$/) do
+    find(:xpath, "//input[@value='Make picks for this week']").click
+end
+
 When(/^I click the second user$/) do
     find(:xpath, "//a[@href='/games/show_picks/1/2']").click
 end

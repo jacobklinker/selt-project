@@ -4,6 +4,10 @@ class LeaguesController < ApplicationController
   def index
     @leagues = League.all
   end
+  
+  def new
+    @league = League.new
+  end
 
   def show
     if @league == nil then
@@ -129,7 +133,6 @@ class LeaguesController < ApplicationController
       end
       
     end
-    puts @updated_standings
       #weekly_winners.each do |week_winner|
      # (week_winner.winners.size).times do |winner_index|
       #  user = User.find(week_winner.winners[winner_index]);
@@ -150,10 +153,6 @@ class LeaguesController < ApplicationController
     @show_announcements = false
     @show_announcements = true unless @league.commissioner_id != current_user.id
     
-  end
-
-  def new
-    @league = League.new
   end
 
   def edit
@@ -210,6 +209,7 @@ class LeaguesController < ApplicationController
     @league.commissioner_id=current_user.id
     @league.user1_id=current_user.id
     @league.number_members = 1
+    @league.bowlSeason=(League.all.take).bowlSeason
     
     if @this_user.num_leagues >= 5
       flash[:notice]="League not created because you have reached max number of leagues!!"
@@ -445,7 +445,7 @@ class LeaguesController < ApplicationController
             user.save!
           end
         end
-        format.html { redirect_to @league, notice: 'League was successfully updated.' }
+        format.html { redirect_to league_path(@league), notice: 'League was successfully updated.' }
         format.json { render :show, status: :ok, location: @league }
       else
         format.html { render :edit }
@@ -711,12 +711,6 @@ class LeaguesController < ApplicationController
       week = Time.now.strftime('%U')
       
       Tiebreaker.create(:league_id => league.id, :game_id => selected_game, :week => week)
-      
-      #league_pick = LeaguePick.create(:league_id => league.id, :user_id => current_user.id, :week => week)
-      #picks.each do |game_id, team_name|
-      #    game = Game.find(game_id)
-      #    Pick.create(:game_id => game.id, :league_pick_id => league_pick.id, :home_wins => game.home_team == team_name)
-      #end
       
       flash[:notice] = "Tiebreaker set successfully!"
       redirect_to league_path(league)

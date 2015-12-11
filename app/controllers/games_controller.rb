@@ -93,7 +93,7 @@ class GamesController < ApplicationController
         tiebreaker_game_id = @tiebreaker_game.id
         @picks = []
         
-        league_pick = LeaguePick.create(:league_id => league.id, :user_id => current_user.id, :week => week)
+        league_pick = LeaguePick.create(:league_id => league.id, :user_id => current_user.id, :week => week, :wins => 0, :losses => 0, :pushes => 0)
         picks.each do |game_id, team_name|
             game = Game.find(game_id)
             pick = Pick.create(:game_id => game.id, :league_pick_id => league_pick.id, :home_wins => game.home_team == team_name)
@@ -112,7 +112,8 @@ class GamesController < ApplicationController
         @user = User.find(params[:user_id])
         week = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%U')
         day = Time.now.in_time_zone("Central Time (US & Canada)").strftime('%w')
-        
+        #puts Time.now
+        #puts day.to_i
         if(day.to_i < 3)
           my_picks = LeaguePick.where(league_id: league.id, user_id: current_user.id, week: week.to_i-1).take
           tiebreaker = Tiebreaker.where(league_id: league.id, week: week.to_i-1).take
@@ -186,8 +187,6 @@ class GamesController < ApplicationController
             
         @players = [];
         
-        print "WEEK "
-        print week
         if day.to_i < 3
           tiebreaker = Tiebreaker.where(league_id: league.id, week: week.to_i-1).take
         else
@@ -237,12 +236,6 @@ class GamesController < ApplicationController
                   }
               end
           end
-        end
-    end
-
-    def home_team_cover
-        Game.all.each do |game|
-            puts game
         end
     end
     # adjust the current week. If it is sunday - tuesday, this should move back

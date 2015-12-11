@@ -7,16 +7,14 @@ class LeaguePick < ActiveRecord::Base
         week = ((Time.now.strftime('%U').to_i)-1)
         
         #Need to delete
-        week=week+1
+        #week=week+1
         #
-        @league_picks = LeaguePick.where(week: week).find_each
-
+        @league_picks = LeaguePick.where(week: week)
 
         @league_picks.each do |league_pick|
         
             @picks = Pick.where(league_pick_id: league_pick.id).find_each
             @games = []
-            
             @picks.each do |pick|
                 game = Game.find(pick.game_id)
                 @games << {

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203143954) do
+ActiveRecord::Schema.define(version: 20151211183709) do
 
   create_table "announcements", force: :cascade do |t|
     t.integer  "league_id"
@@ -74,6 +74,7 @@ ActiveRecord::Schema.define(version: 20151203143954) do
     t.integer  "user20_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
+    t.boolean  "bowlSeason"
   end
 
   add_index "leagues", ["commissioner_id"], name: "index_leagues_on_commissioner_id"
