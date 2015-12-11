@@ -106,8 +106,8 @@ describe WeeklyWinner do
             #tiebroke1=LeaguePick.where(user_id: 1, week: 48, league_id: 1)
             #tiebroke2=LeaguePick.where(user_id: 2, week: 48, league_id: 1)
 
-            #allow(league_pick).to receive(:id).and_return(1)
-            #allow(league_pick2).to receive(:id).and_return(2)
+            allow(league_pick).to receive(:id).and_return(1)
+            allow(league_pick2).to receive(:id).and_return(2)
             
             #allow(LeaguePick).to receive(:where).with(user_id: 1, week: 48, league_id: 1).and_return(tiebroke1)
             #allow(LeaguePick).to receive(:where).with(user_id: 2, week: 48, league_id: 1).and_return(tiebroke2)
@@ -120,22 +120,4 @@ describe WeeklyWinner do
             #expect(WeeklyWinner.find(1).winners).to eq [3]
         end
     end 
-    
-    #describe "removing unneeded tweet information from example tweets" do
-     #   
-      #  it "should remove game time from parenthesis" do
-       #     text = "Oregon 17 Arizona State 14 (12:28 IN 3RD) http://goo.gl/fb/ybrSr8 "
-        #    text = GameTweet.remove_unneeded_tweet_info text
-        #    expect(text.include?("(12:28 IN 3RD)")).to be_falsy
-        #end
-    #end 
-    
-      #  pick1 = Pick.new(:game_id => 1, :home_wins => true)
-      #  pick2 = Pick.new(:game_id => 2, :home_wins => false)
-      #  week = Time.now.strftime('%U')
-        #@tiebreaker = Tiebreaker.new(:id => 1, :game_id => 1, :league_id => 1, :week => week.to_i)
-      #  picks = [pick1, pick2]
-      #  where_pick = double(Object)
-      #  expect(Pick).to receive(:where).with(league_pick_id: 1).and_return(where_pick)
-      #  expect(where_pick).to receive(:find_each).and_return(picks)
 end

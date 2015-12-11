@@ -2582,13 +2582,10 @@ describe LeaguesController do
         allow(my_league_pick).to receive(:user_id).and_return(1)
         
         #Let's get out
-        allow(controller.current_user).to receive(:id).and_return(1)
+        #allow(controller.current_user).to receive(:id).and_return(1)
         #where2_league_picks=LeaguePick.where(user_id: 1, league_id: 1, week: week)
         #allow(LeaguePick).to receive(:where).with(user_id: 1, league_id: 1, week: week).and_return(where2_league_picks)
         #allow(where2_league_picks).to receive(:take).and_return(my_league_pick)
-
-        
-        puts "bot test"
         get :show, {:id => 1}
       end
     end

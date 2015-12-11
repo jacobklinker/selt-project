@@ -73,7 +73,6 @@ class LeaguesController < ApplicationController
     weekly_winners.each do |week_winner|
       (week_winner.winners.size).times do |winner_index|
         user = User.find(week_winner.winners[winner_index]);
-        puts 
         @season_weekly_winners << {
           :week_number => i,
           :name => user.first_name + " " + user.last_name,
@@ -94,7 +93,6 @@ class LeaguesController < ApplicationController
     else
       all_year_league_picks=LeaguePick.where(league_id: @league.id)
       all_year_league_picks.each do |league_pick|
-        puts league_pick
         if(!(@standings.has_key?(league_pick.user_id)))
           @standings[league_pick.user_id]={:wins => league_pick.wins, :losses => league_pick.losses, :pushes => league_pick.pushes}
         else
